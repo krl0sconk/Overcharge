@@ -17,7 +17,7 @@ Dos robots descienden por una red social que se volvió física. El screentime e
 
 ## Antes de escribir código
 
-Leé [`AGENTS.md`](AGENTS.md). Tiene la arquitectura de componentes, las capas de colisión,
+Leé [`AGENTS.md`](docs/ai/AGENTS.md). Tiene la arquitectura de componentes, las capas de colisión,
 la convención de nombres y el flujo de ramas. Las decisiones de ahí están acordadas por el
 equipo y no se cambian sin avisar.
 
