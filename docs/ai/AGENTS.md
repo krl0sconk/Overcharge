@@ -210,6 +210,11 @@ Commits en español, imperativo y cortos: `agrega HealthComponent`, `corrige coo
 El repositorio se evalúa: debe haber commits de los cuatro integrantes repartidos durante todo
 el periodo de cada entrega, no un empujón al final.
 
+**Los commits son del equipo, no de la IA.** Un asistente de IA nunca se agrega como
+`Co-Authored-By`, ni como coautor de ningún otro modo, ni deja enlaces de sesión u otros
+trailers de atribución en el mensaje. Tampoco se agrega como colaborador del repositorio en
+GitHub. El commit va firmado únicamente por el integrante que hizo el trabajo.
+
 ---
 
 ## Al escribir código en este repo
