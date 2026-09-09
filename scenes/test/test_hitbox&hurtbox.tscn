@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://cy2fniquocxmj"]
+
+[ext_resource type="Script" uid="uid://datwv3c5ldu8y" path="res://scripts/components/TestComponents/test_hitbox&hurtbox.gd" id="1_el01u"]
+[ext_resource type="Script" uid="uid://eg6mlm88houw" path="res://scripts/components/health_component.gd" id="1_fetq7"]
+[ext_resource type="Script" uid="uid://b1v6j57gquh45" path="res://scripts/components/hurtbox_component.gd" id="2_el01u"]
+[ext_resource type="Script" uid="uid://bfm0hkuqmy8ba" path="res://scripts/components/hitbox_component.gd" id="3_7mm84"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_60xw8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j8abd"]
+
+[node name="Test_Hurtbox(player_enemy)" type="Node3D" unique_id=324644256]
+script = ExtResource("1_el01u")
+
+[node name="Atacante" type="Node3D" parent="." unique_id=252527950]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
+
+[node name="HitboxComponent" type="Area3D" parent="Atacante" unique_id=78103740 node_paths=PackedStringArray("source")]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("3_7mm84")
+damage = 25
+knockback = Vector3(-0.2, 0, 0)
+source = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Atacante/HitboxComponent" unique_id=397887349]
+shape = SubResource("BoxShape3D_60xw8")
+
+[node name="Objetivo" type="Node3D" parent="." unique_id=2024042130]
+
+[node name="HealthComponent" type="Node" parent="Objetivo" unique_id=1254739187]
+script = ExtResource("1_fetq7")
+
+[node name="HurtboxComponent" type="Area3D" parent="Objetivo" unique_id=1503464473 node_paths=PackedStringArray("health_component")]
+collision_layer = 8
+collision_mask = 64
+script = ExtResource("2_el01u")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Objetivo/HurtboxComponent" unique_id=643532001]
+shape = SubResource("BoxShape3D_j8abd")
