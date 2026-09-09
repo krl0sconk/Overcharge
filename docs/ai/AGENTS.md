@@ -194,6 +194,8 @@ stats = stats.duplicate()
 - Usa `#` para notas internas.
 - No comentes código muerto: bórralo, está en git.
 - Si un bloque necesita un párrafo de explicación, probablemente había que extraer una función.
+- Dependencia de algo que otro integrante todavía no hizo: una línea, `# TODO(Nombre): qué falta`.
+  Nunca un bloque describiendo el contrato asumido.
 
 ---
 
