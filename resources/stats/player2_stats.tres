@@ -3,4 +3,5 @@
 [ext_resource type="Script" uid="uid://b7khy3ovq55dd" path="res://scripts/stats_resources/stats_resource.gd" id="1_opjlr"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_opjlr")

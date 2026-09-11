@@ -4,12 +4,15 @@ extends Node
 signal damaged(amount: int)
 signal died
 
-@export var max_health: int = 100
+@export var stats: StatsResource
 
-var current_health: int = max_health
+var current_health: int
 
-func _ready():
-	current_health = max_health
+func _ready() -> void:
+	if stats == null:
+		push_error("StatsResource no asignado en HealthComponent")
+		return
+	current_health = stats.max_health
 
 func take_damage(amount: int) -> void:
 	if amount <= 0 or current_health <= 0:
@@ -25,5 +28,5 @@ func heal(amount: int) -> void:
 	if amount <= 0 or current_health <= 0:
 		return
 	
-	current_health = min(current_health + amount, max_health)
+	current_health = min(current_health + amount, stats.max_health)
 	

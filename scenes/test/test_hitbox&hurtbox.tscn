@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://eg6mlm88houw" path="res://scripts/components/HealthComponent.gd" id="1_fetq7"]
 [ext_resource type="Script" uid="uid://b1v6j57gquh45" path="res://scripts/components/HurtboxComponent.gd" id="2_el01u"]
 [ext_resource type="Script" uid="uid://bfm0hkuqmy8ba" path="res://scripts/components/HitboxComponent.gd" id="3_7mm84"]
+[ext_resource type="Resource" uid="uid://cnn5qtdo0mjgm" path="res://resources/stats/player1_stats.tres" id="3_7rlb5"]
+[ext_resource type="Resource" uid="uid://bp3p6li46dtqu" path="res://resources/stats/player2_stats.tres" id="5_7rlb5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_60xw8"]
 
@@ -19,7 +21,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, 0)
 collision_layer = 32
 collision_mask = 16
 script = ExtResource("3_7mm84")
-damage = 25
+stats = ExtResource("3_7rlb5")
 knockback = Vector3(-0.2, 0, 0)
 source = NodePath("..")
 
@@ -30,10 +32,11 @@ shape = SubResource("BoxShape3D_60xw8")
 
 [node name="HealthComponent" type="Node" parent="Objetivo" unique_id=1254739187]
 script = ExtResource("1_fetq7")
+stats = ExtResource("5_7rlb5")
 
 [node name="HurtboxComponent" type="Area3D" parent="Objetivo" unique_id=1503464473 node_paths=PackedStringArray("health_component")]
-collision_layer = 8
-collision_mask = 64
+collision_layer = 16
+collision_mask = 32
 script = ExtResource("2_el01u")
 health_component = NodePath("../HealthComponent")
 
