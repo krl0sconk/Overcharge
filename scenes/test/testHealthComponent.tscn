@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://rtrno00elb73" path="res://scripts/components/TestComponents/test_health_component.gd" id="1_bfqme"]
 [ext_resource type="Script" uid="uid://eg6mlm88houw" path="res://scripts/components/HealthComponent.gd" id="2_hprum"]
+[ext_resource type="Resource" uid="uid://cnn5qtdo0mjgm" path="res://resources/stats/player1_stats.tres" id="3_yfm3g"]
 
 [node name="TestNode" type="Node" unique_id=1415376503]
 script = ExtResource("1_bfqme")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=465566628]
 script = ExtResource("2_hprum")
+stats = ExtResource("3_yfm3g")
