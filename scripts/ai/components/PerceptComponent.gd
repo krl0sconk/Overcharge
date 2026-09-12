@@ -4,7 +4,7 @@ extends Node
 @export var actor: Node
 @export var tree: PerceptNode          ## el .tres compartido
 @export var tick_rate: float = 0.1
-@export var movement_component: Node   # TODO(María): tipar a MovementComponent cuando exista.
+@export var movement_component: MovementComponent   # TODO(María): tipar a MovementComponent cuando exista.
 
 var blackboard: Dictionary = {}        ## datos del enemigo: target, etc.
 var memory: Dictionary = {}            ## lo que un nodo necesita recordar
