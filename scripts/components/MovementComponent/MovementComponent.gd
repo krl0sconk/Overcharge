@@ -2,6 +2,7 @@ class_name MovementComponent
 extends Node
 
 @export var owner_body: CharacterBody3D
+# TODO(María): mover velocidades a StatsResource, que ya tiene un campo speed.
 @export var max_speed: float = 5.0
 @export var acceleration: float = 10.0
 @export var friction: float = 10.0

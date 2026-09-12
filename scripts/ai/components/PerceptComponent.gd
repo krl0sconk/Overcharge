@@ -5,6 +5,7 @@ extends Node
 @export var tree: PerceptNode          ## el .tres compartido
 @export var tick_rate: float = 0.1
 @export var movement_component: MovementComponent
+@export var hitbox: HitboxComponent
 
 var blackboard: Dictionary = {}        ## datos del enemigo: target, etc.
 var memory: Dictionary = {}            ## lo que un nodo necesita recordar

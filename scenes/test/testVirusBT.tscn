@@ -1,10 +1,13 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=20 format=3]
 
 [ext_resource type="Script" path="res://scripts/test/PlayerStub.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/test/BTDebugOverlay.gd" id="2_overlay"]
 [ext_resource type="Script" path="res://scripts/ai/components/PerceptComponent.gd" id="3_percept"]
-[ext_resource type="Resource" path="res://resources/ai/trees/yunque.tres" id="4_tree"]
+[ext_resource type="Resource" path="res://resources/ai/trees/virus.tres" id="4_tree"]
 [ext_resource type="Script" path="res://scripts/components/MovementComponent/MovementComponent.gd" id="5_movement"]
+[ext_resource type="Script" path="res://scripts/components/HealthComponent.gd" id="6_health"]
+[ext_resource type="Resource" path="res://resources/stats/virus_stats.tres" id="7_stats"]
+[ext_resource type="Script" path="res://scripts/components/HitboxComponent.gd" id="8_hitbox"]
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
 size = Vector3(10, 0.2, 10)
@@ -32,15 +35,19 @@ height = 1.6
 radius = 0.4
 height = 1.6
 
-[sub_resource type="CapsuleShape3D" id="YunqueShape"]
-radius = 0.5
-height = 1.8
+[sub_resource type="CapsuleShape3D" id="VirusShape"]
+radius = 0.35
+height = 1.4
 
-[sub_resource type="CapsuleMesh" id="YunqueMesh"]
-radius = 0.5
-height = 1.8
+[sub_resource type="CapsuleMesh" id="VirusMesh"]
+radius = 0.35
+height = 1.4
 
-[node name="TestYunqueBT" type="Node3D"]
+[sub_resource type="CapsuleShape3D" id="HitboxShape"]
+radius = 0.35
+height = 1.4
+
+[node name="TestVirusBT" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 position = Vector3(0, 10, 8)
@@ -112,30 +119,46 @@ shape = SubResource("PlayerShape")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerStatic"]
 mesh = SubResource("PlayerMesh")
 
-[node name="Yunque" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+[node name="Virus" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
 collision_layer = 4
 collision_mask = 7
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Yunque"]
-shape = SubResource("YunqueShape")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Virus"]
+shape = SubResource("VirusShape")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Yunque"]
-mesh = SubResource("YunqueMesh")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Virus"]
+mesh = SubResource("VirusMesh")
 
-[node name="MovementComponent" type="Node" parent="Yunque" node_paths=PackedStringArray("owner_body")]
+[node name="MovementComponent" type="Node" parent="Virus" node_paths=PackedStringArray("owner_body")]
 script = ExtResource("5_movement")
 owner_body = NodePath("..")
-max_speed = 8.0
-acceleration = 20.0
-friction = 20.0
+max_speed = 6.5
+acceleration = 25.0
+friction = 25.0
 
-[node name="PerceptComponent" type="Node" parent="Yunque" node_paths=PackedStringArray("actor", "movement_component")]
+[node name="HealthComponent" type="Node" parent="Virus"]
+script = ExtResource("6_health")
+stats = ExtResource("7_stats")
+
+[node name="HitboxComponent" type="Area3D" parent="Virus" node_paths=PackedStringArray("source")]
+collision_layer = 64
+collision_mask = 8
+monitoring = true
+script = ExtResource("8_hitbox")
+stats = ExtResource("7_stats")
+source = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Virus/HitboxComponent"]
+shape = SubResource("HitboxShape")
+
+[node name="PerceptComponent" type="Node" parent="Virus" node_paths=PackedStringArray("actor", "movement_component", "hitbox")]
 script = ExtResource("3_percept")
 actor = NodePath("..")
 tree = ExtResource("4_tree")
 tick_rate = 0.1
 movement_component = NodePath("../MovementComponent")
+hitbox = NodePath("../HitboxComponent")
 
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 
@@ -145,6 +168,6 @@ offset_top = 16.0
 offset_right = 420.0
 offset_bottom = 160.0
 script = ExtResource("2_overlay")
-percept = NodePath("../../Yunque/PerceptComponent")
-branch_names = Array[String](["1. Aturdido", "2. Cargando", "3. Flanqueado", "4. Iniciar carga", "5. Buscar línea"])
-blackboard_keys = Array[String](["stunned", "charging", "telegraphing"])
+percept = NodePath("../../Virus/PerceptComponent")
+branch_names = Array[String](["1. Perseguir", "2. Patrullar"])
+blackboard_keys = Array[String]([])

@@ -1,0 +1,64 @@
+[gd_resource type="Resource" load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://scripts/ai/components/Sequence.gd" id="Sequence"]
+[ext_resource type="Script" path="res://scripts/ai/components/Selector.gd" id="Selector"]
+[ext_resource type="Script" path="res://scripts/ai/components/AcquireTarget.gd" id="AcquireTarget"]
+[ext_resource type="Script" path="res://scripts/ai/components/IsTargetInRange.gd" id="IsTargetInRange"]
+[ext_resource type="Script" path="res://scripts/ai/components/MeleeAttack.gd" id="MeleeAttack"]
+[ext_resource type="Script" path="res://scripts/ai/components/Cooldown.gd" id="Cooldown"]
+[ext_resource type="Script" path="res://scripts/ai/components/TurnToTarget.gd" id="TurnToTarget"]
+[ext_resource type="Script" path="res://scripts/ai/components/MoveToTarget.gd" id="MoveToTarget"]
+[ext_resource type="Script" path="res://scripts/ai/components/Patrol.gd" id="Patrol"]
+
+[sub_resource type="Resource" id="SR_acquire"]
+script = ExtResource("AcquireTarget")
+vision_range = 10.0
+
+[sub_resource type="Resource" id="SR_range_melee"]
+script = ExtResource("IsTargetInRange")
+min_range = 0.0
+max_range = 1.8
+
+[sub_resource type="Resource" id="SR_melee"]
+script = ExtResource("MeleeAttack")
+telegraph_duration = 0.4
+active_duration = 0.2
+
+[sub_resource type="Resource" id="SR_seq_melee"]
+script = ExtResource("Sequence")
+children = Array[Resource]([SubResource("SR_range_melee"), SubResource("SR_melee")])
+
+[sub_resource type="Resource" id="SR_cooldown_melee"]
+script = ExtResource("Cooldown")
+cooldown = 1.2
+children = Array[Resource]([SubResource("SR_seq_melee")])
+
+[sub_resource type="Resource" id="SR_range_chase"]
+script = ExtResource("IsTargetInRange")
+min_range = 0.0
+max_range = 10.0
+
+[sub_resource type="Resource" id="SR_turn"]
+script = ExtResource("TurnToTarget")
+turn_speed = 6.0
+aligned_epsilon = 0.02
+
+[sub_resource type="Resource" id="SR_move"]
+script = ExtResource("MoveToTarget")
+stop_distance = 1.5
+
+[sub_resource type="Resource" id="SR_seq_chase"]
+script = ExtResource("Sequence")
+children = Array[Resource]([SubResource("SR_range_chase"), SubResource("SR_turn"), SubResource("SR_move")])
+
+[sub_resource type="Resource" id="SR_patrol"]
+script = ExtResource("Patrol")
+leg_duration = 2.0
+
+[sub_resource type="Resource" id="SR_selector"]
+script = ExtResource("Selector")
+children = Array[Resource]([SubResource("SR_cooldown_melee"), SubResource("SR_seq_chase"), SubResource("SR_patrol")])
+
+[resource]
+script = ExtResource("Sequence")
+children = Array[Resource]([SubResource("SR_acquire"), SubResource("SR_selector")])
