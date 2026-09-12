@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scripts/test/YunqueDebugOverlay.gd" id="2_overlay"]
 [ext_resource type="Script" path="res://scripts/ai/components/PerceptComponent.gd" id="3_percept"]
 [ext_resource type="Resource" path="res://resources/ai/trees/yunque.tres" id="4_tree"]
+[ext_resource type="Script" path="res://scripts/components/MovementComponent/MovementComponent.gd" id="5_movement"]
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
 size = Vector3(10, 0.2, 10)
@@ -122,11 +123,19 @@ shape = SubResource("YunqueShape")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Yunque"]
 mesh = SubResource("YunqueMesh")
 
-[node name="PerceptComponent" type="Node" parent="Yunque" node_paths=PackedStringArray("actor")]
+[node name="MovementComponent" type="Node" parent="Yunque" node_paths=PackedStringArray("owner_body")]
+script = ExtResource("5_movement")
+owner_body = NodePath("..")
+max_speed = 8.0
+acceleration = 20.0
+friction = 20.0
+
+[node name="PerceptComponent" type="Node" parent="Yunque" node_paths=PackedStringArray("actor", "movement_component")]
 script = ExtResource("3_percept")
 actor = NodePath("..")
 tree = ExtResource("4_tree")
 tick_rate = 0.1
+movement_component = NodePath("../MovementComponent")
 
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 
