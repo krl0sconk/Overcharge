@@ -19,3 +19,10 @@ func _on_area_entered(area:Area3D) -> void:
 		area.receive_hit(damage, knockback, source)
 	
 	hit.emit(area, damage, knockback, source)
+
+## Abre la ventana de golpe por su cuenta: la hoja que la pide puede ser
+## interrumpida y el hitbox se apaga igual.
+func open_window(duration: float) -> void:
+	monitoring = true
+	await get_tree().create_timer(duration).timeout
+	monitoring = false

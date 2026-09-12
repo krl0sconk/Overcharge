@@ -20,7 +20,6 @@ max_range = 12.0
 [sub_resource type="Resource" id="SR_turn"]
 script = ExtResource("TurnToTarget")
 turn_speed = 6.0
-aligned_epsilon = 0.02
 
 [sub_resource type="Resource" id="SR_move"]
 script = ExtResource("MoveToTarget")

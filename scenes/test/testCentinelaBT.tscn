@@ -159,5 +159,5 @@ offset_right = 420.0
 offset_bottom = 160.0
 script = ExtResource("2_overlay")
 percept = NodePath("../../Centinela/PerceptComponent")
-branch_names = Array[String](["1. Empujón", "2. Láser", "3. Apuntar"])
-blackboard_keys = Array[String](["attacking", "firing"])
+branch_names = Array[String](["1. Disparo en curso", "2. Empujón", "3. Iniciar láser", "4. Apuntar"])
+blackboard_keys = Array[String](["attacking", "firing", "reloading"])

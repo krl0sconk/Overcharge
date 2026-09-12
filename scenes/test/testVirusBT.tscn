@@ -7,7 +7,8 @@
 [ext_resource type="Script" path="res://scripts/components/MovementComponent/MovementComponent.gd" id="5_movement"]
 [ext_resource type="Script" path="res://scripts/components/HealthComponent.gd" id="6_health"]
 [ext_resource type="Resource" path="res://resources/stats/virus_stats.tres" id="7_stats"]
-[ext_resource type="Script" path="res://scripts/components/HitboxComponent.gd" id="8_hitbox"]
+[ext_resource type="Script" path="res://scripts/components/CorruptionTrailComponent.gd" id="8_trail"]
+[ext_resource type="PackedScene" path="res://scenes/test/corruption_blot.tscn" id="9_blot"]
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
 size = Vector3(10, 0.2, 10)
@@ -40,10 +41,6 @@ radius = 0.35
 height = 1.4
 
 [sub_resource type="CapsuleMesh" id="VirusMesh"]
-radius = 0.35
-height = 1.4
-
-[sub_resource type="CapsuleShape3D" id="HitboxShape"]
 radius = 0.35
 height = 1.4
 
@@ -141,24 +138,18 @@ friction = 25.0
 script = ExtResource("6_health")
 stats = ExtResource("7_stats")
 
-[node name="HitboxComponent" type="Area3D" parent="Virus" node_paths=PackedStringArray("source")]
-collision_layer = 64
-collision_mask = 8
-monitoring = true
-script = ExtResource("8_hitbox")
-stats = ExtResource("7_stats")
-source = NodePath("..")
+[node name="CorruptionTrailComponent" type="Node" parent="Virus" node_paths=PackedStringArray("owner_body")]
+script = ExtResource("8_trail")
+owner_body = NodePath("..")
+blot_scene = ExtResource("9_blot")
+distance_per_blot = 1.5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Virus/HitboxComponent"]
-shape = SubResource("HitboxShape")
-
-[node name="PerceptComponent" type="Node" parent="Virus" node_paths=PackedStringArray("actor", "movement_component", "hitbox")]
+[node name="PerceptComponent" type="Node" parent="Virus" node_paths=PackedStringArray("actor", "movement_component")]
 script = ExtResource("3_percept")
 actor = NodePath("..")
 tree = ExtResource("4_tree")
 tick_rate = 0.1
 movement_component = NodePath("../MovementComponent")
-hitbox = NodePath("../HitboxComponent")
 
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 

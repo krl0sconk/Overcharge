@@ -1,4 +1,4 @@
-[gd_resource type="Resource" load_steps=12 format=3]
+[gd_resource type="Resource" load_steps=13 format=3]
 
 [ext_resource type="Script" path="res://scripts/ai/components/Sequence.gd" id="Sequence"]
 [ext_resource type="Script" path="res://scripts/ai/components/Selector.gd" id="Selector"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/ai/components/MeleeAttack.gd" id="MeleeAttack"]
 [ext_resource type="Script" path="res://scripts/ai/components/Cooldown.gd" id="Cooldown"]
 [ext_resource type="Script" path="res://scripts/ai/components/HasLineToTarget.gd" id="HasLineToTarget"]
+[ext_resource type="Script" path="res://scripts/ai/components/BeginFiring.gd" id="BeginFiring"]
 [ext_resource type="Script" path="res://scripts/ai/components/RangedAttack.gd" id="RangedAttack"]
 [ext_resource type="Script" path="res://scripts/ai/components/TurnToTarget.gd" id="TurnToTarget"]
 [ext_resource type="Script" path="res://scripts/ai/components/Reload.gd" id="Reload"]
@@ -44,29 +45,31 @@ script = ExtResource("HasLineToTarget")
 facing_dot_threshold = 0.97
 environment_mask = 1
 
-[sub_resource type="Resource" id="SR_ranged"]
-script = ExtResource("RangedAttack")
-telegraph_duration = 0.5
-range = 14.0
-hit_mask = 9
+[sub_resource type="Resource" id="SR_begin_firing"]
+script = ExtResource("BeginFiring")
 
-[sub_resource type="Resource" id="SR_seq_ranged"]
+[sub_resource type="Resource" id="SR_seq_ranged_start"]
 script = ExtResource("Sequence")
-children = Array[Resource]([SubResource("SR_range_far"), SubResource("SR_has_line"), SubResource("SR_ranged")])
+children = Array[Resource]([SubResource("SR_range_far"), SubResource("SR_has_line"), SubResource("SR_begin_firing")])
 
 [sub_resource type="Resource" id="SR_cooldown_ranged"]
 script = ExtResource("Cooldown")
 cooldown = 2.5
-children = Array[Resource]([SubResource("SR_seq_ranged")])
+children = Array[Resource]([SubResource("SR_seq_ranged_start")])
+
+[sub_resource type="Resource" id="SR_ranged_continue"]
+script = ExtResource("RangedAttack")
+telegraph_duration = 0.5
+max_distance = 14.0
+hit_mask = 9
 
 [sub_resource type="Resource" id="SR_turn"]
 script = ExtResource("TurnToTarget")
-turn_speed = 6.0
-aligned_epsilon = 0.02
+turn_speed = 1.5
 
 [sub_resource type="Resource" id="SR_inner_selector"]
 script = ExtResource("Selector")
-children = Array[Resource]([SubResource("SR_cooldown_melee"), SubResource("SR_cooldown_ranged"), SubResource("SR_turn")])
+children = Array[Resource]([SubResource("SR_ranged_continue"), SubResource("SR_cooldown_melee"), SubResource("SR_cooldown_ranged"), SubResource("SR_turn")])
 
 [sub_resource type="Resource" id="SR_seq_engage"]
 script = ExtResource("Sequence")

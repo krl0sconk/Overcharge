@@ -28,7 +28,6 @@ behind_dot_threshold = -0.3
 [sub_resource type="Resource" id="SR_turn"]
 script = ExtResource("TurnToTarget")
 turn_speed = 6.0
-aligned_epsilon = 0.02
 
 [sub_resource type="Resource" id="SR_seq_flank"]
 script = ExtResource("Sequence")

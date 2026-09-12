@@ -1,9 +1,11 @@
 class_name MeleeAttack
 extends PerceptNode
 
-## Genérica: telegrafía, abre una ventana de golpe (hitbox activo) y la
-## cierra. El daño en sí lo resuelve HitboxComponent solo, al detectar el
-## área con area_entered; este nodo solo prende y apaga esa ventana.
+## Genérica: telegrafía y delega la ventana de golpe al HitboxComponent, que
+## la cierra con su propio timer. Los compuestos son reactivos y sin abortos
+## -- si el objetivo sale de rango a mitad de golpe, esta hoja no se vuelve a
+## tickear -- así que no puede depender de un tick futuro para apagar el
+## hitbox: lo abre y se desentiende.
 
 @export var telegraph_duration: float = 0.4
 @export var active_duration: float = 0.2
@@ -19,14 +21,7 @@ func tick(agent: PerceptComponent) -> Status:
 		agent.remember(self, "elapsed", elapsed)
 		return Status.RUNNING
 
-	agent.hitbox.monitoring = true
-	var active_elapsed: float = elapsed - telegraph_duration
-
-	if active_elapsed < active_duration:
-		agent.remember(self, "elapsed", elapsed)
-		return Status.RUNNING
-
-	agent.hitbox.monitoring = false
-	agent.blackboard["attacking"] = false
 	agent.remember(self, "elapsed", 0.0)
+	agent.blackboard["attacking"] = false
+	agent.hitbox.open_window(active_duration)
 	return Status.SUCCESS
