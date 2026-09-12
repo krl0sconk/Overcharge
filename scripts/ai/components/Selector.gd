@@ -6,7 +6,7 @@ extends PerceptComposite
 ## debug puedan mostrar la rama en curso sin que el nodo guarde estado propio.
 func tick(agent: PerceptComponent) -> Status:
 	for i in children.size():
-		var result := children[i].tick(agent)
+		var result := children[i].tick_traced(agent, agent._debug_child_path(i))
 		if result != Status.FAILURE:
 			agent.remember(self, "active_child", i)
 			return result

@@ -23,6 +23,10 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 
 EventBus="*res://scripts/autoload/event_bus.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/percept_editor/plugin.cfg")
+
 [layer_names]
 
 3d_physics/layer_1="Entorno"
