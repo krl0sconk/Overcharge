@@ -7,6 +7,7 @@ resource_local_to_scene = true
 script = ExtResource("1_stats")
 max_health = 50
 speed = 0.0
+acceleration = 0.0
 damage = 2
 attack_cooldown = 1.5
 ability_cooldown = 2.5

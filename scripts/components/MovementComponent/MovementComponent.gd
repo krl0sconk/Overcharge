@@ -2,10 +2,10 @@ class_name MovementComponent
 extends Node
 
 @export var owner_body: CharacterBody3D
-@export var stats: StatsResource  ## si está asignado, stats.speed pisa max_speed
+@export var stats: StatsResource  ## si está asignado, stats.speed/acceleration pisan max_speed/acceleration
 @export var max_speed: float = 5.0
 @export var acceleration: float = 10.0
-@export var friction: float = 10.0
+@export var friction: float = 14.0  ## global: no vive en StatsResource a propósito, mismo valor para todos
 @export_flags_3d_physics var wall_mask: int = 1  ## capas que cuentan como pared para hit_wall (Entorno)
 
 var move_direction: Vector3 = Vector3.ZERO
@@ -30,11 +30,12 @@ func apply_knockback(impulse: Vector3) -> void:
 
 func _physics_process(delta: float) -> void:
 	var speed: float = stats.speed if stats != null else max_speed
+	var accel: float = stats.acceleration if stats != null else acceleration
 	if move_direction != Vector3.ZERO:
 		var target_velocity: Vector3 = move_direction * speed
 
 		owner_body.velocity = owner_body.velocity.move_toward(
-		target_velocity, acceleration * delta
+		target_velocity, accel * delta
 		)
 	else:
 		owner_body.velocity = owner_body.velocity.move_toward(

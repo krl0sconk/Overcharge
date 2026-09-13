@@ -145,8 +145,6 @@ mesh = SubResource("SpamMesh")
 script = ExtResource("5_movement")
 owner_body = NodePath("..")
 stats = ExtResource("7_stats")
-max_speed = 4.0
-acceleration = 15.0
 friction = 15.0
 
 [node name="HealthComponent" type="Node" parent="Spam" unique_id=840784855]

@@ -7,3 +7,4 @@ resource_local_to_scene = true
 script = ExtResource("1_stats")
 max_health = 15
 speed = 6.0
+acceleration = 25.0
