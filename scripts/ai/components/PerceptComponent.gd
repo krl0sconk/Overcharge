@@ -6,6 +6,9 @@ extends Node
 @export var tick_rate: float = 0.1
 @export var movement_component: MovementComponent
 @export var hitbox: HitboxComponent
+@export var laser: LaserSightComponent
+@export var aim_node: Node3D            ## qué gira para apuntar. Vacío = gira el actor entero.
+@export var aim_yaw_offset_deg: float = 0.0
 
 var blackboard: Dictionary = {}        ## datos del enemigo: target, etc.
 var memory: Dictionary = {}            ## lo que un nodo necesita recordar
@@ -67,18 +70,37 @@ func _physics_process(d: float) -> void:
 
 ## Interpola la rotación hacia turn_target_yaw cada physics frame en vez de
 ## cada tick de decisión -- ver comentario en TurnToTarget.gd.
+## Usa rotación global porque aim_node puede colgar de padres ya rotados.
 func _step_turn(d: float) -> void:
-	if not blackboard.get("turning", false) or not (actor is Node3D):
+	if not blackboard.get("turning", false):
+		return
+	var node: Node3D = aim_node if aim_node != null else (actor as Node3D)
+	if node == null:
 		return
 
-	var actor3d: Node3D = actor as Node3D
-	var target_yaw: float = blackboard.get("turn_target_yaw", actor3d.rotation.y)
+	var offset: float = deg_to_rad(aim_yaw_offset_deg)
+	var target_yaw: float = blackboard.get("turn_target_yaw", node.global_rotation.y - offset) + offset
 	var speed: float = blackboard.get("turn_speed", 6.0)
-	var current_yaw: float = actor3d.rotation.y
+	var current_yaw: float = node.global_rotation.y
 	var delta_yaw: float = wrapf(target_yaw - current_yaw, -PI, PI)
 
 	var step: float = clamp(delta_yaw, -speed * d, speed * d)
-	actor3d.rotation.y = current_yaw + step
+	node.global_rotation.y = current_yaw + step
+
+## Posición y dirección "lógicas" de apuntado: descuentan aim_yaw_offset_deg,
+## que gira aim_node para que el mesh se vea bien apuntando, no para que su
+## eje -Z real señale al objetivo. Todo lo que dispare o chequee línea de
+## visión debe usar esto en vez de leer aim_node directamente.
+func aim_position() -> Vector3:
+	var node: Node3D = aim_node if aim_node != null else (actor as Node3D)
+	return node.global_position if node != null else Vector3.ZERO
+
+func aim_forward() -> Vector3:
+	var node: Node3D = aim_node if aim_node != null else (actor as Node3D)
+	if node == null:
+		return Vector3.FORWARD
+	var yaw: float = node.global_rotation.y - deg_to_rad(aim_yaw_offset_deg)
+	return Vector3(-sin(yaw), 0.0, -cos(yaw))
 
 ## Los nodos son compartidos, así que su memoria vive acá, en cada enemigo.
 func remember(node: PerceptNode, key: String, value: Variant) -> void:

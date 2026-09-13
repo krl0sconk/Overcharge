@@ -9,4 +9,6 @@ extends PerceptNode
 
 func tick(agent: PerceptComponent) -> Status:
 	agent.blackboard["firing"] = true
+	if agent.laser != null:
+		agent.laser.begin_telegraph()
 	return Status.SUCCESS

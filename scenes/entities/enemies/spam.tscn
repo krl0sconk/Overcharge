@@ -20,6 +20,8 @@ size = Vector3(0.9313922, 0.7324219, 0.95025635)
 size = Vector3(0.70573425, 0.5716553, 0.7805176)
 
 [node name="Spam" type="CharacterBody3D" unique_id=1893237813]
+collision_layer = 4
+collision_mask = 7
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=284865470]
 transform = Transform3D(0.565, 0, 0, 0, 0.565, 0, 0, 0, 0.565, 0.0010345448, 0.2812504, -0.003810577)
@@ -36,6 +38,8 @@ stats = ExtResource("3_5d76m")
 metadata/_custom_type_script = "uid://eg6mlm88houw"
 
 [node name="HurtboxComponent" type="Area3D" parent="." unique_id=714027480 node_paths=PackedStringArray("health_component", "movement_component")]
+collision_layer = 16
+collision_mask = 32
 script = ExtResource("3_g62xg")
 health_component = NodePath("../HealthComponent")
 movement_component = NodePath("../MovementComponent")
@@ -47,6 +51,8 @@ shape = SubResource("BoxShape3D_1k1ev")
 debug_color = Color(0.36794722, 0.616104, 0, 0.41960785)
 
 [node name="HitboxComponent" type="Area3D" parent="." unique_id=1088024012]
+collision_layer = 64
+collision_mask = 8
 script = ExtResource("4_cpinv")
 stats = ExtResource("3_5d76m")
 metadata/_custom_type_script = "uid://bfm0hkuqmy8ba"
