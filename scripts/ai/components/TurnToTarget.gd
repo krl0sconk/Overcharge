@@ -1,10 +1,14 @@
 class_name TurnToTarget
 extends PerceptNode
 
-## Genérica y reusable: gira el actor hacia el objetivo del blackboard, un
-## paso por tick. Siempre SUCCESS (salvo sin objetivo) para no frenar una
-## Sequence que la encadena con movimiento -- antes devolvía RUNNING mientras
-## giraba y eso le cortaba el turno a MoveToTarget en la misma Sequence.
+## Genérica y reusable: pide girar el actor hacia el objetivo del blackboard.
+## No gira directamente -- publica el yaw deseado y no hace más. Quien
+## interpola la rotación real, cada frame de física, es PerceptComponent:
+## si el paso se diera acá se vería a saltos, porque tick() corre solo cada
+## tick_rate (10 Hz por defecto) y no cada physics frame (~60 Hz).
+## Siempre SUCCESS (salvo sin objetivo) para no frenar una Sequence que la
+## encadena con movimiento -- antes devolvía RUNNING mientras giraba y eso le
+## cortaba el turno a MoveToTarget en la misma Sequence.
 ##
 ## En el árbol del Yunque se reutiliza tal cual en dos ramas: "me
 ## flanquearon" (gateada por IsTargetBehind) y "buscar línea" (rama por
@@ -24,10 +28,7 @@ func tick(agent: PerceptComponent) -> Status:
 	if to_target.length_squared() < 0.0001:
 		return Status.SUCCESS
 
-	var desired_yaw: float = atan2(to_target.x, to_target.z) + PI
-	var current_yaw: float = actor3d.rotation.y
-	var delta_yaw: float = wrapf(desired_yaw - current_yaw, -PI, PI)
-
-	var step: float = clamp(delta_yaw, -turn_speed * agent.delta, turn_speed * agent.delta)
-	actor3d.rotation.y = current_yaw + step
+	agent.blackboard["turning"] = true
+	agent.blackboard["turn_target_yaw"] = atan2(to_target.x, to_target.z) + PI
+	agent.blackboard["turn_speed"] = turn_speed
 	return Status.SUCCESS

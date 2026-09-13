@@ -1,39 +1,41 @@
-[gd_resource type="Resource" load_steps=13 format=3]
+[gd_resource type="Resource" script_class="Selector" format=3 uid="uid://4a7gpnamlvlo"]
 
-[ext_resource type="Script" path="res://scripts/ai/components/Sequence.gd" id="Sequence"]
-[ext_resource type="Script" path="res://scripts/ai/components/Selector.gd" id="Selector"]
-[ext_resource type="Script" path="res://scripts/ai/components/AcquireTarget.gd" id="AcquireTarget"]
-[ext_resource type="Script" path="res://scripts/ai/components/IsTargetInRange.gd" id="IsTargetInRange"]
-[ext_resource type="Script" path="res://scripts/ai/components/MeleeAttack.gd" id="MeleeAttack"]
-[ext_resource type="Script" path="res://scripts/ai/components/Cooldown.gd" id="Cooldown"]
-[ext_resource type="Script" path="res://scripts/ai/components/HasLineToTarget.gd" id="HasLineToTarget"]
-[ext_resource type="Script" path="res://scripts/ai/components/BeginFiring.gd" id="BeginFiring"]
-[ext_resource type="Script" path="res://scripts/ai/components/RangedAttack.gd" id="RangedAttack"]
-[ext_resource type="Script" path="res://scripts/ai/components/TurnToTarget.gd" id="TurnToTarget"]
-[ext_resource type="Script" path="res://scripts/ai/components/Reload.gd" id="Reload"]
+[ext_resource type="Script" uid="uid://dvdvpfqfpqims" path="res://scripts/ai/components/PerceptNode.gd" id="1_rwjbc"]
+[ext_resource type="Script" uid="uid://bgls2eiooum3r" path="res://scripts/ai/components/AcquireTarget.gd" id="AcquireTarget"]
+[ext_resource type="Script" uid="uid://bskiy6nmpv76q" path="res://scripts/ai/components/BeginFiring.gd" id="BeginFiring"]
+[ext_resource type="Script" uid="uid://bpo0jqry1pjhh" path="res://scripts/ai/components/Cooldown.gd" id="Cooldown"]
+[ext_resource type="Script" uid="uid://tk5dcxapqpyu" path="res://scripts/ai/components/HasLineToTarget.gd" id="HasLineToTarget"]
+[ext_resource type="Script" uid="uid://u2ffyr0lm2gu" path="res://scripts/ai/components/IsTargetInRange.gd" id="IsTargetInRange"]
+[ext_resource type="Script" uid="uid://cu7cemgpuy6q5" path="res://scripts/ai/components/MeleeAttack.gd" id="MeleeAttack"]
+[ext_resource type="Script" uid="uid://dki4ho18xbmkr" path="res://scripts/ai/components/RangedAttack.gd" id="RangedAttack"]
+[ext_resource type="Script" uid="uid://d1ag05bqmiepd" path="res://scripts/ai/components/Reload.gd" id="Reload"]
+[ext_resource type="Script" uid="uid://1qdrx6ddvf2s" path="res://scripts/ai/components/Selector.gd" id="Selector"]
+[ext_resource type="Script" uid="uid://dt6mxevfb4u2a" path="res://scripts/ai/components/Sequence.gd" id="Sequence"]
+[ext_resource type="Script" uid="uid://c3j3pw2lapgyb" path="res://scripts/ai/components/TurnToTarget.gd" id="TurnToTarget"]
 
 [sub_resource type="Resource" id="SR_acquire"]
 script = ExtResource("AcquireTarget")
 vision_range = 14.0
 
+[sub_resource type="Resource" id="SR_ranged_continue"]
+script = ExtResource("RangedAttack")
+max_distance = 14.0
+
 [sub_resource type="Resource" id="SR_range_close"]
 script = ExtResource("IsTargetInRange")
-min_range = 0.0
 max_range = 3.0
 
 [sub_resource type="Resource" id="SR_melee"]
 script = ExtResource("MeleeAttack")
-telegraph_duration = 0.4
-active_duration = 0.2
 
 [sub_resource type="Resource" id="SR_seq_melee"]
 script = ExtResource("Sequence")
-children = Array[Resource]([SubResource("SR_range_close"), SubResource("SR_melee")])
+children = Array[ExtResource("1_rwjbc")]([SubResource("SR_range_close"), SubResource("SR_melee")])
 
 [sub_resource type="Resource" id="SR_cooldown_melee"]
 script = ExtResource("Cooldown")
 cooldown = 1.5
-children = Array[Resource]([SubResource("SR_seq_melee")])
+children = Array[ExtResource("1_rwjbc")]([SubResource("SR_seq_melee")])
 
 [sub_resource type="Resource" id="SR_range_far"]
 script = ExtResource("IsTargetInRange")
@@ -42,26 +44,18 @@ max_range = 14.0
 
 [sub_resource type="Resource" id="SR_has_line"]
 script = ExtResource("HasLineToTarget")
-facing_dot_threshold = 0.97
-environment_mask = 1
 
 [sub_resource type="Resource" id="SR_begin_firing"]
 script = ExtResource("BeginFiring")
 
 [sub_resource type="Resource" id="SR_seq_ranged_start"]
 script = ExtResource("Sequence")
-children = Array[Resource]([SubResource("SR_range_far"), SubResource("SR_has_line"), SubResource("SR_begin_firing")])
+children = Array[ExtResource("1_rwjbc")]([SubResource("SR_range_far"), SubResource("SR_has_line"), SubResource("SR_begin_firing")])
 
 [sub_resource type="Resource" id="SR_cooldown_ranged"]
 script = ExtResource("Cooldown")
 cooldown = 2.5
-children = Array[Resource]([SubResource("SR_seq_ranged_start")])
-
-[sub_resource type="Resource" id="SR_ranged_continue"]
-script = ExtResource("RangedAttack")
-telegraph_duration = 0.5
-max_distance = 14.0
-hit_mask = 9
+children = Array[ExtResource("1_rwjbc")]([SubResource("SR_seq_ranged_start")])
 
 [sub_resource type="Resource" id="SR_turn"]
 script = ExtResource("TurnToTarget")
@@ -69,16 +63,15 @@ turn_speed = 1.5
 
 [sub_resource type="Resource" id="SR_inner_selector"]
 script = ExtResource("Selector")
-children = Array[Resource]([SubResource("SR_ranged_continue"), SubResource("SR_cooldown_melee"), SubResource("SR_cooldown_ranged"), SubResource("SR_turn")])
+children = Array[ExtResource("1_rwjbc")]([SubResource("SR_ranged_continue"), SubResource("SR_cooldown_melee"), SubResource("SR_cooldown_ranged"), SubResource("SR_turn")])
 
 [sub_resource type="Resource" id="SR_seq_engage"]
 script = ExtResource("Sequence")
-children = Array[Resource]([SubResource("SR_acquire"), SubResource("SR_inner_selector")])
+children = Array[ExtResource("1_rwjbc")]([SubResource("SR_acquire"), SubResource("SR_inner_selector")])
 
 [sub_resource type="Resource" id="SR_reload"]
 script = ExtResource("Reload")
-duration = 2.0
 
 [resource]
 script = ExtResource("Selector")
-children = Array[Resource]([SubResource("SR_seq_engage"), SubResource("SR_reload")])
+children = Array[ExtResource("1_rwjbc")]([SubResource("SR_seq_engage"), SubResource("SR_reload")])

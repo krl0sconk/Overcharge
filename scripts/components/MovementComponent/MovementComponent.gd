@@ -2,7 +2,7 @@ class_name MovementComponent
 extends Node
 
 @export var owner_body: CharacterBody3D
-# TODO(María): mover velocidades a StatsResource, que ya tiene un campo speed.
+@export var stats: StatsResource  ## si está asignado, stats.speed pisa max_speed
 @export var max_speed: float = 5.0
 @export var acceleration: float = 10.0
 @export var friction: float = 10.0
@@ -29,8 +29,9 @@ func apply_knockback(impulse: Vector3) -> void:
 	owner_body.velocity += Vector3(impulse.x, 0.0, impulse.z)
 
 func _physics_process(delta: float) -> void:
+	var speed: float = stats.speed if stats != null else max_speed
 	if move_direction != Vector3.ZERO:
-		var target_velocity: Vector3 = move_direction * max_speed
+		var target_velocity: Vector3 = move_direction * speed
 
 		owner_body.velocity = owner_body.velocity.move_toward(
 		target_velocity, acceleration * delta

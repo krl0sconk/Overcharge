@@ -149,6 +149,7 @@ mesh = SubResource("VirusMesh")
 [node name="MovementComponent" type="Node" parent="Virus" node_paths=PackedStringArray("owner_body")]
 script = ExtResource("5_movement")
 owner_body = NodePath("..")
+stats = ExtResource("7_stats")
 max_speed = 6.5
 acceleration = 25.0
 friction = 25.0

@@ -1,12 +1,13 @@
-[gd_resource type="Resource" load_steps=8 format=3]
+[gd_resource type="Resource" script_class="Sequence" format=3 uid="uid://beqrw0x8o1d7o"]
 
-[ext_resource type="Script" path="res://scripts/ai/components/Sequence.gd" id="Sequence"]
-[ext_resource type="Script" path="res://scripts/ai/components/Selector.gd" id="Selector"]
-[ext_resource type="Script" path="res://scripts/ai/components/AcquireTarget.gd" id="AcquireTarget"]
-[ext_resource type="Script" path="res://scripts/ai/components/IsTargetInRange.gd" id="IsTargetInRange"]
-[ext_resource type="Script" path="res://scripts/ai/components/TurnToTarget.gd" id="TurnToTarget"]
-[ext_resource type="Script" path="res://scripts/ai/components/MoveToTarget.gd" id="MoveToTarget"]
-[ext_resource type="Script" path="res://scripts/ai/components/Patrol.gd" id="Patrol"]
+[ext_resource type="Script" uid="uid://dvdvpfqfpqims" path="res://scripts/ai/components/PerceptNode.gd" id="1_dtgj8"]
+[ext_resource type="Script" uid="uid://bgls2eiooum3r" path="res://scripts/ai/components/AcquireTarget.gd" id="AcquireTarget"]
+[ext_resource type="Script" uid="uid://u2ffyr0lm2gu" path="res://scripts/ai/components/IsTargetInRange.gd" id="IsTargetInRange"]
+[ext_resource type="Script" uid="uid://br2a6ta6p8vm" path="res://scripts/ai/components/MoveToTarget.gd" id="MoveToTarget"]
+[ext_resource type="Script" uid="uid://cfsghh8oc74ak" path="res://scripts/ai/components/Patrol.gd" id="Patrol"]
+[ext_resource type="Script" uid="uid://1qdrx6ddvf2s" path="res://scripts/ai/components/Selector.gd" id="Selector"]
+[ext_resource type="Script" uid="uid://dt6mxevfb4u2a" path="res://scripts/ai/components/Sequence.gd" id="Sequence"]
+[ext_resource type="Script" uid="uid://c3j3pw2lapgyb" path="res://scripts/ai/components/TurnToTarget.gd" id="TurnToTarget"]
 
 [sub_resource type="Resource" id="SR_acquire"]
 script = ExtResource("AcquireTarget")
@@ -14,12 +15,10 @@ vision_range = 12.0
 
 [sub_resource type="Resource" id="SR_range_chase"]
 script = ExtResource("IsTargetInRange")
-min_range = 0.0
 max_range = 12.0
 
 [sub_resource type="Resource" id="SR_turn"]
 script = ExtResource("TurnToTarget")
-turn_speed = 6.0
 
 [sub_resource type="Resource" id="SR_move"]
 script = ExtResource("MoveToTarget")
@@ -27,16 +26,15 @@ stop_distance = 0.5
 
 [sub_resource type="Resource" id="SR_seq_chase"]
 script = ExtResource("Sequence")
-children = Array[Resource]([SubResource("SR_range_chase"), SubResource("SR_turn"), SubResource("SR_move")])
+children = Array[ExtResource("1_dtgj8")]([SubResource("SR_range_chase"), SubResource("SR_turn"), SubResource("SR_move")])
 
 [sub_resource type="Resource" id="SR_patrol"]
 script = ExtResource("Patrol")
-leg_duration = 2.0
 
 [sub_resource type="Resource" id="SR_selector"]
 script = ExtResource("Selector")
-children = Array[Resource]([SubResource("SR_seq_chase"), SubResource("SR_patrol")])
+children = Array[ExtResource("1_dtgj8")]([SubResource("SR_seq_chase"), SubResource("SR_patrol")])
 
 [resource]
 script = ExtResource("Sequence")
-children = Array[Resource]([SubResource("SR_acquire"), SubResource("SR_selector")])
+children = Array[ExtResource("1_dtgj8")]([SubResource("SR_acquire"), SubResource("SR_selector")])
