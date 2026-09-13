@@ -1,5 +1,7 @@
 [gd_scene format=3 uid="uid://b8p30jmfpjgi4"]
 
+[ext_resource type="Script" uid="uid://dqjds2236kjuh" path="res://scripts/maps/test_room_spawner.gd" id="1_k2ml6"]
+
 [sub_resource type="Environment" id="Environment_ygx7y"]
 ambient_light_source = 2
 ambient_light_color = Color(0.7953939, 0.79539394, 0.7953939, 1)
@@ -52,6 +54,7 @@ size = Vector3(0.026, 1, 1)
 albedo_color = Color(0.37716255, 0.37716258, 0.37716255, 1)
 
 [node name="TestRoom" type="Node3D" unique_id=2041491567]
+script = ExtResource("1_k2ml6")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=883347460]
 transform = Transform3D(1, 0, 0, 0, 0.68704194, 0.72661775, 0, -0.72661775, 0.68704194, 0, 5.244085, 4.085575)
