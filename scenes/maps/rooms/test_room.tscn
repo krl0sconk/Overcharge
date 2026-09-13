@@ -57,8 +57,10 @@ albedo_color = Color(0.37716255, 0.37716258, 0.37716255, 1)
 script = ExtResource("1_k2ml6")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=883347460]
-transform = Transform3D(1, 0, 0, 0, 0.68704194, 0.72661775, 0, -0.72661775, 0.68704194, 0, 5.244085, 4.085575)
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 10, 8)
+keep_aspect = 0
 current = true
+fov = 50.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=214350633]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 11.638952, 0)
