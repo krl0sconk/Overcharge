@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3]
+[gd_scene load_steps=22 format=3]
 
 [ext_resource type="Script" path="res://scripts/test/PlayerStub.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/test/BTDebugOverlay.gd" id="2_overlay"]
@@ -7,6 +7,8 @@
 [ext_resource type="Script" path="res://scripts/components/HealthComponent.gd" id="5_health"]
 [ext_resource type="Resource" path="res://resources/stats/centinela_stats.tres" id="6_stats"]
 [ext_resource type="Script" path="res://scripts/components/HitboxComponent.gd" id="7_hitbox"]
+[ext_resource type="Script" path="res://scripts/components/HurtboxComponent.gd" id="8_hurtbox"]
+[ext_resource type="Script" path="res://scripts/components/EnemyDeathComponent.gd" id="9_death"]
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
 size = Vector3(24, 0.2, 10)
@@ -149,6 +151,22 @@ actor = NodePath("..")
 tree = ExtResource("4_tree")
 tick_rate = 0.1
 hitbox = NodePath("../HitboxComponent")
+
+[node name="HurtboxComponent" type="Area3D" parent="Centinela" node_paths=PackedStringArray("health_component")]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("8_hurtbox")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Centinela/HurtboxComponent"]
+shape = SubResource("CentinelaShape")
+
+[node name="EnemyDeathComponent" type="Node" parent="Centinela" node_paths=PackedStringArray("health_component", "hurtbox", "hitbox", "owner_body")]
+script = ExtResource("9_death")
+health_component = NodePath("../HealthComponent")
+hurtbox = NodePath("../HurtboxComponent")
+hitbox = NodePath("../HitboxComponent")
+owner_body = NodePath("..")
 
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 

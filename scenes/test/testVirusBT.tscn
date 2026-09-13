@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3]
+[gd_scene load_steps=22 format=3]
 
 [ext_resource type="Script" path="res://scripts/test/PlayerStub.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/test/BTDebugOverlay.gd" id="2_overlay"]
@@ -9,6 +9,8 @@
 [ext_resource type="Resource" path="res://resources/stats/virus_stats.tres" id="7_stats"]
 [ext_resource type="Script" path="res://scripts/components/CorruptionTrailComponent.gd" id="8_trail"]
 [ext_resource type="PackedScene" path="res://scenes/test/corruption_blot.tscn" id="9_blot"]
+[ext_resource type="Script" path="res://scripts/components/HurtboxComponent.gd" id="10_hurtbox"]
+[ext_resource type="Script" path="res://scripts/components/EnemyDeathComponent.gd" id="11_death"]
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
 size = Vector3(10, 0.2, 10)
@@ -150,6 +152,22 @@ actor = NodePath("..")
 tree = ExtResource("4_tree")
 tick_rate = 0.1
 movement_component = NodePath("../MovementComponent")
+
+[node name="HurtboxComponent" type="Area3D" parent="Virus" node_paths=PackedStringArray("health_component", "movement_component")]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("10_hurtbox")
+health_component = NodePath("../HealthComponent")
+movement_component = NodePath("../MovementComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Virus/HurtboxComponent"]
+shape = SubResource("VirusShape")
+
+[node name="EnemyDeathComponent" type="Node" parent="Virus" node_paths=PackedStringArray("health_component", "hurtbox", "owner_body")]
+script = ExtResource("11_death")
+health_component = NodePath("../HealthComponent")
+hurtbox = NodePath("../HurtboxComponent")
+owner_body = NodePath("..")
 
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 

@@ -1,10 +1,15 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=20 format=3]
 
 [ext_resource type="Script" path="res://scripts/test/PlayerStub.gd" id="1_player"]
 [ext_resource type="Script" path="res://scripts/test/BTDebugOverlay.gd" id="2_overlay"]
 [ext_resource type="Script" path="res://scripts/ai/components/PerceptComponent.gd" id="3_percept"]
 [ext_resource type="Resource" path="res://resources/ai/trees/yunque.tres" id="4_tree"]
 [ext_resource type="Script" path="res://scripts/components/MovementComponent/MovementComponent.gd" id="5_movement"]
+[ext_resource type="Script" path="res://scripts/components/HealthComponent.gd" id="6_health"]
+[ext_resource type="Resource" path="res://resources/stats/yunque_stats.tres" id="7_stats"]
+[ext_resource type="Script" path="res://scripts/components/HitboxComponent.gd" id="8_hitbox"]
+[ext_resource type="Script" path="res://scripts/components/HurtboxComponent.gd" id="9_hurtbox"]
+[ext_resource type="Script" path="res://scripts/components/EnemyDeathComponent.gd" id="10_death"]
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
 size = Vector3(10, 0.2, 10)
@@ -39,6 +44,9 @@ height = 1.8
 [sub_resource type="CapsuleMesh" id="YunqueMesh"]
 radius = 0.5
 height = 1.8
+
+[sub_resource type="SphereShape3D" id="HitboxShape"]
+radius = 1.0
 
 [node name="TestYunqueBT" type="Node3D"]
 
@@ -136,6 +144,38 @@ actor = NodePath("..")
 tree = ExtResource("4_tree")
 tick_rate = 0.1
 movement_component = NodePath("../MovementComponent")
+
+[node name="HealthComponent" type="Node" parent="Yunque"]
+script = ExtResource("6_health")
+stats = ExtResource("7_stats")
+
+[node name="HitboxComponent" type="Area3D" parent="Yunque" node_paths=PackedStringArray("source")]
+collision_layer = 64
+collision_mask = 8
+monitoring = false
+script = ExtResource("8_hitbox")
+stats = ExtResource("7_stats")
+source = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Yunque/HitboxComponent"]
+shape = SubResource("HitboxShape")
+
+[node name="HurtboxComponent" type="Area3D" parent="Yunque" node_paths=PackedStringArray("health_component", "movement_component")]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("9_hurtbox")
+health_component = NodePath("../HealthComponent")
+movement_component = NodePath("../MovementComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Yunque/HurtboxComponent"]
+shape = SubResource("YunqueShape")
+
+[node name="EnemyDeathComponent" type="Node" parent="Yunque" node_paths=PackedStringArray("health_component", "hurtbox", "hitbox", "owner_body")]
+script = ExtResource("10_death")
+health_component = NodePath("../HealthComponent")
+hurtbox = NodePath("../HurtboxComponent")
+hitbox = NodePath("../HitboxComponent")
+owner_body = NodePath("..")
 
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 
