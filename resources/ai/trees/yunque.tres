@@ -1,56 +1,49 @@
-[gd_resource type="Resource" load_steps=20 format=3]
+[gd_resource type="Resource" script_class="Sequence" format=3 uid="uid://b4m3nbowisqfe"]
 
-[ext_resource type="Script" path="res://scripts/ai/components/Sequence.gd" id="Sequence"]
-[ext_resource type="Script" path="res://scripts/ai/components/Selector.gd" id="Selector"]
-[ext_resource type="Script" path="res://scripts/ai/components/AcquireTarget.gd" id="AcquireTarget"]
-[ext_resource type="Script" path="res://scripts/ai/components/RecoverFromStun.gd" id="RecoverFromStun"]
-[ext_resource type="Script" path="res://scripts/ai/components/ChargeForward.gd" id="ChargeForward"]
-[ext_resource type="Script" path="res://scripts/ai/components/IsTargetBehind.gd" id="IsTargetBehind"]
-[ext_resource type="Script" path="res://scripts/ai/components/TurnToTarget.gd" id="TurnToTarget"]
-[ext_resource type="Script" path="res://scripts/ai/components/HasLineToTarget.gd" id="HasLineToTarget"]
-[ext_resource type="Script" path="res://scripts/ai/components/BeginCharge.gd" id="BeginCharge"]
+[ext_resource type="Script" uid="uid://dvdvpfqfpqims" path="res://scripts/ai/components/PerceptNode.gd" id="1_ro0dm"]
+[ext_resource type="Script" uid="uid://bgls2eiooum3r" path="res://scripts/ai/components/AcquireTarget.gd" id="AcquireTarget"]
+[ext_resource type="Script" uid="uid://g7uj2b14uv8m" path="res://scripts/ai/components/BeginCharge.gd" id="BeginCharge"]
+[ext_resource type="Script" uid="uid://tefk5um75nb0" path="res://scripts/ai/components/ChargeForward.gd" id="ChargeForward"]
+[ext_resource type="Script" uid="uid://tk5dcxapqpyu" path="res://scripts/ai/components/HasLineToTarget.gd" id="HasLineToTarget"]
+[ext_resource type="Script" uid="uid://ty2vjgipgmd3" path="res://scripts/ai/components/IsTargetBehind.gd" id="IsTargetBehind"]
+[ext_resource type="Script" uid="uid://dt3vxnhwm1jn8" path="res://scripts/ai/components/RecoverFromStun.gd" id="RecoverFromStun"]
+[ext_resource type="Script" uid="uid://1qdrx6ddvf2s" path="res://scripts/ai/components/Selector.gd" id="Selector"]
+[ext_resource type="Script" uid="uid://dt6mxevfb4u2a" path="res://scripts/ai/components/Sequence.gd" id="Sequence"]
+[ext_resource type="Script" uid="uid://c3j3pw2lapgyb" path="res://scripts/ai/components/TurnToTarget.gd" id="TurnToTarget"]
 
 [sub_resource type="Resource" id="SR_acquire"]
 script = ExtResource("AcquireTarget")
-vision_range = 10.0
 
 [sub_resource type="Resource" id="SR_recover"]
 script = ExtResource("RecoverFromStun")
-stun_duration = 1.5
 
 [sub_resource type="Resource" id="SR_charge"]
 script = ExtResource("ChargeForward")
 
 [sub_resource type="Resource" id="SR_is_behind"]
 script = ExtResource("IsTargetBehind")
-behind_dot_threshold = -0.3
 
 [sub_resource type="Resource" id="SR_turn"]
 script = ExtResource("TurnToTarget")
-turn_speed = 6.0
-aligned_epsilon = 0.02
 
 [sub_resource type="Resource" id="SR_seq_flank"]
 script = ExtResource("Sequence")
-children = Array[Resource]([SubResource("SR_is_behind"), SubResource("SR_turn")])
+children = Array[ExtResource("1_ro0dm")]([SubResource("SR_is_behind"), SubResource("SR_turn")])
 
 [sub_resource type="Resource" id="SR_has_line"]
 script = ExtResource("HasLineToTarget")
-facing_dot_threshold = 0.97
-environment_mask = 1
 
 [sub_resource type="Resource" id="SR_begin_charge"]
 script = ExtResource("BeginCharge")
-telegraph_duration = 0.6
 
 [sub_resource type="Resource" id="SR_seq_charge_start"]
 script = ExtResource("Sequence")
-children = Array[Resource]([SubResource("SR_has_line"), SubResource("SR_begin_charge")])
+children = Array[ExtResource("1_ro0dm")]([SubResource("SR_has_line"), SubResource("SR_begin_charge")])
 
 [sub_resource type="Resource" id="SR_selector"]
 script = ExtResource("Selector")
-children = Array[Resource]([SubResource("SR_recover"), SubResource("SR_charge"), SubResource("SR_seq_flank"), SubResource("SR_seq_charge_start"), SubResource("SR_turn")])
+children = Array[ExtResource("1_ro0dm")]([SubResource("SR_recover"), SubResource("SR_charge"), SubResource("SR_seq_flank"), SubResource("SR_seq_charge_start"), SubResource("SR_turn")])
 
 [resource]
 script = ExtResource("Sequence")
-children = Array[Resource]([SubResource("SR_acquire"), SubResource("SR_selector")])
+children = Array[ExtResource("1_ro0dm")]([SubResource("SR_acquire"), SubResource("SR_selector")])

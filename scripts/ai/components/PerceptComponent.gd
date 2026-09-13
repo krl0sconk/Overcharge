@@ -4,7 +4,8 @@ extends Node
 @export var actor: Node
 @export var tree: PerceptNode          ## el .tres compartido
 @export var tick_rate: float = 0.1
-@export var movement_component: MovementComponent   # TODO(María): tipar a MovementComponent cuando exista.
+@export var movement_component: MovementComponent
+@export var hitbox: HitboxComponent
 
 var blackboard: Dictionary = {}        ## datos del enemigo: target, etc.
 var memory: Dictionary = {}            ## lo que un nodo necesita recordar
@@ -32,6 +33,8 @@ func _exit_tree() -> void:
 		EngineDebugger.unregister_message_capture("percept")
 
 func _physics_process(d: float) -> void:
+	_step_turn(d)
+
 	_accum += d
 	if _accum < tick_rate:
 		return
@@ -39,6 +42,11 @@ func _physics_process(d: float) -> void:
 	_accum = 0.0
 	if tree == null:
 		return
+
+	## Se apaga acá y la vuelve a prender TurnToTarget si le toca tickear
+	## este ciclo -- así deja de girar apenas otra rama de más prioridad
+	## (cargar, atacar) toma el control del Selector.
+	blackboard["turning"] = false
 
 	if OS.has_feature("debug") and EngineDebugger.is_active():
 		_debug_agent_announce_accum += delta
@@ -56,6 +64,21 @@ func _physics_process(d: float) -> void:
 			)
 	else:
 		tree.tick(self)
+
+## Interpola la rotación hacia turn_target_yaw cada physics frame en vez de
+## cada tick de decisión -- ver comentario en TurnToTarget.gd.
+func _step_turn(d: float) -> void:
+	if not blackboard.get("turning", false) or not (actor is Node3D):
+		return
+
+	var actor3d: Node3D = actor as Node3D
+	var target_yaw: float = blackboard.get("turn_target_yaw", actor3d.rotation.y)
+	var speed: float = blackboard.get("turn_speed", 6.0)
+	var current_yaw: float = actor3d.rotation.y
+	var delta_yaw: float = wrapf(target_yaw - current_yaw, -PI, PI)
+
+	var step: float = clamp(delta_yaw, -speed * d, speed * d)
+	actor3d.rotation.y = current_yaw + step
 
 ## Los nodos son compartidos, así que su memoria vive acá, en cada enemigo.
 func remember(node: PerceptNode, key: String, value: Variant) -> void:
