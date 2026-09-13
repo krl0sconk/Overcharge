@@ -18,10 +18,15 @@ func set_move_direction(direction: Vector3) -> void:
 	else:
 		move_direction = direction.normalized()
 
-## Corta el movimiento en seco. 
+## Corta el movimiento en seco.
 func stop() -> void:
 	move_direction = Vector3.ZERO
 	owner_body.velocity = Vector3.ZERO
+
+## Impulso externo (knockback). Se suma a la velocidad y se disipa por friction.
+## Lo usan los golpes que empujan, como el empujón del Centinela.
+func apply_knockback(impulse: Vector3) -> void:
+	owner_body.velocity += Vector3(impulse.x, 0.0, impulse.z)
 
 func _physics_process(delta: float) -> void:
 	if move_direction != Vector3.ZERO:
