@@ -1,0 +1,16 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://btswglwh1keyk"]
+
+[ext_resource type="Texture2D" uid="uid://pd86dql4prcs" path="res://assets/entities/enemies/centinela/Centinela_0.png" id="1_u8gdh"]
+
+[resource]
+resource_name = "material_0"
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+depth_draw_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_u8gdh")
+texture_filter = 0
+texture_repeat = false
+metadata/_gltf_primary_texture_coord = 0

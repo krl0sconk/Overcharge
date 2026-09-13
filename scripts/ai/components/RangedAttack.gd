@@ -18,6 +18,8 @@ func tick(agent: PerceptComponent) -> Status:
 
 	if agent.hitbox == null or agent.hitbox.stats == null or not (agent.actor is Node3D):
 		agent.blackboard["firing"] = false
+		if agent.laser != null:
+			agent.laser.end_telegraph()
 		return Status.FAILURE
 
 	var elapsed: float = agent.recall(self, "elapsed", 0.0) + agent.delta
@@ -32,14 +34,19 @@ func tick(agent: PerceptComponent) -> Status:
 
 func _fire(agent: PerceptComponent) -> void:
 	var actor3d: Node3D = agent.actor as Node3D
-	var from: Vector3 = actor3d.global_position
-	var to: Vector3 = from - actor3d.global_transform.basis.z * max_distance
+	var from: Vector3 = agent.aim_position()
+	var to: Vector3 = from + agent.aim_forward() * max_distance
 
 	var space_state := actor3d.get_world_3d().direct_space_state
 	var query := PhysicsRayQueryParameters3D.create(from, to, hit_mask)
 	query.collide_with_areas = true
 	query.exclude = [actor3d.get_rid()]
 	var result: Dictionary = space_state.intersect_ray(query)
+
+	var hit_point: Vector3 = result.get("position", to) if not result.is_empty() else to
+	if agent.laser != null:
+		agent.laser.fire(from.distance_to(hit_point))
+
 	if result.is_empty():
 		return
 

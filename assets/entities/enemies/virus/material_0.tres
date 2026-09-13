@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://yjngpim14tgd"]
+
+[ext_resource type="Texture2D" uid="uid://ctfeexyenh2nu" path="res://assets/entities/enemies/virus/Virus_0.png" id="1_u123h"]
+
+[resource]
+resource_name = "material_0"
+transparency = 2
+alpha_scissor_threshold = 0.05
+alpha_antialiasing_mode = 0
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_u123h")
+texture_filter = 0
+texture_repeat = false
+metadata/_gltf_primary_texture_coord = 0

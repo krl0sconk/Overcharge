@@ -1,15 +1,10 @@
-[gd_scene load_steps=22 format=3]
+[gd_scene format=3 uid="uid://d33hikqnhgshl"]
 
-[ext_resource type="Script" path="res://scripts/test/PlayerStub.gd" id="1_player"]
-[ext_resource type="Script" path="res://scripts/test/BTDebugOverlay.gd" id="2_overlay"]
-[ext_resource type="Script" path="res://scripts/ai/components/PerceptComponent.gd" id="3_percept"]
-[ext_resource type="Resource" path="res://resources/ai/trees/centinela.tres" id="4_tree"]
-[ext_resource type="Script" path="res://scripts/components/HealthComponent.gd" id="5_health"]
-[ext_resource type="Resource" path="res://resources/stats/centinela_stats.tres" id="6_stats"]
-[ext_resource type="Script" path="res://scripts/components/HitboxComponent.gd" id="7_hitbox"]
-[ext_resource type="Script" path="res://scripts/components/HurtboxComponent.gd" id="8_hurtbox"]
-[ext_resource type="Script" path="res://scripts/components/EnemyDeathComponent.gd" id="9_death"]
+[ext_resource type="Script" uid="uid://bx7np0qi5kcgy" path="res://scripts/test/PlayerStub.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://bg827a0vaw43" path="res://scripts/test/BTDebugOverlay.gd" id="2_overlay"]
+[ext_resource type="Script" uid="uid://bfm0hkuqmy8ba" path="res://scripts/components/HitboxComponent.gd" id="7_hitbox"]
 [ext_resource type="Resource" path="res://resources/stats/player_debug_attack_stats.tres" id="10_debug_stats"]
+[ext_resource type="PackedScene" uid="uid://dyasvt6qqg5mx" path="res://scenes/entities/enemies/centinela.tscn" id="11_cewwy"]
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
 size = Vector3(24, 0.2, 10)
@@ -37,80 +32,70 @@ height = 1.6
 radius = 0.4
 height = 1.6
 
-[sub_resource type="CapsuleShape3D" id="CentinelaShape"]
-radius = 0.5
-height = 1.8
-
-[sub_resource type="CapsuleMesh" id="CentinelaMesh"]
-radius = 0.5
-height = 1.8
-
 [sub_resource type="SphereShape3D" id="HitboxShape"]
 radius = 1.2
 
-[node name="TestCentinelaBT" type="Node3D"]
+[node name="TestCentinelaBT" type="Node3D" unique_id=942060160]
 
-[node name="Camera3D" type="Camera3D" parent="."]
-position = Vector3(-10, 16, 8)
-rotation_degrees = Vector3(-55, 0, 0)
+[node name="Camera3D" type="Camera3D" parent="." unique_id=725089245]
+transform = Transform3D(1, 0, 0, 0, 0.57357645, 0.81915206, 0, -0.81915206, 0.57357645, -10, 16, 8)
 current = true
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-rotation_degrees = Vector3(-60, 30, 0)
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=965948468]
+transform = Transform3D(0.8660254, -0.43301272, 0.24999999, 0, 0.49999997, 0.86602545, -0.5, -0.75, 0.43301266, 0, 0, 0)
 
-[node name="Room" type="StaticBody3D" parent="."]
-collision_layer = 1
+[node name="Room" type="StaticBody3D" parent="." unique_id=833408844]
 collision_mask = 0
 
-[node name="Floor" type="CollisionShape3D" parent="Room"]
+[node name="Floor" type="CollisionShape3D" parent="Room" unique_id=809394902]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
 shape = SubResource("FloorShape")
 
-[node name="Mesh" type="MeshInstance3D" parent="Room/Floor"]
+[node name="Mesh" type="MeshInstance3D" parent="Room/Floor" unique_id=1987654821]
 mesh = SubResource("FloorMesh")
 
-[node name="WallNorth" type="CollisionShape3D" parent="Room"]
+[node name="WallNorth" type="CollisionShape3D" parent="Room" unique_id=888312018]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -5)
 shape = SubResource("WallNSShape")
 
-[node name="Mesh" type="MeshInstance3D" parent="Room/WallNorth"]
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallNorth" unique_id=865833847]
 mesh = SubResource("WallNSMesh")
 
-[node name="WallSouth" type="CollisionShape3D" parent="Room"]
+[node name="WallSouth" type="CollisionShape3D" parent="Room" unique_id=2118942025]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5)
 shape = SubResource("WallNSShape")
 
-[node name="Mesh" type="MeshInstance3D" parent="Room/WallSouth"]
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallSouth" unique_id=838661215]
 mesh = SubResource("WallNSMesh")
 
-[node name="WallEast" type="CollisionShape3D" parent="Room"]
+[node name="WallEast" type="CollisionShape3D" parent="Room" unique_id=1064397815]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 0)
 shape = SubResource("WallEWShape")
 
-[node name="Mesh" type="MeshInstance3D" parent="Room/WallEast"]
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallEast" unique_id=1906023442]
 mesh = SubResource("WallEWMesh")
 
-[node name="WallWest" type="CollisionShape3D" parent="Room"]
+[node name="WallWest" type="CollisionShape3D" parent="Room" unique_id=941581477]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.5, 0)
 shape = SubResource("WallEWShape")
 
-[node name="Mesh" type="MeshInstance3D" parent="Room/WallWest"]
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallWest" unique_id=646888730]
 mesh = SubResource("WallEWMesh")
 
-[node name="PlayerControllable" type="CharacterBody3D" parent="." groups=["players"] node_paths=PackedStringArray("hitbox")]
+[node name="PlayerControllable" type="CharacterBody3D" parent="." unique_id=1788433122 node_paths=PackedStringArray("hitbox") groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.9, -3)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_player")
 hitbox = NodePath("HitboxComponent")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable" unique_id=130017889]
 shape = SubResource("PlayerShape")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerControllable"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerControllable" unique_id=2140977756]
 mesh = SubResource("PlayerMesh")
 
-[node name="HitboxComponent" type="Area3D" parent="PlayerControllable" node_paths=PackedStringArray("source")]
+[node name="HitboxComponent" type="Area3D" parent="PlayerControllable" unique_id=74067003 node_paths=PackedStringArray("source")]
 collision_layer = 32
 collision_mask = 16
 monitoring = false
@@ -118,78 +103,19 @@ script = ExtResource("7_hitbox")
 stats = ExtResource("10_debug_stats")
 source = NodePath("..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable/HitboxComponent"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable/HitboxComponent" unique_id=1165792380]
 shape = SubResource("HitboxShape")
 
-[node name="PlayerStatic" type="CharacterBody3D" parent="." groups=["players"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.9, 0)
-collision_layer = 2
-collision_mask = 5
+[node name="DebugOverlay" type="CanvasLayer" parent="." unique_id=335730883]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerStatic"]
-shape = SubResource("PlayerShape")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerStatic"]
-mesh = SubResource("PlayerMesh")
-
-[node name="Centinela" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0.9, 0)
-collision_layer = 4
-collision_mask = 7
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Centinela"]
-shape = SubResource("CentinelaShape")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Centinela"]
-mesh = SubResource("CentinelaMesh")
-
-[node name="HealthComponent" type="Node" parent="Centinela"]
-script = ExtResource("5_health")
-stats = ExtResource("6_stats")
-
-[node name="HitboxComponent" type="Area3D" parent="Centinela" node_paths=PackedStringArray("source")]
-collision_layer = 64
-collision_mask = 8
-monitoring = false
-script = ExtResource("7_hitbox")
-stats = ExtResource("6_stats")
-source = NodePath("..")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Centinela/HitboxComponent"]
-shape = SubResource("HitboxShape")
-
-[node name="PerceptComponent" type="Node" parent="Centinela" node_paths=PackedStringArray("actor", "hitbox")]
-script = ExtResource("3_percept")
-actor = NodePath("..")
-tree = ExtResource("4_tree")
-tick_rate = 0.1
-hitbox = NodePath("../HitboxComponent")
-
-[node name="HurtboxComponent" type="Area3D" parent="Centinela" node_paths=PackedStringArray("health_component")]
-collision_layer = 16
-collision_mask = 32
-script = ExtResource("8_hurtbox")
-health_component = NodePath("../HealthComponent")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Centinela/HurtboxComponent"]
-shape = SubResource("CentinelaShape")
-
-[node name="EnemyDeathComponent" type="Node" parent="Centinela" node_paths=PackedStringArray("health_component", "hurtbox", "hitbox", "owner_body")]
-script = ExtResource("9_death")
-health_component = NodePath("../HealthComponent")
-hurtbox = NodePath("../HurtboxComponent")
-hitbox = NodePath("../HitboxComponent")
-owner_body = NodePath("..")
-
-[node name="DebugOverlay" type="CanvasLayer" parent="."]
-
-[node name="Label" type="Label" parent="DebugOverlay" node_paths=PackedStringArray("percept", "health")]
+[node name="Label" type="Label" parent="DebugOverlay" unique_id=893622289]
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 420.0
 offset_bottom = 160.0
 script = ExtResource("2_overlay")
-percept = NodePath("../../Centinela/PerceptComponent")
 branch_names = Array[String](["1. Disparo en curso", "2. Empujón", "3. Iniciar láser", "4. Apuntar"])
 blackboard_keys = Array[String](["attacking", "firing", "reloading"])
-health = NodePath("../../Centinela/HealthComponent")
+
+[node name="Centinela2" parent="." unique_id=1893237813 instance=ExtResource("11_cewwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.386939, 0.0804435, -2.4546242)
