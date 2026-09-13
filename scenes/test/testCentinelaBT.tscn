@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/components/HitboxComponent.gd" id="7_hitbox"]
 [ext_resource type="Script" path="res://scripts/components/HurtboxComponent.gd" id="8_hurtbox"]
 [ext_resource type="Script" path="res://scripts/components/EnemyDeathComponent.gd" id="9_death"]
+[ext_resource type="Resource" path="res://resources/stats/player_debug_attack_stats.tres" id="10_debug_stats"]
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
 size = Vector3(24, 0.2, 10)
@@ -96,17 +97,29 @@ shape = SubResource("WallEWShape")
 [node name="Mesh" type="MeshInstance3D" parent="Room/WallWest"]
 mesh = SubResource("WallEWMesh")
 
-[node name="PlayerControllable" type="CharacterBody3D" parent="." groups=["players"]]
+[node name="PlayerControllable" type="CharacterBody3D" parent="." groups=["players"] node_paths=PackedStringArray("hitbox")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.9, -3)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_player")
+hitbox = NodePath("HitboxComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable"]
 shape = SubResource("PlayerShape")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerControllable"]
 mesh = SubResource("PlayerMesh")
+
+[node name="HitboxComponent" type="Area3D" parent="PlayerControllable" node_paths=PackedStringArray("source")]
+collision_layer = 32
+collision_mask = 16
+monitoring = false
+script = ExtResource("7_hitbox")
+stats = ExtResource("10_debug_stats")
+source = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable/HitboxComponent"]
+shape = SubResource("HitboxShape")
 
 [node name="PlayerStatic" type="CharacterBody3D" parent="." groups=["players"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.9, 0)
@@ -170,7 +183,7 @@ owner_body = NodePath("..")
 
 [node name="DebugOverlay" type="CanvasLayer" parent="."]
 
-[node name="Label" type="Label" parent="DebugOverlay" node_paths=PackedStringArray("percept")]
+[node name="Label" type="Label" parent="DebugOverlay" node_paths=PackedStringArray("percept", "health")]
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 420.0
@@ -179,3 +192,4 @@ script = ExtResource("2_overlay")
 percept = NodePath("../../Centinela/PerceptComponent")
 branch_names = Array[String](["1. Disparo en curso", "2. Empujón", "3. Iniciar láser", "4. Apuntar"])
 blackboard_keys = Array[String](["attacking", "firing", "reloading"])
+health = NodePath("../../Centinela/HealthComponent")

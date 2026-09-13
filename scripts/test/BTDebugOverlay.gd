@@ -10,6 +10,7 @@ extends Label
 @export var percept: PerceptComponent
 @export var branch_names: Array[String] = []
 @export var blackboard_keys: Array[String] = []
+@export var health: HealthComponent
 
 func _process(_delta: float) -> void:
 	if percept == null:
@@ -23,6 +24,8 @@ func _process(_delta: float) -> void:
 	]
 	for key in blackboard_keys:
 		lines.append("%s: %s" % [key, percept.blackboard.get(key, false)])
+	if health != null:
+		lines.append("Vida: %d" % health.current_health)
 	text = "\n".join(lines)
 
 func _active_branch_name() -> String:
