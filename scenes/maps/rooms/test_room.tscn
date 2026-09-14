@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://b8p30jmfpjgi4"]
 
 [ext_resource type="Script" uid="uid://dqjds2236kjuh" path="res://scripts/maps/test_room_spawner.gd" id="1_k2ml6"]
+[ext_resource type="PackedScene" uid="uid://bvl0vay2np0rk" path="res://scenes/entities/players/nitzsch.tscn" id="2_1htl0"]
+[ext_resource type="PackedScene" uid="uid://cbhbrdnsv1ksh" path="res://scenes/entities/players/plato.tscn" id="3_vow1o"]
 
 [sub_resource type="Environment" id="Environment_ygx7y"]
 ambient_light_source = 2
@@ -55,6 +57,7 @@ albedo_color = Color(0.37716255, 0.37716258, 0.37716255, 1)
 
 [node name="TestRoom" type="Node3D" unique_id=2041491567]
 script = ExtResource("1_k2ml6")
+player_scenes = Array[PackedScene]([ExtResource("2_1htl0"), ExtResource("3_vow1o")])
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=883347460]
 transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 10, 8)
