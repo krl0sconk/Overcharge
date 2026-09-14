@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://cbhbrdnsv1ksh"]
+
+[ext_resource type="Script" uid="uid://bfjeql4frjikr" path="res://scripts/entities/entidad.gd" id="1_wwtk3"]
+[ext_resource type="Script" uid="uid://eg6mlm88houw" path="res://scripts/components/HealthComponent.gd" id="2_y7qex"]
+[ext_resource type="Resource" uid="uid://bp3p6li46dtqu" path="res://resources/stats/player2_stats.tres" id="3_iy3nf"]
+[ext_resource type="Script" uid="uid://b1v6j57gquh45" path="res://scripts/components/HurtboxComponent.gd" id="4_a8a64"]
+[ext_resource type="Script" uid="uid://bfm0hkuqmy8ba" path="res://scripts/components/HitboxComponent.gd" id="5_ujryy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j8abd"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_j8abd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p2rji"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lka76"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nc3cx"]
+
+[node name="Plato" type="CharacterBody3D" unique_id=1961644514]
+collision_layer = 2
+collision_mask = 16
+script = ExtResource("1_wwtk3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=76895931]
+shape = SubResource("BoxShape3D_j8abd")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=341109654]
+layers = 5
+mesh = SubResource("BoxMesh_j8abd")
+surface_material_override/0 = SubResource("StandardMaterial3D_p2rji")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1754530396]
+script = ExtResource("2_y7qex")
+stats = ExtResource("3_iy3nf")
+
+[node name="HurtboxComponent" type="Area3D" parent="." unique_id=1119680267 node_paths=PackedStringArray("health_component")]
+collision_layer = 8
+collision_mask = 64
+script = ExtResource("4_a8a64")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=1322594803]
+shape = SubResource("BoxShape3D_lka76")
+
+[node name="HitboxComponent" type="Area3D" parent="." unique_id=825332453 node_paths=PackedStringArray("source")]
+collision_layer = 32
+collision_mask = 16
+script = ExtResource("5_ujryy")
+stats = ExtResource("3_iy3nf")
+source = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=453942044]
+shape = SubResource("BoxShape3D_nc3cx")
+
+[node name="MovementComponent" type="Node" parent="." unique_id=14967886]
+
+[node name="AbilityComponent" type="Node" parent="." unique_id=1202441786]
+
+[node name="HitFeedbackComponent" type="Node" parent="." unique_id=1673725254]
+
+[node name="InputComponent" type="Node" parent="." unique_id=970700069]
