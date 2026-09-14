@@ -5,5 +5,16 @@ extends Ability
 @export var projectile_scene: PackedScene
 
 func execute(owner_body: CharacterBody3D, direction: Vector3) -> void:
-	print("Proyectil ejecutado")	
-	#Se agregará el bloque de código una vez se tenga Projectile.tscn
+	if projectile_scene == null:
+		return
+
+	var projectile := projectile_scene.instantiate() as Projectile
+
+	if projectile == null:
+		return
+
+	projectile.speed = projectile_speed
+	projectile.setup(direction)
+
+	owner_body.get_parent().add_child(projectile)
+	projectile.global_position = owner_body.global_position
