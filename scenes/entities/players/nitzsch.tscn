@@ -1,34 +1,39 @@
 [gd_scene format=3 uid="uid://bvl0vay2np0rk"]
 
-[ext_resource type="Script" uid="uid://bfjeql4frjikr" path="res://scripts/entities/entidad.gd" id="1_q4o85"]
+[ext_resource type="PackedScene" uid="uid://dawi6exg5tsav" path="res://assets/entities/players/Ni-TZSch/Ni-TZSch.gltf" id="2_gqugu"]
 [ext_resource type="Script" uid="uid://eg6mlm88houw" path="res://scripts/components/HealthComponent.gd" id="2_vuu3n"]
 [ext_resource type="Resource" uid="uid://cnn5qtdo0mjgm" path="res://resources/stats/player1_stats.tres" id="3_ngnwb"]
 [ext_resource type="Script" uid="uid://b1v6j57gquh45" path="res://scripts/components/HurtboxComponent.gd" id="4_ngnwb"]
 [ext_resource type="Script" uid="uid://bfm0hkuqmy8ba" path="res://scripts/components/HitboxComponent.gd" id="5_a7pff"]
+[ext_resource type="Script" uid="uid://hby4bmrev1qb" path="res://scripts/components/MovementComponent/MovementComponent.gd" id="6_0ctwy"]
+[ext_resource type="Script" uid="uid://mfkxkr0v1kyu" path="res://scripts/components/AbilityComponent.gd" id="7_kcjg3"]
+[ext_resource type="Resource" uid="uid://ctdymga513w64" path="res://resources/abilities/NitzschDash.tres" id="8_rchfo"]
+[ext_resource type="Resource" uid="uid://byt8v5qwlfhl0" path="res://resources/abilities/NitzschCombo.tres" id="9_8v8bo"]
+[ext_resource type="Script" uid="uid://c1peqkah8lj6g" path="res://scripts/components/InputComponent.gd" id="10_7sbmn"]
+[ext_resource type="Script" uid="uid://ckpe7ipejhwka" path="res://scripts/components/HitFeedbackComponent.gd" id="12_74ahu"]
+[ext_resource type="Script" uid="uid://dh81d7ytvsnj3" path="res://scripts/entities/players/nitzsch.gd" id="13_controller"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j8abd"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_j8abd"]
+size = Vector3(0.54467773, 1.1705322, 0.50787354)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lka76"]
+size = Vector3(0.512146, 1.1640625, 0.32540894)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nc3cx"]
+size = Vector3(0.8930054, 1.1777344, 0.80578613)
 
 [node name="Nitzsch" type="CharacterBody3D" unique_id=1961644514]
 collision_layer = 2
-collision_mask = 16
-script = ExtResource("1_q4o85")
+collision_mask = 5
+script = ExtResource("13_controller")
+
+[node name="Model" type="Node3D" parent="." unique_id=193632633]
+
+[node name="blockbench_export" parent="Model" unique_id=936460785 instance=ExtResource("2_gqugu")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=76895931]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014038086, 0.5910034, -0.0047912598)
 shape = SubResource("BoxShape3D_j8abd")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=341109654]
-layers = 5
-mesh = SubResource("BoxMesh_j8abd")
-
-[node name="HealthComponent" type="Node" parent="." unique_id=1754530396]
-script = ExtResource("2_vuu3n")
-stats = ExtResource("3_ngnwb")
 
 [node name="HurtboxComponent" type="Area3D" parent="." unique_id=1119680267 node_paths=PackedStringArray("health_component")]
 collision_layer = 8
@@ -37,7 +42,9 @@ script = ExtResource("4_ngnwb")
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=1322594803]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.020843506, 0.6044922, -0.0077667236)
 shape = SubResource("BoxShape3D_lka76")
+debug_color = Color(0.27337456, 0.560343, 0, 0.41960785)
 
 [node name="HitboxComponent" type="Area3D" parent="." unique_id=825332453 node_paths=PackedStringArray("source")]
 collision_layer = 32
@@ -47,12 +54,40 @@ stats = ExtResource("3_ngnwb")
 source = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=453942044]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.031585693, 0.5986328, -0.015075684)
 shape = SubResource("BoxShape3D_nc3cx")
+debug_color = Color(0.8906444, 0, 0.052586533, 0.41960785)
 
-[node name="MovementComponent" type="Node" parent="." unique_id=14967886]
+[node name="MovementComponent" type="Node" parent="." unique_id=1017592775 node_paths=PackedStringArray("owner_body")]
+script = ExtResource("6_0ctwy")
+owner_body = NodePath("..")
+stats = ExtResource("3_ngnwb")
+metadata/_custom_type_script = "uid://hby4bmrev1qb"
 
-[node name="AbilityComponent" type="Node" parent="." unique_id=1202441786]
+[node name="DashAbilityComponent" type="Node" parent="." unique_id=1015365903 node_paths=PackedStringArray("owner_body", "movement_component")]
+script = ExtResource("7_kcjg3")
+ability = ExtResource("8_rchfo")
+owner_body = NodePath("..")
+movement_component = NodePath("../MovementComponent")
+metadata/_custom_type_script = "uid://mfkxkr0v1kyu"
 
-[node name="HitFeedbackComponent" type="Node" parent="." unique_id=1673725254]
+[node name="ComboAbilityComponent" type="Node" parent="." unique_id=294770763 node_paths=PackedStringArray("owner_body", "movement_component")]
+script = ExtResource("7_kcjg3")
+ability = ExtResource("9_8v8bo")
+owner_body = NodePath("..")
+movement_component = NodePath("../MovementComponent")
+metadata/_custom_type_script = "uid://mfkxkr0v1kyu"
 
-[node name="InputComponent" type="Node" parent="." unique_id=970700069]
+[node name="InputComponent" type="Node" parent="." unique_id=1960145172]
+script = ExtResource("10_7sbmn")
+metadata/_custom_type_script = "uid://c1peqkah8lj6g"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1754530396]
+script = ExtResource("2_vuu3n")
+stats = ExtResource("3_ngnwb")
+
+[node name="HitFeedbackComponent" type="Node" parent="." unique_id=641307787 node_paths=PackedStringArray("health_component", "model")]
+script = ExtResource("12_74ahu")
+health_component = NodePath("../HealthComponent")
+model = NodePath("../Model")
+metadata/_custom_type_script = "uid://ckpe7ipejhwka"
