@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://cp5l04e3cgc51" path="res://scripts/ai/components/PerceptComponent.gd" id="8_texxg"]
 [ext_resource type="Resource" uid="uid://11x274frep44" path="res://resources/ai/trees/spam.tres" id="9_4qpaw"]
 [ext_resource type="Script" uid="uid://bhibjyin08b8e" path="res://scripts/components/CorruptionTrailComponent.gd" id="9_b3j21"]
+[ext_resource type="Script" uid="uid://bfjeql4frjikr" path="res://scripts/entities/entidad.gd" id="10_entidad"]
+[ext_resource type="PackedScene" path="res://scenes/test/corruption_blot.tscn" id="11_blot"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jblmv"]
 size = Vector3(1.36063, 1.4251709, 2.3919926)
@@ -19,6 +21,7 @@ size = Vector3(0.89500403, 0.84072876, 1.482502)
 [node name="Virus" type="CharacterBody3D" unique_id=1893237813]
 collision_layer = 4
 collision_mask = 7
+script = ExtResource("10_entidad")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=284865470]
 transform = Transform3D(0.565, 0, 0, 0, 0.565, 0, 0, 0, 0.565, 0.00021013618, 0.40543038, 0.32218075)
@@ -72,4 +75,5 @@ metadata/_custom_type_script = "uid://cp5l04e3cgc51"
 [node name="CorruptionTrailComponent" type="Node" parent="." unique_id=631785090 node_paths=PackedStringArray("owner_body")]
 script = ExtResource("9_b3j21")
 owner_body = NodePath("..")
+blot_scene = ExtResource("11_blot")
 metadata/_custom_type_script = "uid://bhibjyin08b8e"

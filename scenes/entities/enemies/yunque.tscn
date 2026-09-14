@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://cp5l04e3cgc51" path="res://scripts/ai/components/PerceptComponent.gd" id="8_62db5"]
 [ext_resource type="Resource" uid="uid://b4m3nbowisqfe" path="res://resources/ai/trees/yunque.tres" id="9_sfn6h"]
 [ext_resource type="Script" path="res://scripts/components/ChargeAnticipationComponent.gd" id="10_charge_fx"]
+[ext_resource type="Script" uid="uid://bfjeql4frjikr" path="res://scripts/entities/entidad.gd" id="11_entidad"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jblmv"]
 size = Vector3(1.1262207, 1, 1.1016235)
@@ -23,6 +24,7 @@ size = Vector3(0.70573425, 0.5716553, 0.7805176)
 [node name="Yunque" type="CharacterBody3D" unique_id=1893237813]
 collision_layer = 4
 collision_mask = 7
+script = ExtResource("11_entidad")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=284865470]
 transform = Transform3D(0.565, 0, 0, 0, 0.565, 0, 0, 0, 0.565, 0.0010345448, 0.2812504, -0.003810577)
