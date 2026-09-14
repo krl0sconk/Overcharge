@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ComboAbility" format=3 uid="uid://byt8v5qwlfhl0"]
+
+[ext_resource type="Script" uid="uid://rsmkrck4piuq" path="res://scripts/abilities/ComboAbility.gd" id="1_oowvl"]
+
+[resource]
+script = ExtResource("1_oowvl")
+cooldown = 2.0
+duration = 0.3
+metadata/_custom_type_script = "uid://rsmkrck4piuq"

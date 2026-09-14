@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="DashAbility" format=3 uid="uid://ctdymga513w64"]
+
+[ext_resource type="Script" uid="uid://dwnr68eoqd6hc" path="res://scripts/abilities/DashAbility.gd" id="1_vfxbb"]
+
+[resource]
+script = ExtResource("1_vfxbb")
+metadata/_custom_type_script = "uid://dwnr68eoqd6hc"
