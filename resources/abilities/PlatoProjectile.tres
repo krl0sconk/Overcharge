@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ProjectileAbility" format=3 uid="uid://cpt6xpcotukc"]
+
+[ext_resource type="Script" uid="uid://bue8ncdmx7agq" path="res://scripts/abilities/ProjectileAbility.gd" id="1_1fxya"]
+[ext_resource type="PackedScene" uid="uid://cgs0vu2sa2mv0" path="res://scenes/entities/players/Projectile.tscn" id="1_b4x2f"]
+
+[resource]
+script = ExtResource("1_1fxya")
+projectile_scene = ExtResource("1_b4x2f")
+metadata/_custom_type_script = "uid://bue8ncdmx7agq"
