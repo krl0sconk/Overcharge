@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://b4vnv0pwnrdo2" path="res://scripts/components/EnemyDeathComponent.gd" id="7_yrw13"]
 [ext_resource type="Script" uid="uid://cp5l04e3cgc51" path="res://scripts/ai/components/PerceptComponent.gd" id="8_62db5"]
 [ext_resource type="Resource" uid="uid://b4m3nbowisqfe" path="res://resources/ai/trees/yunque.tres" id="9_sfn6h"]
+[ext_resource type="Script" path="res://scripts/components/ChargeAnticipationComponent.gd" id="10_charge_fx"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jblmv"]
 size = Vector3(1.1262207, 1, 1.1016235)
@@ -83,3 +84,8 @@ tree = ExtResource("9_sfn6h")
 movement_component = NodePath("../MovementComponent")
 hitbox = NodePath("../HitboxComponent")
 metadata/_custom_type_script = "uid://cp5l04e3cgc51"
+
+[node name="ChargeAnticipationComponent" type="Node" parent="." node_paths=PackedStringArray("model", "percept")]
+script = ExtResource("10_charge_fx")
+model = NodePath("../Model")
+percept = NodePath("../PerceptComponent")
