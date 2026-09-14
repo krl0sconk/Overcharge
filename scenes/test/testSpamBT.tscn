@@ -6,11 +6,11 @@
 [ext_resource type="Resource" uid="uid://11x274frep44" path="res://resources/ai/trees/spam.tres" id="4_tree"]
 [ext_resource type="Script" uid="uid://hby4bmrev1qb" path="res://scripts/components/MovementComponent/MovementComponent.gd" id="5_movement"]
 [ext_resource type="Script" uid="uid://eg6mlm88houw" path="res://scripts/components/HealthComponent.gd" id="6_health"]
-[ext_resource type="Resource" path="res://resources/stats/spam_stats.tres" id="7_stats"]
+[ext_resource type="Resource" uid="uid://gdpk314qnmc5" path="res://resources/stats/spam_stats.tres" id="7_stats"]
 [ext_resource type="Script" uid="uid://bfm0hkuqmy8ba" path="res://scripts/components/HitboxComponent.gd" id="8_hitbox"]
 [ext_resource type="Script" uid="uid://b1v6j57gquh45" path="res://scripts/components/HurtboxComponent.gd" id="9_hurtbox"]
 [ext_resource type="Script" uid="uid://b4vnv0pwnrdo2" path="res://scripts/components/EnemyDeathComponent.gd" id="10_death"]
-[ext_resource type="Resource" path="res://resources/stats/player_debug_attack_stats.tres" id="11_debug_stats"]
+[ext_resource type="Resource" uid="uid://cco5yh4dc6q21" path="res://resources/stats/player_debug_attack_stats.tres" id="11_debug_stats"]
 [ext_resource type="PackedScene" uid="uid://twwwgkhxbnpr" path="res://scenes/entities/enemies/spam.tscn" id="12_ioihx"]
 
 [sub_resource type="BoxShape3D" id="FloorShape"]

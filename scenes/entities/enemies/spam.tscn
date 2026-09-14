@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://b4vnv0pwnrdo2" path="res://scripts/components/EnemyDeathComponent.gd" id="6_lyidy"]
 [ext_resource type="Script" uid="uid://cp5l04e3cgc51" path="res://scripts/ai/components/PerceptComponent.gd" id="7_dncpk"]
 [ext_resource type="Resource" uid="uid://11x274frep44" path="res://resources/ai/trees/spam.tres" id="8_fmtxb"]
+[ext_resource type="Script" path="res://scripts/components/SlimeHopComponent.gd" id="9_hop"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jblmv"]
 size = Vector3(1.1262207, 1, 1.1016235)
@@ -83,3 +84,8 @@ tree = ExtResource("8_fmtxb")
 movement_component = NodePath("../MovementComponent")
 hitbox = NodePath("../HitboxComponent")
 metadata/_custom_type_script = "uid://cp5l04e3cgc51"
+
+[node name="SlimeHopComponent" type="Node" parent="." node_paths=PackedStringArray("model", "movement_component")]
+script = ExtResource("9_hop")
+model = NodePath("../Model")
+movement_component = NodePath("../MovementComponent")
