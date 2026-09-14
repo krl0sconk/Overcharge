@@ -5,4 +5,11 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_opjlr")
-speed = 10.0
+
+
+max_health = 120
+speed = 4.5
+acceleration = 9.0
+damage = 15
+attack_cooldown = 1.2
+ability_cooldown = 1.5
