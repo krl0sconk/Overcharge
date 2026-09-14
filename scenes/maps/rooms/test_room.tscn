@@ -13,51 +13,23 @@ ambient_light_source = 2
 ambient_light_color = Color(0.7953939, 0.79539394, 0.7953939, 1)
 ambient_light_energy = 0.5
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_j8abd"]
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(10, 0.2, 10)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ygx7y"]
-size = Vector3(1, 0.023925781, 1)
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(10, 0.2, 10)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_k2ml6"]
-size = Vector3(0.025878906, 1, 1)
+[sub_resource type="BoxShape3D" id="WallNSShape"]
+size = Vector3(10, 3, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_nq0do"]
-size = Vector3(0.026, 0.39404297, 1)
+[sub_resource type="BoxMesh" id="WallNSMesh"]
+size = Vector3(10, 3, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_1htl0"]
-size = Vector3(0.026, 1, 1)
+[sub_resource type="BoxShape3D" id="WallEWShape"]
+size = Vector3(0.5, 3, 10)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_vow1o"]
-size = Vector3(0.026, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_3xrxx"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lka76"]
-albedo_color = Color(0.37716255, 0.37716258, 0.37716255, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_lka76"]
-size = Vector3(1, 0.024, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ygx7y"]
-albedo_color = Color(0.37716255, 0.37716258, 0.37716255, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_nc3cx"]
-size = Vector3(0.026, 0.394, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k2ml6"]
-albedo_color = Color(0.37716255, 0.37716258, 0.37716255, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_ygx7y"]
-size = Vector3(0.026, 1, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nq0do"]
-albedo_color = Color(0.37716255, 0.37716258, 0.37716255, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_k2ml6"]
-size = Vector3(0.026, 1, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1htl0"]
-albedo_color = Color(0.37716255, 0.37716258, 0.37716255, 1)
+[sub_resource type="BoxMesh" id="WallEWMesh"]
+size = Vector3(0.5, 3, 10)
 
 [node name="TestRoom" type="Node3D" unique_id=2041491567]
 script = ExtResource("1_k2ml6")
@@ -71,52 +43,43 @@ current = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=48934665]
 environment = SubResource("Environment_ygx7y")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=346477843]
-transform = Transform3D(7.98, 0, 0, 0, 7.98, 0, 0, 0, 7.98, 0, 0, 0)
-physics_material_override = SubResource("PhysicsMaterial_j8abd")
+[node name="Room" type="StaticBody3D" parent="." unique_id=346477843]
+collision_mask = 0
 
-[node name="suelo" type="CollisionShape3D" parent="StaticBody3D" unique_id=720638984]
-shape = SubResource("BoxShape3D_ygx7y")
+[node name="Floor" type="CollisionShape3D" parent="Room" unique_id=720638984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("FloorShape")
 
-[node name="Pared1" type="CollisionShape3D" parent="StaticBody3D" unique_id=564925271]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5001883, 0.49176198, 0)
-shape = SubResource("BoxShape3D_k2ml6")
+[node name="Mesh" type="MeshInstance3D" parent="Room/Floor" unique_id=1342040279]
+mesh = SubResource("FloorMesh")
 
-[node name="Pared2" type="CollisionShape3D" parent="StaticBody3D" unique_id=1539494364]
-transform = Transform3D(-0.00034098228, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -0.00034098228, 0, 0.19702151, 0.486766)
-shape = SubResource("BoxShape3D_nq0do")
+[node name="WallNorth" type="CollisionShape3D" parent="Room" unique_id=564925271]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -5)
+shape = SubResource("WallNSShape")
 
-[node name="Pared3" type="CollisionShape3D" parent="StaticBody3D" unique_id=994848821]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.48648, 0.48049837, 0)
-shape = SubResource("BoxShape3D_1htl0")
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallNorth" unique_id=801748406]
+mesh = SubResource("WallNSMesh")
 
-[node name="Pared4" type="CollisionShape3D" parent="StaticBody3D" unique_id=1567067719]
-transform = Transform3D(-0.00034098228, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -0.00034098228, 0, 0.5, -0.49883097)
-shape = SubResource("BoxShape3D_vow1o")
+[node name="WallSouth" type="CollisionShape3D" parent="Room" unique_id=1539494364]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5)
+shape = SubResource("WallNSShape")
 
-[node name="Pared1Mesh" type="MeshInstance3D" parent="StaticBody3D" unique_id=801748406]
-transform = Transform3D(0.026, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.492, 0)
-mesh = SubResource("BoxMesh_3xrxx")
-surface_material_override/0 = SubResource("StandardMaterial3D_lka76")
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallSouth" unique_id=1195173744]
+mesh = SubResource("WallNSMesh")
 
-[node name="SueloMesh" type="MeshInstance3D" parent="StaticBody3D" unique_id=1342040279]
-mesh = SubResource("BoxMesh_lka76")
-surface_material_override/0 = SubResource("StandardMaterial3D_ygx7y")
+[node name="WallEast" type="CollisionShape3D" parent="Room" unique_id=994848821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 0)
+shape = SubResource("WallEWShape")
 
-[node name="Pared2Mesh" type="MeshInstance3D" parent="StaticBody3D" unique_id=1195173744]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.197, 0.487)
-mesh = SubResource("BoxMesh_nc3cx")
-surface_material_override/0 = SubResource("StandardMaterial3D_k2ml6")
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallEast" unique_id=1252238756]
+mesh = SubResource("WallEWMesh")
 
-[node name="Pared3Mesh" type="MeshInstance3D" parent="StaticBody3D" unique_id=1252238756]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.486, 0.48, 0)
-mesh = SubResource("BoxMesh_ygx7y")
-surface_material_override/0 = SubResource("StandardMaterial3D_nq0do")
+[node name="WallWest" type="CollisionShape3D" parent="Room" unique_id=1567067719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, 0)
+shape = SubResource("WallEWShape")
 
-[node name="Pared4Mesh" type="MeshInstance3D" parent="StaticBody3D" unique_id=1705863530]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.5, -0.499)
-mesh = SubResource("BoxMesh_k2ml6")
-surface_material_override/0 = SubResource("StandardMaterial3D_1htl0")
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallWest" unique_id=1705863530]
+mesh = SubResource("WallEWMesh")
 
 [node name="player1" type="Marker3D" parent="." unique_id=786578677 groups=["player_spawn"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.01, 3)
