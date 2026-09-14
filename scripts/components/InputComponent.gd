@@ -14,9 +14,9 @@ var _move_down: float = 0.0
 
 
 func _input(event: InputEvent) -> void:
-	if event.device != device_id:
+	if not _event_targets_this_player(event):
 		return
-	
+
 	if event.is_action_pressed("move_right"):
 		_move_right = 1.0
 
@@ -74,3 +74,19 @@ func consume_dash() -> bool:
 
 	wants_dash = false
 	return true
+
+## Reparte teclado y controles entre los dos jugadores: teclado/mouse
+## siempre es del jugador 1 (Godot no tiene "id de teclado" para repartirlo
+## por device). Para gamepads: con uno solo conectado (teclado + control),
+## ese control es del jugador 2 -- el 1 ya tiene teclado; con dos (control +
+## control), cada uno va a su índice de conexión.
+func _event_targets_this_player(event: InputEvent) -> bool:
+	if event is InputEventKey or event is InputEventMouseButton:
+		return device_id == 0
+
+	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		if Input.get_connected_joypads().size() <= 1:
+			return device_id == 1
+		return event.device == device_id
+
+	return event.device == device_id
