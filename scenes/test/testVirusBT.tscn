@@ -114,7 +114,7 @@ offset_top = 16.0
 offset_right = 420.0
 offset_bottom = 160.0
 script = ExtResource("2_overlay")
-branch_names = Array[String](["1. Perseguir", "2. Patrullar"])
+branch_names = Array[String](["1. Huir", "2. Rodear", "3. Patrullar"])
 
 [node name="Virus" parent="." unique_id=1893237813 instance=ExtResource("5_pvkwq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7688999, 0.11100955, -1.7508159)

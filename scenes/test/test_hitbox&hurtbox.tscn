@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cy2fniquocxmj"]
 
-[ext_resource type="Script" uid="uid://datwv3c5ldu8y" path="res://scripts/components/TestComponents/test_hitbox&hurtbox.gd" id="1_el01u"]
+[ext_resource type="Script" uid="uid://datwv3c5ldu8y" path="res://scripts/components/TestComponents/test_hitbox_hurtbox.gd" id="1_el01u"]
 [ext_resource type="Script" uid="uid://eg6mlm88houw" path="res://scripts/components/HealthComponent.gd" id="1_fetq7"]
 [ext_resource type="Script" uid="uid://b1v6j57gquh45" path="res://scripts/components/HurtboxComponent.gd" id="2_el01u"]
 [ext_resource type="Script" uid="uid://bfm0hkuqmy8ba" path="res://scripts/components/HitboxComponent.gd" id="3_7mm84"]

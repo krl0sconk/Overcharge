@@ -7,10 +7,10 @@
 [ext_resource type="Script" uid="uid://hby4bmrev1qb" path="res://scripts/components/MovementComponent/MovementComponent.gd" id="6_3liph"]
 [ext_resource type="Script" uid="uid://b4vnv0pwnrdo2" path="res://scripts/components/EnemyDeathComponent.gd" id="7_eq488"]
 [ext_resource type="Script" uid="uid://cp5l04e3cgc51" path="res://scripts/ai/components/PerceptComponent.gd" id="8_texxg"]
-[ext_resource type="Resource" uid="uid://11x274frep44" path="res://resources/ai/trees/spam.tres" id="9_4qpaw"]
+[ext_resource type="Resource" uid="uid://beqrw0x8o1d7o" path="res://resources/ai/trees/virus.tres" id="9_4qpaw"]
 [ext_resource type="Script" uid="uid://bhibjyin08b8e" path="res://scripts/components/CorruptionTrailComponent.gd" id="9_b3j21"]
 [ext_resource type="Script" uid="uid://bfjeql4frjikr" path="res://scripts/entities/entidad.gd" id="10_entidad"]
-[ext_resource type="PackedScene" path="res://scenes/test/corruption_blot.tscn" id="11_blot"]
+[ext_resource type="PackedScene" uid="uid://cadgevbh3p36x" path="res://scenes/test/corruption_blot.tscn" id="11_blot"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jblmv"]
 size = Vector3(1.36063, 1.4251709, 2.3919926)
@@ -29,8 +29,11 @@ shape = SubResource("BoxShape3D_jblmv")
 
 [node name="Model" type="Node3D" parent="." unique_id=567578340]
 
-[node name="blockbench_export" parent="Model" unique_id=377586064 instance=ExtResource("1_v1buw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.64311934)
+[node name="blockbench_export" parent="Model" unique_id=317474219 instance=ExtResource("1_v1buw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.6993228)
+
+[node name="BlotSpawnPoint" type="Node3D" parent="." unique_id=908214773]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03369461, 1.0353647)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1178523152]
 script = ExtResource("2_b3j21")
@@ -56,24 +59,24 @@ owner_body = NodePath("..")
 stats = ExtResource("3_v1buw")
 metadata/_custom_type_script = "uid://hby4bmrev1qb"
 
-[node name="EnemyDeathComponent" type="Node" parent="." unique_id=1049085943 node_paths=PackedStringArray("health_component", "hurtbox", "hitbox", "owner_body")]
+[node name="EnemyDeathComponent" type="Node" parent="." unique_id=1049085943 node_paths=PackedStringArray("health_component", "hurtbox", "owner_body")]
 script = ExtResource("7_eq488")
 health_component = NodePath("../HealthComponent")
 hurtbox = NodePath("../HurtboxComponent")
-hitbox = NodePath("")
 owner_body = NodePath("..")
 metadata/_custom_type_script = "uid://b4vnv0pwnrdo2"
 
-[node name="PerceptComponent" type="Node" parent="." unique_id=217211120 node_paths=PackedStringArray("actor", "movement_component", "hitbox")]
+[node name="PerceptComponent" type="Node" parent="." unique_id=217211120 node_paths=PackedStringArray("actor", "movement_component", "health_component")]
 script = ExtResource("8_texxg")
 actor = NodePath("..")
 tree = ExtResource("9_4qpaw")
 movement_component = NodePath("../MovementComponent")
-hitbox = NodePath("")
+health_component = NodePath("../HealthComponent")
 metadata/_custom_type_script = "uid://cp5l04e3cgc51"
 
-[node name="CorruptionTrailComponent" type="Node" parent="." unique_id=631785090 node_paths=PackedStringArray("owner_body")]
+[node name="CorruptionTrailComponent" type="Node" parent="." unique_id=631785090 node_paths=PackedStringArray("owner_body", "spawn_point")]
 script = ExtResource("9_b3j21")
 owner_body = NodePath("..")
+spawn_point = NodePath("../BlotSpawnPoint")
 blot_scene = ExtResource("11_blot")
 metadata/_custom_type_script = "uid://bhibjyin08b8e"

@@ -54,10 +54,13 @@ res://
     entities/              entidad.gd (clase base)
     entities/players/      nitzsch.gd, plato.gd
     entities/enemies/      spam.gd, centinela.gd, ...
-    components/            health_component.gd, movement_component.gd, ...
-    abilities/             dash_ability.gd, combo_ability.gd, ...
-    ai/nodes/              bt_selector.gd, bt_sequence.gd, hojas
-    ai/trees/              árboles armados por enemigo
+    components/            HealthComponent.gd, MovementComponent.gd, ...
+    abilities/             DashAbility.gd, ComboAbility.gd, ...
+    ai/components/         todo el árbol de IA en una sola carpeta: clases base
+                           (PerceptNode, PerceptComponent), composites y condiciones
+                           (Selector, Sequence, PerceptCondition, PerceptDecorator)
+                           y hojas de acción (AcquireTarget, MoveToTarget,
+                           MeleeAttack, ...)
     maps/                  generador de grafo, validación BFS, pathfinding
     ui/
     autoload/              event_bus.gd
@@ -65,7 +68,19 @@ res://
   resources/               archivos .tres (datos, no código ni escena)
     stats/                 spam_stats.tres, nitzsch_stats.tres, ...
     abilities/             nitzsch_dash.tres, plato_bounce.tres, ...
+    ai/trees/              árboles armados por enemigo: centinela.tres, spam.tres,
+                           virus.tres, yunque.tres
+
+  addons/                  plugins de editor; no se empaquetan con el juego
+    percept_editor/        panel visual propio del equipo para armar y depurar
+                           los árboles de ai/components como .tres (ver nota abajo)
 ```
+
+`percept_editor` es una herramienta de editor hecha por el equipo, no un plugin de
+terceros: arma visualmente los mismos nodos de `ai/components` y los guarda como
+`.tres`. No reemplaza la lógica del árbol ni el motor de behavior trees, así que no
+contradice la regla de no usar LimboAI/Beehave. El juego no depende de `addons/`
+en runtime.
 
 Un elemento del juego se reparte entre carpetas: el script en `scripts/`, la escena en
 `scenes/`, el arte en `assets/`, los datos en `resources/`. **Usá siempre el mismo nombre base
@@ -124,7 +139,13 @@ distintos componentes encima.
 | `InputComponent` | Traduce input a intenciones. |
 | `AbilityComponent` | Ejecuta una habilidad y maneja su cooldown. |
 | `HitFeedbackComponent` | Flash, pausa de impacto, sacudida de cámara. |
-| `BehaviorTreeComponent` | Monta y ejecuta un árbol. Solo enemigos. |
+| `PerceptComponent` | Monta y tickea un árbol de `ai/components` (.tres). Solo enemigos. |
+| `EnemyDeathComponent` | Despawnea al enemigo al morir. El jugador no despawnea, revive. |
+| `LaserSightComponent` | Mira láser de apuntado, sincronizada con la dirección lógica del `PerceptComponent`. |
+| `ChargeAnticipationComponent` | Puesta en escena visual del embiste (telegraph/carga/stun), lee el blackboard del `PerceptComponent`. |
+| `CorruptionBlotComponent` | Mancha de corrupción: daño periódico y autodestrucción por tiempo de vida. |
+| `CorruptionTrailComponent` | Suelta manchas de corrupción según la distancia recorrida. |
+| `SlimeHopComponent` | Anima salto y aplastado (squash & stretch) para enemigos sin animación de caminata propia. |
 
 ---
 
@@ -156,8 +177,15 @@ sin tocar la física, y El Yunque tiene hurtbox trasera y ninguna frontal.
 **Idioma:** código, clases, variables y señales en **inglés**. Comentarios, commits y
 documentación en **español**. Nunca mezclar idiomas dentro de un identificador.
 
-- Archivos y carpetas en `snake_case`: `health_component.gd`, `spam_stats.tres`
-- Escena, script y datos de un mismo elemento comparten el nombre base
+- Carpetas y archivos que no son código (`.tscn`, `.tres`) en `snake_case`:
+  `spam_stats.tres`, `test_room.tscn`.
+- Scripts con un `class_name` reutilizable en varias escenas (componentes,
+  habilidades, nodos de IA) en `PascalCase`, igual al `class_name`:
+  `HealthComponent.gd`, `PerceptNode.gd`, `DashAbility.gd`.
+- Scripts atados a un solo elemento del juego, que comparten nombre base con su
+  escena/datos (ver "Estructura de carpetas" arriba), y los autoloads, en
+  `snake_case` aunque tengan `class_name`: `entidad.gd` (`class_name Entidad`),
+  `nitzsch.gd`, `event_bus.gd`.
 - Clases en `PascalCase` y **siempre con `class_name`**
 - Variables y funciones en `snake_case`; privadas con guion bajo: `_cooldown_timer`
 - Constantes en `SCREAMING_SNAKE_CASE`
@@ -172,7 +200,11 @@ documentación en **español**. Nunca mezclar idiomas dentro de un identificador
 | `...Component` | Componentes montables |
 | `...Ability` | Habilidades (Resource) |
 | `...Stats` | Datos de balance (Resource) |
-| `BT...` | Nodos del behavior tree |
+| `Percept...` | Clases base del árbol de IA: `PerceptNode`, `PerceptComponent`, `PerceptComposite`, `PerceptCondition`, `PerceptDecorator` |
+
+Los nodos concretos del árbol (composites y hojas) no llevan sufijo fijo: se
+nombran por lo que hacen y heredan de una de las clases `Percept...` de arriba
+(`Selector`, `Sequence`, `AcquireTarget`, `MoveToTarget`, `MeleeAttack`, ...).
 
 ---
 

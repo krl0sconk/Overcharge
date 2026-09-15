@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctfeexyenh2nu"
-path.s3tc="res://.godot/imported/Virus_0.png-b0c3d875802ff0343da9ec14e1631d7c.s3tc.ctex"
+uid="uid://dv0qdvam885tn"
+path.s3tc="res://.godot/imported/VirusBlot_0.png-b406559c83b255ff6ecd9f3155839b1d.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "c8b007b959e7215414e5841430156563"
+"md5": "31e4fb3fa5129d8dd75595d6dafebae4"
 }
 
 [deps]
 
-source_file="res://assets/entities/enemies/virus/Virus_0.png"
-dest_files=["res://.godot/imported/Virus_0.png-b0c3d875802ff0343da9ec14e1631d7c.s3tc.ctex"]
+source_file="res://assets/entities/enemies/virus/blot/VirusBlot_0.png"
+dest_files=["res://.godot/imported/VirusBlot_0.png-b406559c83b255ff6ecd9f3155839b1d.s3tc.ctex"]
 
 [params]
 
