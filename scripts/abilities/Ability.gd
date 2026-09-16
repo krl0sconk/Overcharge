@@ -12,3 +12,5 @@ func update(delta: float) -> void:
 	pass
 func is_finished() -> bool:
 	return true
+func cancel() -> void:
+	pass

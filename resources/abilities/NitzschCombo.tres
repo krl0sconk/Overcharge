@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_oowvl")
-cooldown = 2.0
+cooldown = 0.4
 duration = 0.3
+can_chain = true
 metadata/_custom_type_script = "uid://rsmkrck4piuq"
