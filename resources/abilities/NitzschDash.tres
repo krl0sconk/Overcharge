@@ -4,4 +4,6 @@
 
 [resource]
 script = ExtResource("1_vfxbb")
+dash_speed = 10.0
+duration = 0.25
 metadata/_custom_type_script = "uid://dwnr68eoqd6hc"

@@ -7,6 +7,7 @@ extends Node
 @export var movement_component: MovementComponent
 @export var hitbox: HitboxComponent
 @export var laser: LaserSightComponent
+@export var health_component: HealthComponent  ## opcional: prende hit_recently para ramas de huida
 @export var aim_node: Node3D            ## qué gira para apuntar. Vacío = gira el actor entero.
 @export var aim_yaw_offset_deg: float = 0.0
 
@@ -24,6 +25,9 @@ var _debug_capture_owner: bool = false
 var _debug_agent_announce_accum: float = 0.0
 
 func _ready() -> void:
+	if health_component != null:
+		health_component.damaged.connect(_on_damaged)
+
 	if OS.has_feature("debug") and EngineDebugger.is_active():
 		_debug_capture_owner = get_tree().get_nodes_in_group("percept_debug_components").is_empty()
 		add_to_group("percept_debug_components")
@@ -110,6 +114,9 @@ func remember(node: PerceptNode, key: String, value: Variant) -> void:
 
 func recall(node: PerceptNode, key: String, default: Variant = null) -> Variant:
 	return memory.get(node, {}).get(key, default)
+
+func _on_damaged(_amount: int) -> void:
+	blackboard["hit_recently"] = true
 
 func _debug_enter(path: String) -> void:
 	_debug_path_stack.append(path)

@@ -28,7 +28,14 @@ func update(delta: float) -> void:
 		if chain_remaining <= 0.0:
 			chain_remaining = 0.0
 			current_hit = 0
-			combo_finished = false
+			combo_finished = true
 
 func is_finished() -> bool:
 	return combo_finished
+
+## Corta la ventana de encadenado ya mismo (ej. el jugador eligió moverse
+## en vez de seguir pegando).
+func cancel() -> void:
+	combo_finished = true
+	current_hit = 0
+	chain_remaining = 0.0

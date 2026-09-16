@@ -24,18 +24,29 @@ func try_execute() -> void:
 		movement_component.movement_enabled = false
 	ability.execute(owner_body, movement_component.move_direction) #Sujeto a cambios
 
-func _process(delta: float) -> void:
+## Corta la habilidad ya mismo. Quien llama decide cuándo es seguro (ej.
+## después de la ventana comprometida del golpe): acá no se vuelve a chequear
+## duration_remaining porque en un combo se congela en 0 después del primer
+## golpe y ya no sirve para saber si el golpe actual sigue en curso.
+func try_cancel() -> void:
+	if state != State.ACTIVE:
+		return
+	ability.cancel()
+
+func _physics_process(delta: float) -> void:
 	if state == State.ACTIVE:
-		duration_remaining -= delta
+		if duration_remaining > 0.0:
+			duration_remaining -= delta
 		ability.update(delta)
-		
-		if duration_remaining <= 0.0:
-			if ability.is_finished(): 
-				state = State.COOLDOWN
-				cooldown_remaining = ability.cooldown
-				movement_component.movement_enabled = true #Sujeto a cambios
-			else:
-				duration_remaining = ability.duration			
+
+		## duration_remaining es un mínimo, no un ciclo de polling: una vez
+		## cumplido, is_finished() se chequea todos los frames en vez de
+		## esperar a que se reagote, para no dejar al jugador congelado de
+		## más mientras la habilidad ya terminó.
+		if duration_remaining <= 0.0 and ability.is_finished():
+			state = State.COOLDOWN
+			cooldown_remaining = ability.cooldown
+			movement_component.movement_enabled = true #Sujeto a cambios
 	elif state == State.COOLDOWN:
 		cooldown_remaining -= delta
 
