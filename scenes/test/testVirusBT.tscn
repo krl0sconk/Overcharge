@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://d1tlot8kidph8"]
+
+[ext_resource type="Script" uid="uid://bx7np0qi5kcgy" path="res://scripts/test/PlayerStub.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://bg827a0vaw43" path="res://scripts/test/BTDebugOverlay.gd" id="2_overlay"]
+[ext_resource type="PackedScene" uid="uid://bfm4s8lc0tvjm" path="res://scenes/entities/enemies/virus.tscn" id="5_pvkwq"]
+[ext_resource type="Script" uid="uid://bfm0hkuqmy8ba" path="res://scripts/components/HitboxComponent.gd" id="12_hitbox"]
+[ext_resource type="Resource" uid="uid://cco5yh4dc6q21" path="res://resources/stats/player_debug_attack_stats.tres" id="13_debug_stats"]
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="BoxShape3D" id="WallNSShape"]
+size = Vector3(10, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="WallNSMesh"]
+size = Vector3(10, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="WallEWShape"]
+size = Vector3(0.5, 3, 10)
+
+[sub_resource type="BoxMesh" id="WallEWMesh"]
+size = Vector3(0.5, 3, 10)
+
+[sub_resource type="CapsuleShape3D" id="PlayerShape"]
+radius = 0.4
+height = 1.6
+
+[sub_resource type="CapsuleMesh" id="PlayerMesh"]
+radius = 0.4
+height = 1.6
+
+[sub_resource type="SphereShape3D" id="HitboxShape"]
+radius = 1.0
+
+[node name="TestVirusBT" type="Node3D" unique_id=460420032]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=309621276]
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 10, 8)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=795206686]
+transform = Transform3D(0.8660254, -0.43301272, 0.24999999, 0, 0.49999997, 0.86602545, -0.5, -0.75, 0.43301266, 0, 0, 0)
+
+[node name="Room" type="StaticBody3D" parent="." unique_id=1979026918]
+collision_mask = 0
+
+[node name="Floor" type="CollisionShape3D" parent="Room" unique_id=756854699]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("FloorShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/Floor" unique_id=2041403511]
+mesh = SubResource("FloorMesh")
+
+[node name="WallNorth" type="CollisionShape3D" parent="Room" unique_id=946331226]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -5)
+shape = SubResource("WallNSShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallNorth" unique_id=2060528322]
+mesh = SubResource("WallNSMesh")
+
+[node name="WallSouth" type="CollisionShape3D" parent="Room" unique_id=694905163]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5)
+shape = SubResource("WallNSShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallSouth" unique_id=770472079]
+mesh = SubResource("WallNSMesh")
+
+[node name="WallEast" type="CollisionShape3D" parent="Room" unique_id=887596551]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 0)
+shape = SubResource("WallEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallEast" unique_id=345611217]
+mesh = SubResource("WallEWMesh")
+
+[node name="WallWest" type="CollisionShape3D" parent="Room" unique_id=1015783635]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, 0)
+shape = SubResource("WallEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallWest" unique_id=1621188811]
+mesh = SubResource("WallEWMesh")
+
+[node name="PlayerControllable" type="CharacterBody3D" parent="." unique_id=6679228 node_paths=PackedStringArray("hitbox") groups=["players"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -3)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_player")
+hitbox = NodePath("HitboxComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable" unique_id=565993568]
+shape = SubResource("PlayerShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerControllable" unique_id=1382442589]
+mesh = SubResource("PlayerMesh")
+
+[node name="HitboxComponent" type="Area3D" parent="PlayerControllable" unique_id=1740022203 node_paths=PackedStringArray("source")]
+collision_layer = 32
+collision_mask = 16
+monitoring = false
+script = ExtResource("12_hitbox")
+stats = ExtResource("13_debug_stats")
+source = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable/HitboxComponent" unique_id=1995830246]
+shape = SubResource("HitboxShape")
+
+[node name="DebugOverlay" type="CanvasLayer" parent="." unique_id=547023771]
+
+[node name="Label" type="Label" parent="DebugOverlay" unique_id=2053736815]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 420.0
+offset_bottom = 160.0
+script = ExtResource("2_overlay")
+branch_names = Array[String](["1. Huir", "2. Rodear", "3. Patrullar"])
+
+[node name="Virus" parent="." unique_id=1893237813 instance=ExtResource("5_pvkwq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7688999, 0.11100955, -1.7508159)

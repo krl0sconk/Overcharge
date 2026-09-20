@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="StatsResource" format=3 uid="uid://cco5yh4dc6q21"]
+
+[ext_resource type="Script" uid="uid://b7khy3ovq55dd" path="res://scripts/stats_resources/stats_resource.gd" id="1_stats"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("1_stats")
+damage = 10

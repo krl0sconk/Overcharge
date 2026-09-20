@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Sequence" format=3 uid="uid://fdbc6kwb3a6j"]
+[gd_resource type="Resource" script_class="Sequence" format=3 uid="uid://b4m3nbowisqfe"]
 
 [ext_resource type="Script" uid="uid://dvdvpfqfpqims" path="res://scripts/ai/components/PerceptNode.gd" id="1_ro0dm"]
 [ext_resource type="Script" uid="uid://bgls2eiooum3r" path="res://scripts/ai/components/AcquireTarget.gd" id="AcquireTarget"]

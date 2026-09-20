@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://d33hikqnhgshl"]
+
+[ext_resource type="Script" uid="uid://bx7np0qi5kcgy" path="res://scripts/test/PlayerStub.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://bg827a0vaw43" path="res://scripts/test/BTDebugOverlay.gd" id="2_overlay"]
+[ext_resource type="Script" uid="uid://bfm0hkuqmy8ba" path="res://scripts/components/HitboxComponent.gd" id="7_hitbox"]
+[ext_resource type="Resource" path="res://resources/stats/player_debug_attack_stats.tres" id="10_debug_stats"]
+[ext_resource type="PackedScene" uid="uid://dyasvt6qqg5mx" path="res://scenes/entities/enemies/centinela.tscn" id="11_cewwy"]
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(24, 0.2, 10)
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(24, 0.2, 10)
+
+[sub_resource type="BoxShape3D" id="WallNSShape"]
+size = Vector3(24, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="WallNSMesh"]
+size = Vector3(24, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="WallEWShape"]
+size = Vector3(0.5, 3, 10)
+
+[sub_resource type="BoxMesh" id="WallEWMesh"]
+size = Vector3(0.5, 3, 10)
+
+[sub_resource type="CapsuleShape3D" id="PlayerShape"]
+radius = 0.4
+height = 1.6
+
+[sub_resource type="CapsuleMesh" id="PlayerMesh"]
+radius = 0.4
+height = 1.6
+
+[sub_resource type="SphereShape3D" id="HitboxShape"]
+radius = 1.2
+
+[node name="TestCentinelaBT" type="Node3D" unique_id=942060160]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=725089245]
+transform = Transform3D(1, 0, 0, 0, 0.57357645, 0.81915206, 0, -0.81915206, 0.57357645, -10, 16, 8)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=965948468]
+transform = Transform3D(0.8660254, -0.43301272, 0.24999999, 0, 0.49999997, 0.86602545, -0.5, -0.75, 0.43301266, 0, 0, 0)
+
+[node name="Room" type="StaticBody3D" parent="." unique_id=833408844]
+collision_mask = 0
+
+[node name="Floor" type="CollisionShape3D" parent="Room" unique_id=809394902]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("FloorShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/Floor" unique_id=1987654821]
+mesh = SubResource("FloorMesh")
+
+[node name="WallNorth" type="CollisionShape3D" parent="Room" unique_id=888312018]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -5)
+shape = SubResource("WallNSShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallNorth" unique_id=865833847]
+mesh = SubResource("WallNSMesh")
+
+[node name="WallSouth" type="CollisionShape3D" parent="Room" unique_id=2118942025]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5)
+shape = SubResource("WallNSShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallSouth" unique_id=838661215]
+mesh = SubResource("WallNSMesh")
+
+[node name="WallEast" type="CollisionShape3D" parent="Room" unique_id=1064397815]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1.5, 0)
+shape = SubResource("WallEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallEast" unique_id=1906023442]
+mesh = SubResource("WallEWMesh")
+
+[node name="WallWest" type="CollisionShape3D" parent="Room" unique_id=941581477]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 1.5, 0)
+shape = SubResource("WallEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallWest" unique_id=646888730]
+mesh = SubResource("WallEWMesh")
+
+[node name="PlayerControllable" type="CharacterBody3D" parent="." unique_id=1788433122 node_paths=PackedStringArray("hitbox") groups=["players"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.9, -3)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_player")
+hitbox = NodePath("HitboxComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable" unique_id=130017889]
+shape = SubResource("PlayerShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerControllable" unique_id=2140977756]
+mesh = SubResource("PlayerMesh")
+
+[node name="HitboxComponent" type="Area3D" parent="PlayerControllable" unique_id=74067003 node_paths=PackedStringArray("source")]
+collision_layer = 32
+collision_mask = 16
+monitoring = false
+script = ExtResource("7_hitbox")
+stats = ExtResource("10_debug_stats")
+source = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable/HitboxComponent" unique_id=1165792380]
+shape = SubResource("HitboxShape")
+
+[node name="DebugOverlay" type="CanvasLayer" parent="." unique_id=335730883]
+
+[node name="Label" type="Label" parent="DebugOverlay" unique_id=893622289]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 420.0
+offset_bottom = 160.0
+script = ExtResource("2_overlay")
+branch_names = Array[String](["1. Disparo en curso", "2. Empujón", "3. Iniciar láser", "4. Apuntar"])
+blackboard_keys = Array[String](["attacking", "firing", "reloading"])
+
+[node name="Centinela2" parent="." unique_id=1893237813 instance=ExtResource("11_cewwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.386939, 0.0804435, -2.4546242)

@@ -1,0 +1,44 @@
+[gd_resource type="Resource" script_class="Sequence" format=3 uid="uid://beqrw0x8o1d7o"]
+
+[ext_resource type="Script" uid="uid://dvdvpfqfpqims" path="res://scripts/ai/components/PerceptNode.gd" id="1_dtgj8"]
+[ext_resource type="Script" uid="uid://bgls2eiooum3r" path="res://scripts/ai/components/AcquireTarget.gd" id="AcquireTarget"]
+[ext_resource type="Script" uid="uid://c3ar2bin330bh" path="res://scripts/ai/components/CircleTarget.gd" id="CircleTarget"]
+[ext_resource type="Script" uid="uid://drfflm8al34fc" path="res://scripts/ai/components/Flee.gd" id="Flee"]
+[ext_resource type="Script" uid="uid://u2ffyr0lm2gu" path="res://scripts/ai/components/IsTargetInRange.gd" id="IsTargetInRange"]
+[ext_resource type="Script" uid="uid://cfsghh8oc74ak" path="res://scripts/ai/components/Patrol.gd" id="Patrol"]
+[ext_resource type="Script" uid="uid://1qdrx6ddvf2s" path="res://scripts/ai/components/Selector.gd" id="Selector"]
+[ext_resource type="Script" uid="uid://dt6mxevfb4u2a" path="res://scripts/ai/components/Sequence.gd" id="Sequence"]
+[ext_resource type="Script" uid="uid://c3j3pw2lapgyb" path="res://scripts/ai/components/TurnToTarget.gd" id="TurnToTarget"]
+
+[sub_resource type="Resource" id="SR_acquire"]
+script = ExtResource("AcquireTarget")
+vision_range = 12.0
+
+[sub_resource type="Resource" id="SR_flee"]
+script = ExtResource("Flee")
+
+[sub_resource type="Resource" id="SR_range_circle"]
+script = ExtResource("IsTargetInRange")
+max_range = 12.0
+
+[sub_resource type="Resource" id="SR_turn"]
+script = ExtResource("TurnToTarget")
+
+[sub_resource type="Resource" id="SR_circle"]
+script = ExtResource("CircleTarget")
+orbit_radius = 4.5
+
+[sub_resource type="Resource" id="SR_seq_circle"]
+script = ExtResource("Sequence")
+children = Array[ExtResource("1_dtgj8")]([SubResource("SR_range_circle"), SubResource("SR_turn"), SubResource("SR_circle")])
+
+[sub_resource type="Resource" id="SR_patrol"]
+script = ExtResource("Patrol")
+
+[sub_resource type="Resource" id="SR_selector"]
+script = ExtResource("Selector")
+children = Array[ExtResource("1_dtgj8")]([SubResource("SR_flee"), SubResource("SR_seq_circle"), SubResource("SR_patrol")])
+
+[resource]
+script = ExtResource("Sequence")
+children = Array[ExtResource("1_dtgj8")]([SubResource("SR_acquire"), SubResource("SR_selector")])

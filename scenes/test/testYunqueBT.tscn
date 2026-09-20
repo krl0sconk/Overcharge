@@ -1,12 +1,121 @@
-[gd_scene format=3 uid="uid://bod0xj8ludjol"]
+[gd_scene format=3 uid="uid://c6666m5iqhic6"]
 
-[ext_resource type="Script" uid="uid://rtrno00elb73" path="res://scripts/components/TestComponents/test_health_component.gd" id="1_dq2l0"]
-[ext_resource type="Script" uid="uid://eg6mlm88houw" path="res://scripts/components/HealthComponent.gd" id="2_7mpuh"]
-[ext_resource type="Resource" uid="uid://cnn5qtdo0mjgm" path="res://resources/stats/player1_stats.tres" id="3_xahhf"]
+[ext_resource type="Script" uid="uid://bx7np0qi5kcgy" path="res://scripts/test/PlayerStub.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://bg827a0vaw43" path="res://scripts/test/BTDebugOverlay.gd" id="2_overlay"]
+[ext_resource type="PackedScene" uid="uid://d2wtgm36hvepn" path="res://scenes/entities/enemies/yunque.tscn" id="5_xahhf"]
+[ext_resource type="Script" uid="uid://bfm0hkuqmy8ba" path="res://scripts/components/HitboxComponent.gd" id="8_hitbox"]
+[ext_resource type="Resource" uid="uid://cco5yh4dc6q21" path="res://resources/stats/player_debug_attack_stats.tres" id="11_debug_stats"]
 
-[node name="TestNode" type="Node" unique_id=1415376503]
-script = ExtResource("1_dq2l0")
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(10, 0.2, 10)
 
-[node name="HealthComponent" type="Node" parent="." unique_id=465566628]
-script = ExtResource("2_7mpuh")
-stats = ExtResource("3_xahhf")
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="BoxShape3D" id="WallNSShape"]
+size = Vector3(10, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="WallNSMesh"]
+size = Vector3(10, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="WallEWShape"]
+size = Vector3(0.5, 3, 10)
+
+[sub_resource type="BoxMesh" id="WallEWMesh"]
+size = Vector3(0.5, 3, 10)
+
+[sub_resource type="CapsuleShape3D" id="PlayerShape"]
+radius = 0.4
+height = 1.6
+
+[sub_resource type="CapsuleMesh" id="PlayerMesh"]
+radius = 0.4
+height = 1.6
+
+[sub_resource type="SphereShape3D" id="HitboxShape"]
+radius = 1.0
+
+[node name="TestYunqueBT" type="Node3D" unique_id=258160333]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2022081215]
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 10, 8)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1951893041]
+transform = Transform3D(0.8660254, -0.43301272, 0.24999999, 0, 0.49999997, 0.86602545, -0.5, -0.75, 0.43301266, 0, 0, 0)
+
+[node name="Room" type="StaticBody3D" parent="." unique_id=41966766]
+collision_mask = 0
+
+[node name="Floor" type="CollisionShape3D" parent="Room" unique_id=440840814]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("FloorShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/Floor" unique_id=1499260393]
+mesh = SubResource("FloorMesh")
+
+[node name="WallNorth" type="CollisionShape3D" parent="Room" unique_id=1264236803]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -5)
+shape = SubResource("WallNSShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallNorth" unique_id=383798855]
+mesh = SubResource("WallNSMesh")
+
+[node name="WallSouth" type="CollisionShape3D" parent="Room" unique_id=1389793708]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5)
+shape = SubResource("WallNSShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallSouth" unique_id=1757811059]
+mesh = SubResource("WallNSMesh")
+
+[node name="WallEast" type="CollisionShape3D" parent="Room" unique_id=347952888]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 0)
+shape = SubResource("WallEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallEast" unique_id=79215652]
+mesh = SubResource("WallEWMesh")
+
+[node name="WallWest" type="CollisionShape3D" parent="Room" unique_id=1522332350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, 0)
+shape = SubResource("WallEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallWest" unique_id=651551218]
+mesh = SubResource("WallEWMesh")
+
+[node name="PlayerControllable" type="CharacterBody3D" parent="." unique_id=105618327 node_paths=PackedStringArray("hitbox") groups=["players"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -3)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_player")
+hitbox = NodePath("HitboxComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable" unique_id=2134112790]
+shape = SubResource("PlayerShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerControllable" unique_id=1681274091]
+mesh = SubResource("PlayerMesh")
+
+[node name="HitboxComponent" type="Area3D" parent="PlayerControllable" unique_id=1567160605 node_paths=PackedStringArray("source")]
+collision_layer = 32
+collision_mask = 16
+monitoring = false
+script = ExtResource("8_hitbox")
+stats = ExtResource("11_debug_stats")
+source = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable/HitboxComponent" unique_id=1969373570]
+shape = SubResource("HitboxShape")
+
+[node name="DebugOverlay" type="CanvasLayer" parent="." unique_id=2091338617]
+
+[node name="Label" type="Label" parent="DebugOverlay" unique_id=2119006227]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 420.0
+offset_bottom = 160.0
+script = ExtResource("2_overlay")
+branch_names = Array[String](["1. Aturdido", "2. Cargando", "3. Flanqueado", "4. Iniciar carga", "5. Buscar línea"])
+blackboard_keys = Array[String](["stunned", "charging", "telegraphing"])
+
+[node name="Yunque" parent="." unique_id=1893237813 instance=ExtResource("5_xahhf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8094574, 2.2351742e-08, 0.52862835)

@@ -5,3 +5,7 @@
 [resource]
 resource_local_to_scene = true
 script = ExtResource("1_jv7sj")
+acceleration = 25.0
+damage = 10
+attack_cooldown = 0.8
+ability_cooldown = 2.0

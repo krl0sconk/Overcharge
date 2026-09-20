@@ -22,9 +22,7 @@ func check(agent: PerceptComponent) -> bool:
 		return false
 	to_target = to_target.normalized()
 
-	var forward: Vector3 = -actor3d.global_transform.basis.z
-	forward.y = 0.0
-	forward = forward.normalized()
+	var forward: Vector3 = agent.aim_forward()
 
 	if forward.dot(to_target) < facing_dot_threshold:
 		return false

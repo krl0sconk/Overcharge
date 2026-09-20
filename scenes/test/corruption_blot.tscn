@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://cadgevbh3p36x"]
+
+[ext_resource type="Script" uid="uid://bau6yo8hkqir" path="res://scripts/components/CorruptionBlotComponent.gd" id="1_blot"]
+[ext_resource type="PackedScene" uid="uid://b1gf28v8y2g1t" path="res://assets/entities/enemies/virus/blot/VirusBlot.gltf" id="2_uopsj"]
+
+[sub_resource type="CylinderShape3D" id="BlotShape"]
+height = 0.1
+radius = 0.4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pixel"]
+shading_mode = 0
+albedo_color = Color(0.2, 1, 0.35, 1)
+emission_enabled = true
+emission = Color(0.2, 1, 0.35, 1)
+emission_energy_multiplier = 1.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_pixel"]
+material = SubResource("StandardMaterial3D_pixel")
+size = Vector3(0.07, 0.07, 0.07)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_corruption"]
+emission_shape = 1
+emission_sphere_radius = 0.3
+direction = Vector3(0, 1, 0)
+spread = 30.0
+gravity = Vector3(0, -0.25, 0)
+initial_velocity_min = 0.3
+initial_velocity_max = 0.9
+scale_min = 0.6
+scale_max = 1.4
+color = Color(0.2, 1, 0.35, 1)
+
+[node name="CorruptionBlot" type="Area3D" unique_id=2066825754]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("1_blot")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1141365105]
+shape = SubResource("BlotShape")
+
+[node name="Model" type="Node3D" parent="." unique_id=824949292]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+
+[node name="blockbench_export" parent="Model" unique_id=1900615830 instance=ExtResource("2_uopsj")]
+
+[node name="CorruptionParticles" type="GPUParticles3D" parent="." unique_id=1783967111]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+amount = 14
+lifetime = 1.2
+process_material = SubResource("ParticleProcessMaterial_corruption")
+draw_pass_1 = SubResource("BoxMesh_pixel")

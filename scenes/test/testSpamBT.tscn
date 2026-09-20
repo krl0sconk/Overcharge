@@ -1,0 +1,203 @@
+[gd_scene format=3 uid="uid://cc8keojymnmea"]
+
+[ext_resource type="Script" uid="uid://bx7np0qi5kcgy" path="res://scripts/test/PlayerStub.gd" id="1_player"]
+[ext_resource type="Script" uid="uid://bg827a0vaw43" path="res://scripts/test/BTDebugOverlay.gd" id="2_overlay"]
+[ext_resource type="Script" uid="uid://cp5l04e3cgc51" path="res://scripts/ai/components/PerceptComponent.gd" id="3_percept"]
+[ext_resource type="Resource" uid="uid://11x274frep44" path="res://resources/ai/trees/spam.tres" id="4_tree"]
+[ext_resource type="Script" uid="uid://hby4bmrev1qb" path="res://scripts/components/MovementComponent/MovementComponent.gd" id="5_movement"]
+[ext_resource type="Script" uid="uid://eg6mlm88houw" path="res://scripts/components/HealthComponent.gd" id="6_health"]
+[ext_resource type="Resource" uid="uid://gdpk314qnmc5" path="res://resources/stats/spam_stats.tres" id="7_stats"]
+[ext_resource type="Script" uid="uid://bfm0hkuqmy8ba" path="res://scripts/components/HitboxComponent.gd" id="8_hitbox"]
+[ext_resource type="Script" uid="uid://b1v6j57gquh45" path="res://scripts/components/HurtboxComponent.gd" id="9_hurtbox"]
+[ext_resource type="Script" uid="uid://b4vnv0pwnrdo2" path="res://scripts/components/EnemyDeathComponent.gd" id="10_death"]
+[ext_resource type="Resource" uid="uid://cco5yh4dc6q21" path="res://resources/stats/player_debug_attack_stats.tres" id="11_debug_stats"]
+[ext_resource type="PackedScene" uid="uid://twwwgkhxbnpr" path="res://scenes/entities/enemies/spam.tscn" id="12_ioihx"]
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="BoxShape3D" id="WallNSShape"]
+size = Vector3(10, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="WallNSMesh"]
+size = Vector3(10, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="WallEWShape"]
+size = Vector3(0.5, 3, 10)
+
+[sub_resource type="BoxMesh" id="WallEWMesh"]
+size = Vector3(0.5, 3, 10)
+
+[sub_resource type="CapsuleShape3D" id="PlayerShape"]
+radius = 0.4
+height = 1.6
+
+[sub_resource type="CapsuleMesh" id="PlayerMesh"]
+radius = 0.4
+height = 1.6
+
+[sub_resource type="SphereShape3D" id="HitboxShape"]
+radius = 1.0
+
+[sub_resource type="CapsuleShape3D" id="SpamShape"]
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="SpamMesh"]
+height = 1.8
+
+[node name="TestSpamBT" type="Node3D" unique_id=1493408891]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=2054787584]
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 10, 8)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1512948644]
+transform = Transform3D(0.8660254, -0.43301272, 0.24999999, 0, 0.49999997, 0.86602545, -0.5, -0.75, 0.43301266, 0, 0, 0)
+
+[node name="Room" type="StaticBody3D" parent="." unique_id=90399587]
+collision_mask = 0
+
+[node name="Floor" type="CollisionShape3D" parent="Room" unique_id=29291441]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("FloorShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/Floor" unique_id=504604867]
+mesh = SubResource("FloorMesh")
+
+[node name="WallNorth" type="CollisionShape3D" parent="Room" unique_id=1163693510]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -5)
+shape = SubResource("WallNSShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallNorth" unique_id=182042396]
+mesh = SubResource("WallNSMesh")
+
+[node name="WallSouth" type="CollisionShape3D" parent="Room" unique_id=1611003200]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5)
+shape = SubResource("WallNSShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallSouth" unique_id=1250838051]
+mesh = SubResource("WallNSMesh")
+
+[node name="WallEast" type="CollisionShape3D" parent="Room" unique_id=1193124988]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 0)
+shape = SubResource("WallEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallEast" unique_id=1236112528]
+mesh = SubResource("WallEWMesh")
+
+[node name="WallWest" type="CollisionShape3D" parent="Room" unique_id=615556097]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, 0)
+shape = SubResource("WallEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallWest" unique_id=2008060809]
+mesh = SubResource("WallEWMesh")
+
+[node name="PlayerControllable" type="CharacterBody3D" parent="." unique_id=538458713 node_paths=PackedStringArray("hitbox") groups=["players"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, -3)
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_player")
+hitbox = NodePath("HitboxComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable" unique_id=268579175]
+shape = SubResource("PlayerShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerControllable" unique_id=1158023179]
+mesh = SubResource("PlayerMesh")
+
+[node name="HitboxComponent" type="Area3D" parent="PlayerControllable" unique_id=1207537954 node_paths=PackedStringArray("source")]
+collision_layer = 32
+collision_mask = 16
+monitoring = false
+script = ExtResource("8_hitbox")
+stats = ExtResource("11_debug_stats")
+source = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerControllable/HitboxComponent" unique_id=1532271631]
+shape = SubResource("HitboxShape")
+
+[node name="PlayerStatic" type="CharacterBody3D" parent="." unique_id=2084397346 groups=["players"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0.9, 2)
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerStatic" unique_id=611183613]
+shape = SubResource("PlayerShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerStatic" unique_id=1935221749]
+mesh = SubResource("PlayerMesh")
+
+[node name="Spam" type="CharacterBody3D" parent="." unique_id=1557601936]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+collision_layer = 4
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Spam" unique_id=279917360]
+shape = SubResource("SpamShape")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Spam" unique_id=1954915338]
+mesh = SubResource("SpamMesh")
+
+[node name="MovementComponent" type="Node" parent="Spam" unique_id=2008266934 node_paths=PackedStringArray("owner_body")]
+script = ExtResource("5_movement")
+owner_body = NodePath("..")
+stats = ExtResource("7_stats")
+friction = 15.0
+
+[node name="HealthComponent" type="Node" parent="Spam" unique_id=840784855]
+script = ExtResource("6_health")
+stats = ExtResource("7_stats")
+
+[node name="HitboxComponent" type="Area3D" parent="Spam" unique_id=65187451 node_paths=PackedStringArray("source")]
+collision_layer = 64
+collision_mask = 8
+monitoring = false
+script = ExtResource("8_hitbox")
+stats = ExtResource("7_stats")
+source = NodePath("..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Spam/HitboxComponent" unique_id=1590057609]
+shape = SubResource("HitboxShape")
+
+[node name="PerceptComponent" type="Node" parent="Spam" unique_id=1182451693 node_paths=PackedStringArray("actor", "movement_component", "hitbox")]
+script = ExtResource("3_percept")
+actor = NodePath("..")
+tree = ExtResource("4_tree")
+movement_component = NodePath("../MovementComponent")
+hitbox = NodePath("../HitboxComponent")
+
+[node name="HurtboxComponent" type="Area3D" parent="Spam" unique_id=1904573181 node_paths=PackedStringArray("health_component", "movement_component")]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("9_hurtbox")
+health_component = NodePath("../HealthComponent")
+movement_component = NodePath("../MovementComponent")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Spam/HurtboxComponent" unique_id=320920955]
+shape = SubResource("SpamShape")
+
+[node name="EnemyDeathComponent" type="Node" parent="Spam" unique_id=1587455353 node_paths=PackedStringArray("health_component", "hurtbox", "hitbox", "owner_body")]
+script = ExtResource("10_death")
+health_component = NodePath("../HealthComponent")
+hurtbox = NodePath("../HurtboxComponent")
+hitbox = NodePath("../HitboxComponent")
+owner_body = NodePath("..")
+
+[node name="DebugOverlay" type="CanvasLayer" parent="." unique_id=1150515223]
+
+[node name="Label" type="Label" parent="DebugOverlay" unique_id=867984922 node_paths=PackedStringArray("percept", "health")]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 420.0
+offset_bottom = 160.0
+script = ExtResource("2_overlay")
+percept = NodePath("../../Spam/PerceptComponent")
+branch_names = Array[String](["1. Golpe", "2. Perseguir", "3. Patrullar"])
+blackboard_keys = Array[String](["attacking"])
+health = NodePath("../../Spam/HealthComponent")
+
+[node name="Spam2" parent="." unique_id=1893237813 instance=ExtResource("12_ioihx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.279179, -9.685755e-08, -3.0945687)

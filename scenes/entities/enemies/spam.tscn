@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://twwwgkhxbnpr"]
+
+[ext_resource type="PackedScene" uid="uid://dxhnqpcqnqg1f" path="res://assets/entities/enemies/spam/Spam.gltf" id="1_p80w4"]
+[ext_resource type="Script" uid="uid://eg6mlm88houw" path="res://scripts/components/HealthComponent.gd" id="2_5d76m"]
+[ext_resource type="Resource" uid="uid://gdpk314qnmc5" path="res://resources/stats/spam_stats.tres" id="3_5d76m"]
+[ext_resource type="Script" uid="uid://b1v6j57gquh45" path="res://scripts/components/HurtboxComponent.gd" id="3_g62xg"]
+[ext_resource type="Script" uid="uid://bfm0hkuqmy8ba" path="res://scripts/components/HitboxComponent.gd" id="4_cpinv"]
+[ext_resource type="Script" uid="uid://hby4bmrev1qb" path="res://scripts/components/MovementComponent/MovementComponent.gd" id="5_bk2eh"]
+[ext_resource type="Script" uid="uid://b4vnv0pwnrdo2" path="res://scripts/components/EnemyDeathComponent.gd" id="6_lyidy"]
+[ext_resource type="Script" uid="uid://cp5l04e3cgc51" path="res://scripts/ai/components/PerceptComponent.gd" id="7_dncpk"]
+[ext_resource type="Resource" uid="uid://11x274frep44" path="res://resources/ai/trees/spam.tres" id="8_fmtxb"]
+[ext_resource type="Script" path="res://scripts/components/SlimeHopComponent.gd" id="9_hop"]
+[ext_resource type="Script" uid="uid://bfjeql4frjikr" path="res://scripts/entities/entidad.gd" id="10_entidad"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jblmv"]
+size = Vector3(1.1262207, 1, 1.1016235)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1k1ev"]
+size = Vector3(0.9313922, 0.7324219, 0.95025635)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lfgjy"]
+size = Vector3(0.70573425, 0.5716553, 0.7805176)
+
+[node name="Spam" type="CharacterBody3D" unique_id=1893237813]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("10_entidad")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=284865470]
+transform = Transform3D(0.565, 0, 0, 0, 0.565, 0, 0, 0, 0.565, 0.0010345448, 0.2812504, -0.003810577)
+shape = SubResource("BoxShape3D_jblmv")
+
+[node name="Model" type="Node3D" parent="." unique_id=567578340]
+transform = Transform3D(-0.5, 0, -4.371139e-08, 0, 0.5, 0, 4.371139e-08, 0, -0.5, 0, 0, 0)
+
+[node name="blockbench_export" parent="Model" unique_id=812658158 instance=ExtResource("1_p80w4")]
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1178523152]
+script = ExtResource("2_5d76m")
+stats = ExtResource("3_5d76m")
+metadata/_custom_type_script = "uid://eg6mlm88houw"
+
+[node name="HurtboxComponent" type="Area3D" parent="." unique_id=714027480 node_paths=PackedStringArray("health_component", "movement_component")]
+collision_layer = 16
+collision_mask = 32
+script = ExtResource("3_g62xg")
+health_component = NodePath("../HealthComponent")
+movement_component = NodePath("../MovementComponent")
+metadata/_custom_type_script = "uid://b1v6j57gquh45"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=473293671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.005231142, 0.26486832, 0.000579834)
+shape = SubResource("BoxShape3D_1k1ev")
+debug_color = Color(0.36794722, 0.616104, 0, 0.41960785)
+
+[node name="HitboxComponent" type="Area3D" parent="." unique_id=1088024012]
+collision_layer = 64
+collision_mask = 8
+script = ExtResource("4_cpinv")
+stats = ExtResource("3_5d76m")
+metadata/_custom_type_script = "uid://bfm0hkuqmy8ba"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitboxComponent" unique_id=671902286]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.016059875, 0.25720194, -0.021606445)
+shape = SubResource("BoxShape3D_lfgjy")
+debug_color = Color(0.99316674, 0, 0.24828318, 0.41960785)
+
+[node name="MovementComponent" type="Node" parent="." unique_id=1385561441 node_paths=PackedStringArray("owner_body")]
+script = ExtResource("5_bk2eh")
+owner_body = NodePath("..")
+stats = ExtResource("3_5d76m")
+metadata/_custom_type_script = "uid://hby4bmrev1qb"
+
+[node name="EnemyDeathComponent" type="Node" parent="." unique_id=1049085943 node_paths=PackedStringArray("health_component", "hurtbox", "hitbox", "owner_body")]
+script = ExtResource("6_lyidy")
+health_component = NodePath("../HealthComponent")
+hurtbox = NodePath("../HurtboxComponent")
+hitbox = NodePath("../HitboxComponent")
+owner_body = NodePath("..")
+metadata/_custom_type_script = "uid://b4vnv0pwnrdo2"
+
+[node name="PerceptComponent" type="Node" parent="." unique_id=217211120 node_paths=PackedStringArray("actor", "movement_component", "hitbox")]
+script = ExtResource("7_dncpk")
+actor = NodePath("..")
+tree = ExtResource("8_fmtxb")
+movement_component = NodePath("../MovementComponent")
+hitbox = NodePath("../HitboxComponent")
+metadata/_custom_type_script = "uid://cp5l04e3cgc51"
+
+[node name="SlimeHopComponent" type="Node" parent="." node_paths=PackedStringArray("model", "movement_component")]
+script = ExtResource("9_hop")
+model = NodePath("../Model")
+movement_component = NodePath("../MovementComponent")

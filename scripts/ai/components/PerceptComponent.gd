@@ -4,7 +4,12 @@ extends Node
 @export var actor: Node
 @export var tree: PerceptNode          ## el .tres compartido
 @export var tick_rate: float = 0.1
-@export var movement_component: MovementComponent   # TODO(María): tipar a MovementComponent cuando exista.
+@export var movement_component: MovementComponent
+@export var hitbox: HitboxComponent
+@export var laser: LaserSightComponent
+@export var health_component: HealthComponent  ## opcional: prende hit_recently para ramas de huida
+@export var aim_node: Node3D            ## qué gira para apuntar. Vacío = gira el actor entero.
+@export var aim_yaw_offset_deg: float = 0.0
 
 var blackboard: Dictionary = {}        ## datos del enemigo: target, etc.
 var memory: Dictionary = {}            ## lo que un nodo necesita recordar
@@ -20,6 +25,9 @@ var _debug_capture_owner: bool = false
 var _debug_agent_announce_accum: float = 0.0
 
 func _ready() -> void:
+	if health_component != null:
+		health_component.damaged.connect(_on_damaged)
+
 	if OS.has_feature("debug") and EngineDebugger.is_active():
 		_debug_capture_owner = get_tree().get_nodes_in_group("percept_debug_components").is_empty()
 		add_to_group("percept_debug_components")
@@ -32,6 +40,8 @@ func _exit_tree() -> void:
 		EngineDebugger.unregister_message_capture("percept")
 
 func _physics_process(d: float) -> void:
+	_step_turn(d)
+
 	_accum += d
 	if _accum < tick_rate:
 		return
@@ -39,6 +49,11 @@ func _physics_process(d: float) -> void:
 	_accum = 0.0
 	if tree == null:
 		return
+
+	## Se apaga acá y la vuelve a prender TurnToTarget si le toca tickear
+	## este ciclo -- así deja de girar apenas otra rama de más prioridad
+	## (cargar, atacar) toma el control del Selector.
+	blackboard["turning"] = false
 
 	if OS.has_feature("debug") and EngineDebugger.is_active():
 		_debug_agent_announce_accum += delta
@@ -57,6 +72,40 @@ func _physics_process(d: float) -> void:
 	else:
 		tree.tick(self)
 
+## Interpola la rotación hacia turn_target_yaw cada physics frame en vez de
+## cada tick de decisión -- ver comentario en TurnToTarget.gd.
+## Usa rotación global porque aim_node puede colgar de padres ya rotados.
+func _step_turn(d: float) -> void:
+	if not blackboard.get("turning", false):
+		return
+	var node: Node3D = aim_node if aim_node != null else (actor as Node3D)
+	if node == null:
+		return
+
+	var offset: float = deg_to_rad(aim_yaw_offset_deg)
+	var target_yaw: float = blackboard.get("turn_target_yaw", node.global_rotation.y - offset) + offset
+	var speed: float = blackboard.get("turn_speed", 6.0)
+	var current_yaw: float = node.global_rotation.y
+	var delta_yaw: float = wrapf(target_yaw - current_yaw, -PI, PI)
+
+	var step: float = clamp(delta_yaw, -speed * d, speed * d)
+	node.global_rotation.y = current_yaw + step
+
+## Posición y dirección "lógicas" de apuntado: descuentan aim_yaw_offset_deg,
+## que gira aim_node para que el mesh se vea bien apuntando, no para que su
+## eje -Z real señale al objetivo. Todo lo que dispare o chequee línea de
+## visión debe usar esto en vez de leer aim_node directamente.
+func aim_position() -> Vector3:
+	var node: Node3D = aim_node if aim_node != null else (actor as Node3D)
+	return node.global_position if node != null else Vector3.ZERO
+
+func aim_forward() -> Vector3:
+	var node: Node3D = aim_node if aim_node != null else (actor as Node3D)
+	if node == null:
+		return Vector3.FORWARD
+	var yaw: float = node.global_rotation.y - deg_to_rad(aim_yaw_offset_deg)
+	return Vector3(-sin(yaw), 0.0, -cos(yaw))
+
 ## Los nodos son compartidos, así que su memoria vive acá, en cada enemigo.
 func remember(node: PerceptNode, key: String, value: Variant) -> void:
 	if not memory.has(node):
@@ -65,6 +114,9 @@ func remember(node: PerceptNode, key: String, value: Variant) -> void:
 
 func recall(node: PerceptNode, key: String, default: Variant = null) -> Variant:
 	return memory.get(node, {}).get(key, default)
+
+func _on_damaged(_amount: int) -> void:
+	blackboard["hit_recently"] = true
 
 func _debug_enter(path: String) -> void:
 	_debug_path_stack.append(path)
