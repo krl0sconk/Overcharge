@@ -6,6 +6,7 @@ extends Node
 var move_dir: Vector3 = Vector3.ZERO
 var wants_attack: bool = false
 var wants_dash: bool = false
+var wants_return: bool = false
 
 var _move_left: float = 0.0
 var _move_right: float = 0.0
@@ -46,6 +47,9 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("dash"):
 		wants_dash = true
+	
+	if event.is_action_pressed("return_node"):
+		wants_return = true
 		
 
 	var input_vector := Vector2(
@@ -73,6 +77,13 @@ func consume_dash() -> bool:
 		return false
 
 	wants_dash = false
+	return true
+
+func consume_return() -> bool:
+	if not wants_return:
+		return false
+
+	wants_return = false
 	return true
 
 ## Reparte teclado y controles entre los dos jugadores: teclado/mouse

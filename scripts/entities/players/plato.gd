@@ -7,6 +7,7 @@ extends Entidad
 
 @export var attack_window: float = 0.2
 @export var turn_speed: float = 10.0  ## rad/s
+@onready var return_ability_component: AbilityComponent = get_node_or_null("ReturnAbilityComponent")
 
 func _physics_process(delta: float) -> void:
 	if input_component == null or movement_component == null:
@@ -15,8 +16,15 @@ func _physics_process(delta: float) -> void:
 	movement_component.set_move_direction(input_component.move_dir)
 	_face_move_direction(delta)
 
-	if input_component.consume_attack() and hitbox_component != null:
-		hitbox_component.open_window(attack_window)
+	if input_component.consume_attack():
+		if hitbox_component != null:
+			hitbox_component.open_window(attack_window)
+		if ability_component != null:
+			ability_component.try_execute()
+	
+	if input_component.consume_return():
+		if return_ability_component != null:
+			return_ability_component.try_execute()
 
 ## Mismo criterio que TurnToTarget.gd: +PI porque el modelo mira +Z, no -Z.
 func _face_move_direction(delta: float) -> void:

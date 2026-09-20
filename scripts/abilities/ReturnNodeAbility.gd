@@ -13,3 +13,4 @@ func execute(owner_body: CharacterBody3D, direction: Vector3) -> void:
 		owner_body.global_position = return_position
 		has_return_position = false
 		print("Regresando al nodo: ", return_position)
+		
