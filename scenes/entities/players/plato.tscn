@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cbhbrdnsv1ksh"]
 
 [ext_resource type="Script" uid="uid://mfkxkr0v1kyu" path="res://scripts/components/AbilityComponent.gd" id="1_bqfvr"]
+[ext_resource type="Script" uid="uid://b8g0oh5m6botp" path="res://scripts/entities/players/plato.gd" id="14_plato"]
 [ext_resource type="PackedScene" uid="uid://bg34abnkufbxp" path="res://assets/entities/players/Pl4-to/Pl4-to.gltf" id="2_bqfvr"]
 [ext_resource type="Script" uid="uid://eg6mlm88houw" path="res://scripts/components/HealthComponent.gd" id="2_y7qex"]
 [ext_resource type="Resource" uid="uid://bp3p6li46dtqu" path="res://resources/stats/player2_stats.tres" id="3_iy3nf"]
@@ -13,10 +14,6 @@
 [ext_resource type="Script" uid="uid://ckpe7ipejhwka" path="res://scripts/components/HitFeedbackComponent.gd" id="12_0p601"]
 [ext_resource type="Script" uid="uid://bue8ncdmx7agq" path="res://scripts/abilities/ProjectileAbility.gd" id="12_altmf"]
 [ext_resource type="Script" uid="uid://bxe8h82evh8aa" path="res://scripts/abilities/ReturnNodeAbility.gd" id="13_pokno"]
-
-[sub_resource type="Resource" id="Resource_pntq1"]
-script = ExtResource("12_altmf")
-metadata/_custom_type_script = "uid://bue8ncdmx7agq"
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j8abd"]
 size = Vector3(0.54467773, 1.1705322, 0.50787354)
@@ -39,8 +36,7 @@ metadata/_custom_type_script = "uid://bxe8h82evh8aa"
 [node name="Plato" type="CharacterBody3D" unique_id=1961644514 groups=["players"]]
 collision_layer = 2
 collision_mask = 5
-script = ExtResource("1_bqfvr")
-ability = SubResource("Resource_pntq1")
+script = ExtResource("14_plato")
 
 [node name="Model" type="Node3D" parent="." unique_id=193632633]
 transform = Transform3D(0.485, 0, 0, 0, 0.485, 0, 0, 0, 0.485, 0.0029711723, -0.04159665, 0)
