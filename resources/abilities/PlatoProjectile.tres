@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bue8ncdmx7agq" path="res://scripts/abilities/ProjectileAbility.gd" id="1_1fxya"]
 [ext_resource type="PackedScene" uid="uid://cgs0vu2sa2mv0" path="res://scenes/entities/players/Projectile.tscn" id="1_b4x2f"]
+[ext_resource type="Resource" uid="uid://bp3p6li46dtqu" path="res://resources/stats/player2_stats.tres" id="1_stats"]
 
 [resource]
 script = ExtResource("1_1fxya")
 projectile_scene = ExtResource("1_b4x2f")
+stats = ExtResource("1_stats")
 metadata/_custom_type_script = "uid://bue8ncdmx7agq"

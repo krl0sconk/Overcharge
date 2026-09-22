@@ -1,11 +1,8 @@
 class_name Plato
 extends Entidad
 
-## Controlador de Pl4-to: mueve y ataca con lo que ya tiene cableado.
-## TODO(quien le ponga la habilidad): todavía no tiene AbilityComponent en
-## la escena, así que no hay dash ni combo que enlazar acá.
+## Controlador de Pl4-to: se mueve y ataca a distancia con el proyectil.
 
-@export var attack_window: float = 0.2
 @export var turn_speed: float = 10.0  ## rad/s
 @onready var return_ability_component: AbilityComponent = get_node_or_null("ReturnAbilityComponent")
 
@@ -17,8 +14,6 @@ func _physics_process(delta: float) -> void:
 	_face_move_direction(delta)
 
 	if input_component.consume_attack():
-		if hitbox_component != null:
-			hitbox_component.open_window(attack_window)
 		if ability_component != null:
 			ability_component.try_execute()
 	

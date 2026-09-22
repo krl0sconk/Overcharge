@@ -39,6 +39,7 @@ enemy_scenes = Array[PackedScene]([ExtResource("5_rl67d"), ExtResource("6_sbtv8"
 [node name="Camera3D" type="Camera3D" parent="." unique_id=883347460]
 transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 10, 8)
 current = true
+fov = 42.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=48934665]
 environment = SubResource("Environment_ygx7y")
