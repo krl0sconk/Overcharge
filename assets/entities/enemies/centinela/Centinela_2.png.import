@@ -2,14 +2,14 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbthyq4pddgw5"
+uid="uid://pa4lj43lqt6q"
 path.s3tc="res://.godot/imported/Centinela_2.png-31c941f5ac8659e1233f001fcb74079c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "66d97857b88b1de033dacef474ecce2d"
+"md5": "1415eba80735fe67c621f24607a8dfd4"
 }
 
 [deps]

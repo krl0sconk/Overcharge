@@ -11,6 +11,63 @@
 [ext_resource type="Script" uid="uid://bhibjyin08b8e" path="res://scripts/components/CorruptionTrailComponent.gd" id="9_b3j21"]
 [ext_resource type="Script" uid="uid://bfjeql4frjikr" path="res://scripts/entities/entidad.gd" id="10_entidad"]
 [ext_resource type="PackedScene" uid="uid://cadgevbh3p36x" path="res://scenes/test/corruption_blot.tscn" id="11_blot"]
+[ext_resource type="Script" path="res://scripts/components/HitFeedbackComponent.gd" id="12_hitfeedback"]
+[ext_resource type="Script" path="res://scripts/components/DeathDissolveComponent.gd" id="13_deathvfx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hit"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.4, 1, 0.25, 1)
+emission_enabled = true
+emission = Color(0.4, 1, 0.25, 1)
+emission_energy_multiplier = 3.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_hit"]
+material = SubResource("StandardMaterial3D_hit")
+size = Vector3(0.09, 0.09, 0.09)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hit"]
+emission_shape = 1
+emission_sphere_radius = 0.25
+direction = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 1.5
+initial_velocity_max = 3.5
+gravity = Vector3(0, -2.0, 0)
+scale_min = 0.5
+scale_max = 1.4
+color = Color(0.4, 1, 0.25, 1)
+
+[sub_resource type="Gradient" id="Gradient_dissolve"]
+offsets = PackedFloat32Array(0, 0.7, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dissolve"]
+gradient = SubResource("Gradient_dissolve")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dissolve"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.55, 1, 0.35, 1)
+emission_enabled = true
+emission = Color(0.55, 1, 0.35, 1)
+emission_energy_multiplier = 3.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_dissolve"]
+material = SubResource("StandardMaterial3D_dissolve")
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dissolve"]
+emission_shape = 3
+emission_box_extents = Vector3(0.7, 0.8, 1.2)
+direction = Vector3(0, 1, 0)
+spread = 60.0
+initial_velocity_min = 0.5
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0.6, 0)
+scale_min = 0.6
+scale_max = 1.6
+color_ramp = SubResource("GradientTexture1D_dissolve")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jblmv"]
 size = Vector3(1.36063, 1.4251709, 2.3919926)
@@ -59,11 +116,13 @@ owner_body = NodePath("..")
 stats = ExtResource("3_v1buw")
 metadata/_custom_type_script = "uid://hby4bmrev1qb"
 
-[node name="EnemyDeathComponent" type="Node" parent="." unique_id=1049085943 node_paths=PackedStringArray("health_component", "hurtbox", "owner_body")]
+[node name="EnemyDeathComponent" type="Node" parent="." unique_id=1049085943 node_paths=PackedStringArray("health_component", "hurtbox", "owner_body", "death_vfx")]
 script = ExtResource("7_eq488")
 health_component = NodePath("../HealthComponent")
 hurtbox = NodePath("../HurtboxComponent")
 owner_body = NodePath("..")
+death_vfx = NodePath("../DeathVFX")
+despawn_delay = 0.6
 metadata/_custom_type_script = "uid://b4vnv0pwnrdo2"
 
 [node name="PerceptComponent" type="Node" parent="." unique_id=217211120 node_paths=PackedStringArray("actor", "movement_component", "health_component")]
@@ -80,3 +139,38 @@ owner_body = NodePath("..")
 spawn_point = NodePath("../BlotSpawnPoint")
 blot_scene = ExtResource("11_blot")
 metadata/_custom_type_script = "uid://bhibjyin08b8e"
+
+[node name="HitParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.2)
+emitting = false
+amount = 14
+lifetime = 0.35
+one_shot = true
+explosiveness = 0.9
+fixed_fps = 12
+interpolate = false
+process_material = SubResource("ParticleProcessMaterial_hit")
+draw_pass_1 = SubResource("BoxMesh_hit")
+
+[node name="HitFeedbackComponent" type="Node" parent="." node_paths=PackedStringArray("health_component", "model", "hit_particles")]
+script = ExtResource("12_hitfeedback")
+health_component = NodePath("../HealthComponent")
+model = NodePath("../Model")
+hit_particles = NodePath("../HitParticles")
+
+[node name="DissolveParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0.2)
+emitting = false
+amount = 40
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.7
+fixed_fps = 12
+interpolate = false
+process_material = SubResource("ParticleProcessMaterial_dissolve")
+draw_pass_1 = SubResource("BoxMesh_dissolve")
+
+[node name="DeathVFX" type="Node" parent="." node_paths=PackedStringArray("model", "particles")]
+script = ExtResource("13_deathvfx")
+model = NodePath("../Model")
+particles = NodePath("../DissolveParticles")

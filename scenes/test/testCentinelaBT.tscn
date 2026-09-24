@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://d33hikqnhgshl"]
 
+[ext_resource type="Environment" uid="uid://djfjryqib8ac8" path="res://resources/Env.tres" id="1_hb562"]
 [ext_resource type="Script" uid="uid://bx7np0qi5kcgy" path="res://scripts/test/PlayerStub.gd" id="1_player"]
 [ext_resource type="Script" uid="uid://bg827a0vaw43" path="res://scripts/test/BTDebugOverlay.gd" id="2_overlay"]
 [ext_resource type="Script" uid="uid://bfm0hkuqmy8ba" path="res://scripts/components/HitboxComponent.gd" id="7_hitbox"]
-[ext_resource type="Resource" path="res://resources/stats/player_debug_attack_stats.tres" id="10_debug_stats"]
+[ext_resource type="Resource" uid="uid://cco5yh4dc6q21" path="res://resources/stats/player_debug_attack_stats.tres" id="10_debug_stats"]
 [ext_resource type="PackedScene" uid="uid://dyasvt6qqg5mx" path="res://scenes/entities/enemies/centinela.tscn" id="11_cewwy"]
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
@@ -37,9 +38,14 @@ radius = 1.2
 
 [node name="TestCentinelaBT" type="Node3D" unique_id=942060160]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=725089246]
+environment = ExtResource("1_hb562")
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=725089245]
-transform = Transform3D(1, 0, 0, 0, 0.57357645, 0.81915206, 0, -0.81915206, 0.57357645, -10, 16, 8)
+transform = Transform3D(1, 0, 0, 0, 0.57357645, 0.81915206, 0, -0.81915206, 0.57357645, -1.0416698, 16, 8)
 current = true
+fov = 37.8
+near = 0.03
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=965948468]
 transform = Transform3D(0.8660254, -0.43301272, 0.24999999, 0, 0.49999997, 0.86602545, -0.5, -0.75, 0.43301266, 0, 0, 0)
@@ -117,5 +123,5 @@ script = ExtResource("2_overlay")
 branch_names = Array[String](["1. Disparo en curso", "2. Empujón", "3. Iniciar láser", "4. Apuntar"])
 blackboard_keys = Array[String](["attacking", "firing", "reloading"])
 
-[node name="Centinela2" parent="." unique_id=1893237813 instance=ExtResource("11_cewwy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.386939, 0.0804435, -2.4546242)
+[node name="Centinela" parent="." unique_id=1893237813 instance=ExtResource("11_cewwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0166936, 0.031249903, -0.6008241)

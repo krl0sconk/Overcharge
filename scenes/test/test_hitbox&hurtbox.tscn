@@ -22,7 +22,7 @@ collision_layer = 32
 collision_mask = 16
 script = ExtResource("3_7mm84")
 stats = ExtResource("3_7rlb5")
-knockback = Vector3(-0.2, 0, 0)
+knockback_strength = 0.2
 source = NodePath("..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Atacante/HitboxComponent" unique_id=397887349]
