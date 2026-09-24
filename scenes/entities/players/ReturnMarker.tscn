@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/abilities/ReturnMarker.gd" id="1_marker"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_marker"]
+inner_radius = 0.35
+outer_radius = 0.55
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_marker"]
+shading_mode = 0
+albedo_color = Color(0.2, 0.9, 1, 1)
+emission_enabled = true
+emission = Color(0.2, 0.9, 1, 1)
+emission_energy_multiplier = 3.0
+
+[node name="ReturnMarker" type="Node3D"]
+script = ExtResource("1_marker")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.05, 0)
+mesh = SubResource("TorusMesh_marker")
+surface_material_override/0 = SubResource("StandardMaterial3D_marker")

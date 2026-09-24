@@ -8,6 +8,8 @@
 [ext_resource type="Environment" uid="uid://djfjryqib8ac8" path="res://resources/Env.tres" id="7_pntq1"]
 [ext_resource type="PackedScene" uid="uid://dyasvt6qqg5mx" path="res://scenes/entities/enemies/centinela.tscn" id="7_rl67d"]
 [ext_resource type="PackedScene" uid="uid://d2wtgm36hvepn" path="res://scenes/entities/enemies/yunque.tscn" id="7_t3bns"]
+[ext_resource type="PackedScene" uid="uid://br7bofx6kpphh" path="res://scenes/ui/HUD.tscn" id="8_rl67d"]
+[ext_resource type="Script" uid="uid://cw0cveaxufp6g" path="res://scripts/maps/PartyCamera.gd" id="9_camera"]
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
 size = Vector3(10, 0.2, 10)
@@ -35,6 +37,8 @@ enemy_scenes = Array[PackedScene]([ExtResource("5_rl67d"), ExtResource("6_sbtv8"
 [node name="Camera3D" type="Camera3D" parent="." unique_id=883347460]
 transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 10, 8)
 current = true
+fov = 42.0
+script = ExtResource("9_camera")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=48934665]
 environment = ExtResource("7_pntq1")
@@ -103,3 +107,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.22793175, -2)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=82705742]
 transform = Transform3D(0.8660254, -0.43301272, 0.24999999, 0, 0.49999997, 0.86602545, -0.5, -0.75, 0.43301266, 0, 0, 0)
+
+[node name="HUD" parent="." unique_id=278377738 instance=ExtResource("8_rl67d")]
