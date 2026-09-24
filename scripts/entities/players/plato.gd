@@ -10,7 +10,10 @@ func _physics_process(delta: float) -> void:
 	if input_component == null or movement_component == null:
 		return
 
-	movement_component.set_move_direction(input_component.move_dir)
+	if input_component.aim_lock:
+		movement_component.set_move_direction(Vector3.ZERO)
+	else:
+		movement_component.set_move_direction(input_component.move_dir)
 	_face_move_direction(delta)
 
 	if input_component.consume_attack():
