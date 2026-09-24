@@ -35,11 +35,12 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.5657135, -0.471
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014038086, 0.5910034, -0.0047912598)
 shape = SubResource("BoxShape3D_j8abd")
 
-[node name="HurtboxComponent" type="Area3D" parent="." unique_id=1119680267 node_paths=PackedStringArray("health_component")]
+[node name="HurtboxComponent" type="Area3D" parent="." unique_id=1119680267 node_paths=PackedStringArray("health_component", "movement_component")]
 collision_layer = 8
 collision_mask = 64
 script = ExtResource("4_a8a64")
 health_component = NodePath("../HealthComponent")
+movement_component = NodePath("../MovementComponent")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtboxComponent" unique_id=1322594803]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.020843506, 0.6044922, -0.0077667236)

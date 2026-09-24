@@ -52,4 +52,4 @@ func _fire(agent: PerceptComponent) -> void:
 
 	var collider: Object = result.get("collider")
 	if collider != null and collider.has_method("receive_hit"):
-		collider.receive_hit(agent.hitbox.stats.damage, agent.hitbox.knockback, agent.hitbox.source)
+		collider.receive_hit(agent.hitbox.stats.damage, agent.hitbox.knockback_vector(hit_point), agent.hitbox.source)

@@ -1,9 +1,10 @@
 class_name HitFeedbackComponent
 extends Node
 
-## Feedback de golpe: flash blanco del modelo, freeze-frame breve y sacudida
-## de cámara. Se activa solo con la señal `damaged` del HealthComponent, así
-## que funciona igual para jugador y enemigos.
+## Feedback de golpe: flash blanco del modelo, freeze-frame breve, sacudida
+## de cámara y una ráfaga de partículas opcional. Se activa solo con la
+## señal `damaged` del HealthComponent, así que funciona igual para
+## jugador y enemigos -- hit_particles es lo único que cambia por enemigo.
 
 @export var health_component: HealthComponent
 @export var model: Node3D  ## raíz del modelo visual; se buscan sus MeshInstance3D
@@ -13,6 +14,7 @@ extends Node
 @export var hit_pause_scale: float = 0.05
 @export var shake_strength: float = 0.15
 @export var shake_duration: float = 0.15
+@export var hit_particles: GPUParticles3D  ## opcional: ráfaga de partículas propia de cada enemigo
 
 var _mesh_instances: Array[MeshInstance3D] = []
 var _original_overrides: Array = []  ## por mesh, materiales originales por superficie
@@ -41,6 +43,9 @@ func _on_damaged(_amount: int) -> void:
 	_flash()
 	_hit_pause()
 	_shake_camera()
+	if hit_particles != null:
+		hit_particles.restart()
+		hit_particles.emitting = true
 
 func _flash() -> void:
 	if _mesh_instances.is_empty() or flash_duration <= 0.0:

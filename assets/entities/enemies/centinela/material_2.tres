@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://bk2p30ioj4sbe"]
 
-[ext_resource type="Texture2D" uid="uid://dbthyq4pddgw5" path="res://assets/entities/enemies/centinela/Centinela_2.png" id="1_5sc6k"]
+[ext_resource type="Texture2D" uid="uid://pa4lj43lqt6q" path="res://assets/entities/enemies/centinela/Centinela_2.png" id="1_5sc6k"]
 
 [resource]
 resource_name = "material_2"

@@ -8,7 +8,8 @@ extends Node
 @export var hurtbox: HurtboxComponent
 @export var hitbox: HitboxComponent
 @export var owner_body: Node3D
-@export var despawn_delay: float = 0.3
+@export var death_vfx: DeathDissolveComponent  ## opcional: animación de desaparición antes del despawn
+@export var despawn_delay: float = 0.3  ## si hay death_vfx, tiene que cubrir toda su duración
 
 var _killer: Node
 
@@ -27,5 +28,7 @@ func _on_health_died() -> void:
 		hitbox.set_deferred("monitoring", false)
 	hurtbox.set_deferred("monitorable", false)
 	EventBus.enemy_died.emit(_killer)
+	if death_vfx != null:
+		death_vfx.play()
 	await get_tree().create_timer(despawn_delay).timeout
 	owner_body.queue_free()

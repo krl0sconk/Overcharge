@@ -5,14 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://cbhbrdnsv1ksh" path="res://scenes/entities/players/plato.tscn" id="3_plato"]
 [ext_resource type="PackedScene" uid="uid://twwwgkhxbnpr" path="res://scenes/entities/enemies/spam.tscn" id="5_rl67d"]
 [ext_resource type="PackedScene" uid="uid://bfm4s8lc0tvjm" path="res://scenes/entities/enemies/virus.tscn" id="6_sbtv8"]
+[ext_resource type="Environment" uid="uid://djfjryqib8ac8" path="res://resources/Env.tres" id="7_pntq1"]
+[ext_resource type="PackedScene" uid="uid://dyasvt6qqg5mx" path="res://scenes/entities/enemies/centinela.tscn" id="7_rl67d"]
 [ext_resource type="PackedScene" uid="uid://d2wtgm36hvepn" path="res://scenes/entities/enemies/yunque.tscn" id="7_t3bns"]
 [ext_resource type="PackedScene" uid="uid://br7bofx6kpphh" path="res://scenes/ui/HUD.tscn" id="8_rl67d"]
 [ext_resource type="Script" uid="uid://cw0cveaxufp6g" path="res://scripts/maps/PartyCamera.gd" id="9_camera"]
-
-[sub_resource type="Environment" id="Environment_ygx7y"]
-ambient_light_source = 2
-ambient_light_color = Color(0.7953939, 0.79539394, 0.7953939, 1)
-ambient_light_energy = 0.5
 
 [sub_resource type="BoxShape3D" id="FloorShape"]
 size = Vector3(10, 0.2, 10)
@@ -35,7 +32,7 @@ size = Vector3(0.5, 3, 10)
 [node name="TestRoom" type="Node3D" unique_id=2041491567]
 script = ExtResource("1_k2ml6")
 player_scenes = Array[PackedScene]([ExtResource("2_1htl0"), ExtResource("3_plato")])
-enemy_scenes = Array[PackedScene]([ExtResource("5_rl67d"), ExtResource("6_sbtv8"), ExtResource("7_t3bns")])
+enemy_scenes = Array[PackedScene]([ExtResource("5_rl67d"), ExtResource("6_sbtv8"), ExtResource("7_t3bns"), ExtResource("7_rl67d")])
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=883347460]
 transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 10, 8)
@@ -44,7 +41,7 @@ fov = 42.0
 script = ExtResource("9_camera")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=48934665]
-environment = SubResource("Environment_ygx7y")
+environment = ExtResource("7_pntq1")
 
 [node name="Room" type="StaticBody3D" parent="." unique_id=346477843]
 collision_mask = 0

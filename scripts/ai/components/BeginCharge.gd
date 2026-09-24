@@ -23,6 +23,9 @@ func tick(agent: PerceptComponent) -> Status:
 	agent.blackboard["telegraphing"] = false
 	agent.blackboard["charging"] = true
 
+	if agent.hitbox != null:
+		agent.hitbox.reset_hit_window()
+
 	if agent.actor is Node3D:
 		agent.blackboard["charge_direction"] = -(agent.actor as Node3D).global_transform.basis.z
 	else:
