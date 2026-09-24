@@ -20,6 +20,10 @@ func _ready() -> void:
 	_immediate_mesh = ImmediateMesh.new()
 	_mesh_instance = MeshInstance3D.new()
 	_mesh_instance.mesh = _immediate_mesh
+	## Los vértices que dibujamos ya están en espacio global (cell_to_world);
+	## top_level evita que se les sume encima el transform de NavGrid/NavGridDebug.
+	_mesh_instance.top_level = true
+	_mesh_instance.global_transform = Transform3D.IDENTITY
 	_mesh_instance.material_override = _make_material()
 	_mesh_instance.visible = false
 	add_child(_mesh_instance)

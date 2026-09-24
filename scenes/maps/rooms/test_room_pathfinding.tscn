@@ -67,7 +67,7 @@ player_scenes = Array[PackedScene]([ExtResource("2_1htl0"), ExtResource("3_plato
 enemy_scenes = Array[PackedScene]([ExtResource("5_rl67d"), ExtResource("6_sbtv8"), ExtResource("7_t3bns"), ExtResource("7_rl67d")])
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 2, 12, 10)
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.8660254, 0, -0.8660254, 0.5, 2, 15, 7)
 current = true
 fov = 42.0
 script = ExtResource("9_camera")
