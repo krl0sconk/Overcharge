@@ -39,6 +39,13 @@ func _exit_tree() -> void:
 	if OS.has_feature("debug") and EngineDebugger.is_active() and _debug_capture_owner:
 		EngineDebugger.unregister_message_capture("percept")
 
+	var carried: MovementComponent = blackboard.get("carried_movement")
+	if carried != null:
+		carried.movement_enabled = true
+		if movement_component != null and movement_component.owner_body != null and carried.owner_body != null:
+			movement_component.owner_body.remove_collision_exception_with(carried.owner_body)
+			carried.owner_body.remove_collision_exception_with(movement_component.owner_body)
+
 func _physics_process(d: float) -> void:
 	_step_turn(d)
 

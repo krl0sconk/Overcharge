@@ -60,3 +60,9 @@ func open_window(duration: float) -> void:
 		_apply_hit(area)
 	await get_tree().create_timer(duration).timeout
 	monitoring = false
+
+## Para ataques con monitoring siempre prendido (ej. la carga del Yunque),
+## que no usan open_window pero necesitan poder golpear de nuevo en el
+## siguiente intento.
+func reset_hit_window() -> void:
+	_hit_this_window.clear()
