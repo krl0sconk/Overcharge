@@ -1,0 +1,189 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" uid="uid://dqjds2236kjuh" path="res://scripts/maps/test_room_spawner.gd" id="1_k2ml6"]
+[ext_resource type="PackedScene" uid="uid://bvl0vay2np0rk" path="res://scenes/entities/players/nitzsch.tscn" id="2_1htl0"]
+[ext_resource type="PackedScene" uid="uid://cbhbrdnsv1ksh" path="res://scenes/entities/players/plato.tscn" id="3_plato"]
+[ext_resource type="PackedScene" uid="uid://twwwgkhxbnpr" path="res://scenes/entities/enemies/spam.tscn" id="5_rl67d"]
+[ext_resource type="PackedScene" uid="uid://bfm4s8lc0tvjm" path="res://scenes/entities/enemies/virus.tscn" id="6_sbtv8"]
+[ext_resource type="Environment" uid="uid://djfjryqib8ac8" path="res://resources/Env.tres" id="7_pntq1"]
+[ext_resource type="PackedScene" uid="uid://dyasvt6qqg5mx" path="res://scenes/entities/enemies/centinela.tscn" id="7_rl67d"]
+[ext_resource type="PackedScene" uid="uid://d2wtgm36hvepn" path="res://scenes/entities/enemies/yunque.tscn" id="7_t3bns"]
+[ext_resource type="PackedScene" uid="uid://br7bofx6kpphh" path="res://scenes/ui/HUD.tscn" id="8_rl67d"]
+[ext_resource type="Script" uid="uid://cw0cveaxufp6g" path="res://scripts/maps/PartyCamera.gd" id="9_camera"]
+[ext_resource type="Script" uid="uid://px4kr5nbw814" path="res://scripts/maps/nav_grid.gd" id="10_navgrid"]
+[ext_resource type="Script" uid="uid://jhyqt8on31db" path="res://scripts/maps/nav_grid_debug.gd" id="11_navgriddebug"]
+
+[sub_resource type="BoxShape3D" id="FloorMainShape"]
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="BoxMesh" id="FloorMainMesh"]
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="BoxShape3D" id="FloorWingShape"]
+size = Vector3(5, 0.2, 5)
+
+[sub_resource type="BoxMesh" id="FloorWingMesh"]
+size = Vector3(5, 0.2, 5)
+
+[sub_resource type="BoxShape3D" id="WallLongShape"]
+size = Vector3(15, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="WallLongMesh"]
+size = Vector3(15, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="WallMedNSShape"]
+size = Vector3(10, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="WallMedNSMesh"]
+size = Vector3(10, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="WallMedEWShape"]
+size = Vector3(0.5, 3, 10)
+
+[sub_resource type="BoxMesh" id="WallMedEWMesh"]
+size = Vector3(0.5, 3, 10)
+
+[sub_resource type="BoxShape3D" id="WallShortEWShape"]
+size = Vector3(0.5, 3, 5)
+
+[sub_resource type="BoxMesh" id="WallShortEWMesh"]
+size = Vector3(0.5, 3, 5)
+
+[sub_resource type="BoxShape3D" id="WallShortNSShape"]
+size = Vector3(5, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="WallShortNSMesh"]
+size = Vector3(5, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="ColumnShape"]
+size = Vector3(1.2, 3, 1.2)
+
+[sub_resource type="BoxMesh" id="ColumnMesh"]
+size = Vector3(1.2, 3, 1.2)
+
+[node name="TestRoom" type="Node3D" unique_id=2041491567]
+script = ExtResource("1_k2ml6")
+player_scenes = Array[PackedScene]([ExtResource("2_1htl0"), ExtResource("3_plato")])
+enemy_scenes = Array[PackedScene]([ExtResource("5_rl67d"), ExtResource("6_sbtv8"), ExtResource("7_t3bns"), ExtResource("7_rl67d")])
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 2, 12, 10)
+current = true
+fov = 42.0
+script = ExtResource("9_camera")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("7_pntq1")
+
+[node name="NavGrid" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.01, 0)
+script = ExtResource("10_navgrid")
+bounds_size = Vector2(15, 10)
+
+[node name="NavGridDebug" type="Node3D" parent="NavGrid"]
+script = ExtResource("11_navgriddebug")
+
+[node name="Room" type="StaticBody3D" parent="."]
+collision_mask = 0
+
+[node name="FloorMain" type="CollisionShape3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("FloorMainShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/FloorMain"]
+mesh = SubResource("FloorMainMesh")
+
+[node name="FloorWing" type="CollisionShape3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, -0.1, -2.5)
+shape = SubResource("FloorWingShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/FloorWing"]
+mesh = SubResource("FloorWingMesh")
+
+[node name="WallNorth" type="CollisionShape3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.5, -5)
+shape = SubResource("WallLongShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallNorth"]
+mesh = SubResource("WallLongMesh")
+
+[node name="WallSouth" type="CollisionShape3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 5)
+shape = SubResource("WallMedNSShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallSouth"]
+mesh = SubResource("WallMedNSMesh")
+
+[node name="WallWest" type="CollisionShape3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, 0)
+shape = SubResource("WallMedEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallWest"]
+mesh = SubResource("WallMedEWMesh")
+
+[node name="WallEast" type="CollisionShape3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.5, -2.5)
+shape = SubResource("WallShortEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallEast"]
+mesh = SubResource("WallShortEWMesh")
+
+[node name="WallNotchWest" type="CollisionShape3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 2.5)
+shape = SubResource("WallShortEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallNotchWest"]
+mesh = SubResource("WallShortEWMesh")
+
+[node name="WallNotchSouth" type="CollisionShape3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 1.5, 0)
+shape = SubResource("WallShortNSShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallNotchSouth"]
+mesh = SubResource("WallShortNSMesh")
+
+[node name="ColumnA" type="CollisionShape3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.5, -0.5)
+shape = SubResource("ColumnShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/ColumnA"]
+mesh = SubResource("ColumnMesh")
+
+[node name="ColumnB" type="CollisionShape3D" parent="Room"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, -0.5)
+shape = SubResource("ColumnShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/ColumnB"]
+mesh = SubResource("ColumnMesh")
+
+[node name="player1" type="Marker3D" parent="." groups=["player_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.01, 3)
+
+[node name="player2" type="Marker3D" parent="." groups=["player_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.01, 3)
+
+[node name="spawnenemies1" type="Marker3D" parent="." groups=["enemy_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.22793175, -3.5)
+
+[node name="spawnenemies2" type="Marker3D" parent="." groups=["enemy_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.22793175, -3.5)
+
+[node name="spawnenemies3" type="Marker3D" parent="." groups=["enemy_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.22793175, -3.5)
+
+[node name="spawnenemies4" type="Marker3D" parent="." groups=["enemy_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.22793175, -1.5)
+
+[node name="spawnenemies5" type="Marker3D" parent="." groups=["enemy_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.22793175, -1.5)
+
+[node name="spawnenemies6" type="Marker3D" parent="." groups=["enemy_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0.22793175, -1.5)
+
+[node name="spawnenemies7" type="Marker3D" parent="." groups=["enemy_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0.22793175, -4.5)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.8660254, -0.43301272, 0.24999999, 0, 0.49999997, 0.86602545, -0.5, -0.75, 0.43301266, 0, 0, 0)
+
+[node name="HUD" parent="." instance=ExtResource("8_rl67d")]
