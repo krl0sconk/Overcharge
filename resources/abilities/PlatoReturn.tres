@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ReturnNodeAbility" format=3]
+
+[ext_resource type="Script" uid="uid://bxe8h82evh8aa" path="res://scripts/abilities/ReturnNodeAbility.gd" id="1_return"]
+[ext_resource type="PackedScene" path="res://scenes/entities/players/ReturnMarker.tscn" id="2_marker"]
+
+[resource]
+script = ExtResource("1_return")
+marker_scene = ExtResource("2_marker")
+metadata/_custom_type_script = "uid://bxe8h82evh8aa"
