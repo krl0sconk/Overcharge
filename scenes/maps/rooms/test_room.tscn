@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bfm4s8lc0tvjm" path="res://scenes/entities/enemies/virus.tscn" id="6_sbtv8"]
 [ext_resource type="PackedScene" uid="uid://d2wtgm36hvepn" path="res://scenes/entities/enemies/yunque.tscn" id="7_t3bns"]
 [ext_resource type="PackedScene" uid="uid://br7bofx6kpphh" path="res://scenes/ui/HUD.tscn" id="8_rl67d"]
+[ext_resource type="Script" uid="uid://cw0cveaxufp6g" path="res://scripts/maps/PartyCamera.gd" id="9_camera"]
 
 [sub_resource type="Environment" id="Environment_ygx7y"]
 ambient_light_source = 2
@@ -40,6 +41,7 @@ enemy_scenes = Array[PackedScene]([ExtResource("5_rl67d"), ExtResource("6_sbtv8"
 transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 10, 8)
 current = true
 fov = 42.0
+script = ExtResource("9_camera")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=48934665]
 environment = SubResource("Environment_ygx7y")
