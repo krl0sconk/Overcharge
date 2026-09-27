@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8peuy3islgus"
-path.s3tc="res://.godot/imported/Pl4-to_0.png-aa376a349f4b812e46d57368cb6bc275.s3tc.ctex"
+uid="uid://6iwa4b14m2fx"
+path.s3tc="res://.godot/imported/Pl4-to_1.png-154ddd36abf824d267278186daac2c2e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "6f0305e249941a9bbb2850b2a8384fa5"
+"md5": "9f94f52c7c2777c01901df0b1239b08e"
 }
 
 [deps]
 
-source_file="res://assets/entities/players/Pl4-to/Pl4-to_0.png"
-dest_files=["res://.godot/imported/Pl4-to_0.png-aa376a349f4b812e46d57368cb6bc275.s3tc.ctex"]
+source_file="res://assets/entities/players/Pl4-to/Pl4-to_1.png"
+dest_files=["res://.godot/imported/Pl4-to_1.png-154ddd36abf824d267278186daac2c2e.s3tc.ctex"]
 
 [params]
 

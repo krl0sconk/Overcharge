@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://eg6mlm88houw" path="res://scripts/components/HealthComponent.gd" id="2_y7qex"]
 [ext_resource type="Resource" uid="uid://bp3p6li46dtqu" path="res://resources/stats/player2_stats.tres" id="3_iy3nf"]
 [ext_resource type="Script" uid="uid://b1v6j57gquh45" path="res://scripts/components/HurtboxComponent.gd" id="4_a8a64"]
+[ext_resource type="Resource" uid="uid://cnn5qtdo0mjgm" path="res://resources/stats/player1_stats.tres" id="5_pokno"]
 [ext_resource type="Script" uid="uid://hby4bmrev1qb" path="res://scripts/components/MovementComponent/MovementComponent.gd" id="6_altmf"]
 [ext_resource type="Script" uid="uid://c1peqkah8lj6g" path="res://scripts/components/InputComponent.gd" id="10_alhau"]
 [ext_resource type="Script" uid="uid://ckpe7ipejhwka" path="res://scripts/components/HitFeedbackComponent.gd" id="12_0p601"]
@@ -13,26 +14,102 @@
 [ext_resource type="Script" uid="uid://b8g0oh5m6botp" path="res://scripts/entities/players/plato.gd" id="14_plato"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j8abd"]
-size = Vector3(0.54467773, 1.1705322, 0.50787354)
+size = Vector3(0.54467773, 0.8595581, 0.50787354)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lka76"]
 size = Vector3(0.512146, 1.1640625, 0.32540894)
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_j083x"]
+animation = &"doubleshoot"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bqfvr"]
+animation = &"idle"
+play_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pokno"]
+animation = &"shoot1"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_altmf"]
+animation = &"shoot2"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ih4f6"]
+animation = &"walkloop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k5duw"]
+animation = &"walkstart"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8d8s0"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_alhau"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0p601"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_00isg"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3oe76"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qetl0"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dvvb4"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bqfvr"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pokno"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_arsch"]
+states/Start/position = Vector2(278.88004, 67.94608)
+states/doubleshoot/node = SubResource("AnimationNodeAnimation_j083x")
+states/doubleshoot/position = Vector2(537.19995, 196.97792)
+states/idle/node = SubResource("AnimationNodeAnimation_bqfvr")
+states/idle/position = Vector2(424.08, 67.89144)
+states/shoot1/node = SubResource("AnimationNodeAnimation_pokno")
+states/shoot1/position = Vector2(279.60004, 196.96)
+states/shoot2/node = SubResource("AnimationNodeAnimation_altmf")
+states/shoot2/position = Vector2(408.4, 193.792)
+states/walkloop/node = SubResource("AnimationNodeAnimation_ih4f6")
+states/walkloop/position = Vector2(697.2, 69.31002)
+states/walkstart/node = SubResource("AnimationNodeAnimation_k5duw")
+states/walkstart/position = Vector2(557.19995, 68.46887)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_8d8s0"), "shoot1", "idle", SubResource("AnimationNodeStateMachineTransition_alhau"), "shoot2", "idle", SubResource("AnimationNodeStateMachineTransition_0p601"), "doubleshoot", "idle", SubResource("AnimationNodeStateMachineTransition_00isg"), "idle", "walkstart", SubResource("AnimationNodeStateMachineTransition_3oe76"), "walkstart", "idle", SubResource("AnimationNodeStateMachineTransition_qetl0"), "walkstart", "walkloop", SubResource("AnimationNodeStateMachineTransition_dvvb4"), "shoot1", "shoot2", SubResource("AnimationNodeStateMachineTransition_bqfvr"), "shoot2", "doubleshoot", SubResource("AnimationNodeStateMachineTransition_pokno")]
+
 [node name="Plato" type="CharacterBody3D" unique_id=1961644514 groups=["players"]]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("14_plato")
 
 [node name="Model" type="Node3D" parent="." unique_id=193632633]
-transform = Transform3D(0.485, 0, 0, 0, 0.485, 0, 0, 0, 0.485, 0.0029711723, -0.04159665, 0)
+transform = Transform3D(-2.1200023e-08, 0, -0.485, 0, 0.485, 0, 0.485, 0, -2.1200023e-08, 0.0029711723, -0.04159665, 0)
 
 [node name="blockbench_export2" parent="Model" unique_id=295437358 instance=ExtResource("2_bqfvr")]
+
+[node name="brazos" parent="Model/blockbench_export2/Pl4-to2/Pl4-to/columna" parent_id_path=PackedInt32Array(295437358, 1664119810) index="2" unique_id=1490131188]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0, 1, -0.0625, 0.225, -0.21875)
+
+[node name="Rbrazo2" parent="Model/blockbench_export2/Pl4-to2/Pl4-to/columna/brazos" index="0" unique_id=2119754294]
+transform = Transform3D(0.99999994, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Lbrazo2" parent="Model/blockbench_export2/Pl4-to2/Pl4-to/columna/brazos" index="1" unique_id=2041910857]
+transform = Transform3D(0.9999999, 0, 0, 0, 0.9999999, 0, 0, 0, 1, 0, 0, 0.43125)
 
 [node name="MuzzlePoint" type="Marker3D" parent="." unique_id=1300246891]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0.5657135, -0.47199082)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=76895931]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014038086, 0.5910034, -0.0047912598)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.014038086, 0.43551636, -0.0047912598)
 shape = SubResource("BoxShape3D_j8abd")
 
 [node name="HurtboxComponent" type="Area3D" parent="." unique_id=1119680267 node_paths=PackedStringArray("health_component", "movement_component")]
@@ -50,12 +127,16 @@ debug_color = Color(0.27337456, 0.560343, 0, 0.41960785)
 [node name="MovementComponent" type="Node" parent="." unique_id=1017592775 node_paths=PackedStringArray("owner_body")]
 script = ExtResource("6_altmf")
 owner_body = NodePath("..")
-stats = ExtResource("3_iy3nf")
+stats = ExtResource("5_pokno")
 metadata/_custom_type_script = "uid://hby4bmrev1qb"
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=2003623903]
+root_node = NodePath("../Model/blockbench_export2")
+tree_root = SubResource("AnimationNodeStateMachine_arsch")
+anim_player = NodePath("../Model/blockbench_export2/AnimationPlayer")
 
 [node name="InputComponent" type="Node" parent="." unique_id=1960145172]
 script = ExtResource("10_alhau")
-device_id = 1
 metadata/_custom_type_script = "uid://c1peqkah8lj6g"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1754530396]
@@ -81,3 +162,5 @@ ability = ExtResource("13_pokno")
 owner_body = NodePath("..")
 movement_component = NodePath("../MovementComponent")
 metadata/_custom_type_script = "uid://mfkxkr0v1kyu"
+
+[editable path="Model/blockbench_export2"]
