@@ -45,6 +45,9 @@ func _physics_process(delta: float) -> void:
 		if return_ability_component != null:
 			return_ability_component.try_execute()
 
+	if input_component.consume_emote():
+		_play_emote()
+
 func _update_move_animation() -> void:
 	if animation_playback == null:
 		return
@@ -65,6 +68,11 @@ func _play_next_combo_shot() -> void:
 	var shot_name: String = SHOOT_COMBO[_combo_index]
 	_travel_to(shot_name)
 	_combo_index = (_combo_index + 1) % SHOOT_COMBO.size()
+
+func _play_emote() -> void:
+	if animation_playback == null:
+		return
+	_travel_to("emote")
 
 ## Centraliza el travel() para que siempre se aplique la velocidad correcta
 ## (o 1.0 si la animación no tiene un multiplicador definido).

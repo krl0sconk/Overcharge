@@ -13,7 +13,6 @@
 [ext_resource type="Resource" uid="uid://ctdymga513w64" path="res://resources/abilities/NitzschDash.tres" id="8_rchfo"]
 [ext_resource type="Resource" uid="uid://byt8v5qwlfhl0" path="res://resources/abilities/NitzschCombo.tres" id="9_8v8bo"]
 [ext_resource type="Script" uid="uid://c1peqkah8lj6g" path="res://scripts/components/InputComponent.gd" id="10_7sbmn"]
-[ext_resource type="Resource" uid="uid://bp3p6li46dtqu" path="res://resources/stats/player2_stats.tres" id="10_74ahu"]
 [ext_resource type="Script" uid="uid://ckpe7ipejhwka" path="res://scripts/components/HitFeedbackComponent.gd" id="12_74ahu"]
 [ext_resource type="Script" uid="uid://dh81d7ytvsnj3" path="res://scripts/entities/players/nitzsch.gd" id="13_controller"]
 [ext_resource type="Script" uid="uid://c7d6gurdeth4v" path="res://scripts/components/AnimationComponent.gd" id="14_animcomp"]
@@ -937,7 +936,7 @@ bones/1/name = "Torso"
 bones/1/parent = 0
 bones/1/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40625, 0)
 bones/1/enabled = true
-bones/1/position = Vector3(0, 0.38837165, 0)
+bones/1/position = Vector3(0, 0.3882817, 0)
 bones/1/rotation = Quaternion(0, 0, 0, 1)
 bones/1/scale = Vector3(1, 1, 1)
 bones/2/name = "Head"
@@ -945,7 +944,7 @@ bones/2/parent = 1
 bones/2/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 bones/2/enabled = true
 bones/2/position = Vector3(0, 0.3, 0)
-bones/2/rotation = Quaternion(0.0049302904, 0, 0, 0.99998784)
+bones/2/rotation = Quaternion(0.0023462125, 0, 0, 0.99999726)
 bones/2/scale = Vector3(1, 1, 1)
 bones/3/name = "R_Arm"
 bones/3/parent = 1
@@ -966,28 +965,28 @@ bones/5/parent = 0
 bones/5/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09375, 0.34375, 0)
 bones/5/enabled = true
 bones/5/position = Vector3(0.09375, 0.34375, 0)
-bones/5/rotation = Quaternion(0.03869386, 0, 0, 0.9992512)
+bones/5/rotation = Quaternion(0.039601672, 0, 0, 0.9992156)
 bones/5/scale = Vector3(1, 1, 1)
 bones/6/name = "L_Leg2"
 bones/6/parent = 5
 bones/6/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
 bones/6/enabled = true
 bones/6/position = Vector3(0, -0.15, 0)
-bones/6/rotation = Quaternion(-0.036907814, 0.010706848, 0.004472472, 0.99925137)
+bones/6/rotation = Quaternion(-0.037774697, 0.010954227, 0.0045868475, 0.9992157)
 bones/6/scale = Vector3(1, 1, 1)
 bones/7/name = "R_Leg"
 bones/7/parent = 0
 bones/7/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09375, 0.34375, 0)
 bones/7/enabled = true
 bones/7/position = Vector3(-0.09375, 0.34375, 0)
-bones/7/rotation = Quaternion(0.040076252, 0, 0, 0.99919665)
+bones/7/rotation = Quaternion(0.040891405, 0, 0, 0.9991637)
 bones/7/scale = Vector3(1, 1, 1)
 bones/8/name = "R_Leg2"
 bones/8/parent = 7
 bones/8/rest = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
 bones/8/enabled = true
 bones/8/position = Vector3(0, -0.15, 0)
-bones/8/rotation = Quaternion(-0.06009426, 0, 0, 0.9981928)
+bones/8/rotation = Quaternion(-0.06131573, 0, 0, 0.9981185)
 bones/8/scale = Vector3(1, 1, 1)
 
 [node name="Root" type="MeshInstance3D" parent="Model/blockbench_export/Root/Skeleton3D" unique_id=1055935323]
@@ -1028,7 +1027,7 @@ debug_color = Color(0.8906444, 0, 0.052586533, 0.41960785)
 [node name="MovementComponent" type="Node" parent="." unique_id=1017592775 node_paths=PackedStringArray("owner_body")]
 script = ExtResource("6_0ctwy")
 owner_body = NodePath("..")
-stats = ExtResource("10_74ahu")
+stats = ExtResource("3_ngnwb")
 friction = 40.0
 metadata/_custom_type_script = "uid://hby4bmrev1qb"
 
@@ -1048,7 +1047,6 @@ metadata/_custom_type_script = "uid://mfkxkr0v1kyu"
 
 [node name="InputComponent" type="Node" parent="." unique_id=1960145172]
 script = ExtResource("10_7sbmn")
-device_id = 1
 metadata/_custom_type_script = "uid://c1peqkah8lj6g"
 
 [node name="HealthComponent" type="Node" parent="." unique_id=1754530396]

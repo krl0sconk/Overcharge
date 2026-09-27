@@ -11,7 +11,8 @@ extends CanvasLayer
 const COLOR_NORMAL: Color = Color(1, 1, 1)
 const COLOR_COOLDOWN: Color = Color(0.5, 0.5, 0.5)
 
-var time_left: float = 99.0
+var time_left: float = 20.0
+var timer_running: bool = true
 
 # --- Referencias reales a los jugadores y sus componentes ---
 var player_p1: Node = null  # Nitzsch
@@ -30,8 +31,6 @@ func _ready() -> void:
 
 func _setup_players() -> void:
 	_find_players()
-	print("DEBUG player_p1: ", player_p1)
-	print("DEBUG player_p2: ", player_p2)
 	_connect_health_signals()
 	_connect_ability_references()
 
@@ -44,22 +43,16 @@ func _find_players() -> void:
 
 func _connect_health_signals() -> void:
 	if player_p1 != null and player_p1.health_component != null:
-		print("DEBUG conectando P1, max_health: ", player_p1.health_component.stats.max_health)
 		hp_bar_p1.max_value = player_p1.health_component.stats.max_health
 		hp_bar_p1.value = player_p1.health_component.current_health
 		player_p1.health_component.damaged.connect(_on_p1_damaged)
 		player_p1.health_component.died.connect(_on_p1_died)
-	else:
-		print("DEBUG P1 no conectado -- player_p1: ", player_p1, " health_component: ", player_p1.health_component if player_p1 != null else "N/A")
 
 	if player_p2 != null and player_p2.health_component != null:
-		print("DEBUG conectando P2, max_health: ", player_p2.health_component.stats.max_health)
 		hp_bar_p2.max_value = player_p2.health_component.stats.max_health
 		hp_bar_p2.value = player_p2.health_component.current_health
 		player_p2.health_component.damaged.connect(_on_p2_damaged)
 		player_p2.health_component.died.connect(_on_p2_died)
-	else:
-		print("DEBUG P2 no conectado -- player_p2: ", player_p2, " health_component: ", player_p2.health_component if player_p2 != null else "N/A")
 
 func _connect_ability_references() -> void:
 	if player_p1 != null:
@@ -68,20 +61,25 @@ func _connect_ability_references() -> void:
 		ability_p2 = player_p2.ability_component  # AbilityComponent genérico (proyectil)
 
 func _on_p1_damaged(_amount: int) -> void:
-	print("DEBUG P1 recibió daño: ", _amount)
 	hp_bar_p1.value = player_p1.health_component.current_health
 
 func _on_p1_died() -> void:
 	hp_bar_p1.value = 0
 
 func _on_p2_damaged(_amount: int) -> void:
-	print("DEBUG P2 recibió daño: ", _amount)
 	hp_bar_p2.value = player_p2.health_component.current_health
 
 func _on_p2_died() -> void:
 	hp_bar_p2.value = 0
 
 func _process(delta: float) -> void:
+	if timer_running:
+		time_left -= delta
+		if time_left <= 0:
+			time_left = 0
+			timer_running = false
+		timer_label.text = str(int(ceil(time_left)))
+
 	_update_attack_button(attack_button_p1, ability_p1)
 	_update_attack_button(attack_button_p2, ability_p2)
 
