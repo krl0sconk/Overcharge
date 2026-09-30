@@ -7,6 +7,7 @@ var move_dir: Vector3 = Vector3.ZERO
 var wants_attack: bool = false
 var wants_dash: bool = false
 var wants_return: bool = false
+var aim_lock: bool = false
 var wants_emote: bool = false
 
 var _move_left: float = 0.0
@@ -52,9 +53,14 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("return_node"):
 		wants_return = true
 
+	if event.is_action_pressed("aim_lock"):
+		aim_lock = true
+
+	if event.is_action_released("aim_lock"):
+		aim_lock = false
+
 	if event.is_action_pressed("emote"):
 		wants_emote = true
-		
 
 	var input_vector := Vector2(
 		_move_right - _move_left,
