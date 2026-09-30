@@ -2,24 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8peuy3islgus"
-path.s3tc="res://.godot/imported/Pl4-to_0.png-aa376a349f4b812e46d57368cb6bc275.s3tc.ctex"
+uid="uid://ug6voyyaeyar"
+path="res://.godot/imported/Adobe Express - file.png-9527cab66e7ac609b4345c889fcb64bf.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
-}
-generator_parameters={
-"md5": "6f0305e249941a9bbb2850b2a8384fa5"
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/entities/players/Pl4-to/Pl4-to_0.png"
-dest_files=["res://.godot/imported/Pl4-to_0.png-aa376a349f4b812e46d57368cb6bc275.s3tc.ctex"]
+source_file="res://assets/ui/Adobe Express - file.png"
+dest_files=["res://.godot/imported/Adobe Express - file.png-9527cab66e7ac609b4345c889fcb64bf.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -27,7 +23,7 @@ compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=true
+mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -41,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
