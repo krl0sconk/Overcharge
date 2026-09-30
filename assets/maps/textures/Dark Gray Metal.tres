@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://etl3tebnlyiu"]
+
+[resource]
+resource_name = "Dark Gray Metal"
+cull_mode = 2
+albedo_color = Color(0.40964708, 0.40964708, 0.40964708, 1)
+metallic = 0.8015267
+roughness = 0.14885497
