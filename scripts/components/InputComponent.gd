@@ -8,6 +8,7 @@ var wants_attack: bool = false
 var wants_dash: bool = false
 var wants_return: bool = false
 var aim_lock: bool = false
+var wants_emote: bool = false
 
 var _move_left: float = 0.0
 var _move_right: float = 0.0
@@ -58,6 +59,9 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_released("aim_lock"):
 		aim_lock = false
 
+	if event.is_action_pressed("emote"):
+		wants_emote = true
+
 	var input_vector := Vector2(
 		_move_right - _move_left,
 		_move_down - _move_up
@@ -90,6 +94,13 @@ func consume_return() -> bool:
 		return false
 
 	wants_return = false
+	return true
+
+func consume_emote() -> bool:
+	if not wants_emote:
+		return false
+
+	wants_emote = false
 	return true
 
 ## Reparte teclado y controles entre los dos jugadores: teclado/mouse

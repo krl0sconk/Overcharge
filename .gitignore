@@ -32,3 +32,6 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+# Índice de búsqueda de docs (generado, no fuente)
+docs/index.bleve/

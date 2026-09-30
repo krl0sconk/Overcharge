@@ -1,11 +1,14 @@
 class_name MoveToTarget
 extends PerceptNode
 
-## Genérica: mueve al actor en línea recta hacia el target del blackboard,
-## en el plano XZ. Sin pathfinding (entrega 2): persecución directa. Se frena
-## a stop_distance para no encimarse con el objetivo.
+## Persigue al target del blackboard, en el plano XZ. Sin NavGrid: línea
+## recta (fallback obligatorio, escenas de test). Con NavGrid: A* + suavizado,
+## recalculando solo cuando hace falta (ver NavPathing).
 
 @export var stop_distance: float = 1.0
+@export var waypoint_tolerance: float = 0.3
+@export var repath_distance: float = 1.5
+@export var repath_interval: float = 0.5
 
 func tick(agent: PerceptComponent) -> Status:
 	var target: Node = agent.blackboard.get("target")
@@ -15,12 +18,20 @@ func tick(agent: PerceptComponent) -> Status:
 		return Status.FAILURE
 
 	var actor3d: Node3D = agent.actor as Node3D
-	var to_target: Vector3 = (target as Node3D).global_position - actor3d.global_position
+	var target_pos: Vector3 = (target as Node3D).global_position
+	var to_target: Vector3 = target_pos - actor3d.global_position
 	to_target.y = 0.0
 
 	if to_target.length() <= stop_distance:
 		movement.set_move_direction(Vector3.ZERO)
+		NavPathing.clear(agent, self, repath_interval)
 		return Status.SUCCESS
 
-	movement.set_move_direction(to_target)
-	return Status.RUNNING
+	if agent.nav_grid == null:
+		movement.set_move_direction(to_target)
+		return Status.RUNNING
+
+	return NavPathing.follow(
+		agent, self, movement, actor3d, target_pos,
+		waypoint_tolerance, repath_distance, repath_interval
+	)

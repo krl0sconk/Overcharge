@@ -14,6 +14,7 @@ extends Node
 var blackboard: Dictionary = {}        ## datos del enemigo: target, etc.
 var memory: Dictionary = {}            ## lo que un nodo necesita recordar
 var delta: float = 0.0
+var nav_grid: NavGrid                  ## null en escenas de test sin grilla
 
 var _accum: float = 0.0
 var _debug_statuses: Dictionary = {}
@@ -25,6 +26,8 @@ var _debug_capture_owner: bool = false
 var _debug_agent_announce_accum: float = 0.0
 
 func _ready() -> void:
+	nav_grid = get_tree().get_first_node_in_group("nav_grid") as NavGrid
+
 	if health_component != null:
 		health_component.damaged.connect(_on_damaged)
 
