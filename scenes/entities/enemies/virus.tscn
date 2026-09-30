@@ -10,7 +10,7 @@
 [ext_resource type="Resource" uid="uid://beqrw0x8o1d7o" path="res://resources/ai/trees/virus.tres" id="9_4qpaw"]
 [ext_resource type="Script" uid="uid://bhibjyin08b8e" path="res://scripts/components/CorruptionTrailComponent.gd" id="9_b3j21"]
 [ext_resource type="Script" uid="uid://bfjeql4frjikr" path="res://scripts/entities/entidad.gd" id="10_entidad"]
-[ext_resource type="PackedScene" uid="uid://cadgevbh3p36x" path="res://scenes/test/corruption_blot.tscn" id="11_blot"]
+[ext_resource type="PackedScene" uid="uid://cadgevbh3p36x" path="res://scenes/entities/hazards/corruption_blot.tscn" id="11_blot"]
 [ext_resource type="Script" path="res://scripts/components/HitFeedbackComponent.gd" id="12_hitfeedback"]
 [ext_resource type="Script" path="res://scripts/components/DeathDissolveComponent.gd" id="13_deathvfx"]
 
