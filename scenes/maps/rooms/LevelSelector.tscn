@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://bfbl280evabst"]
+
+[ext_resource type="PackedScene" uid="uid://bvl0vay2np0rk" path="res://scenes/entities/players/nitzsch.tscn" id="1_1lsm3"]
+[ext_resource type="Script" uid="uid://cw0cveaxufp6g" path="res://scripts/maps/PartyCamera.gd" id="1_7fdmm"]
+[ext_resource type="PackedScene" uid="uid://cbhbrdnsv1ksh" path="res://scenes/entities/players/plato.tscn" id="2_7fdmm"]
+[ext_resource type="PackedScene" uid="uid://cq157jl3jimwk" path="res://scripts/Levels/LevelPreviewUI.tscn" id="3_n57fs"]
+[ext_resource type="PackedScene" uid="uid://b67mhsamhpb7x" path="res://scripts/Levels/LevelNode.tscn" id="4_d624t"]
+[ext_resource type="Texture2D" uid="uid://btoqb51omlcii" path="res://assets/ui/gatotonto.jpg" id="5_qjuvt"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_arsch"]
+size = Vector3(14.517258, 0.25048828, 16.583252)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_arsch"]
+size = Vector3(15.157257, 0.23486328, 16.593414)
+
+[node name="LevelSelector" type="Node3D" unique_id=1101770283]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1931961163]
+transform = Transform3D(1, 0, 0, 0, 0.799477, 0.60069674, 0, -0.60069674, 0.799477, -78.95798, 11.559706, 14.890392)
+light_color = Color(0.9999997, 0.93476677, 0.99582976, 1)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1002888961]
+transform = Transform3D(1, 0, 0, 0, 0.85485864, 0.51886094, 0, -0.51886094, 0.85485864, 0, 4.5545177, 3.5119956)
+current = true
+script = ExtResource("1_7fdmm")
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=1122816853]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1179108073]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44309235, -0.37475586, -2.3360596)
+mesh = SubResource("BoxMesh_arsch")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1846292766]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.736496, -0.3584342, -2.3306732)
+shape = SubResource("BoxShape3D_arsch")
+
+[node name="Nitzsch" parent="." unique_id=1961644514 instance=ExtResource("1_1lsm3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5439758, -0.24100256, 2.3816986)
+
+[node name="Plato" parent="." unique_id=365447008 instance=ExtResource("2_7fdmm")]
+transform = Transform3D(-6.556708e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.556708e-08, 4.547139, -0.17860758, 1.873097)
+
+[node name="LevelPreviewUI" parent="." unique_id=1415581166 instance=ExtResource("3_n57fs")]
+
+[node name="LevelNode" parent="." unique_id=1581000591 instance=ExtResource("4_d624t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.452349, 0.29000705, -2.7429543)
+collision_layer = 2
+collision_mask = 5
+preview_image = ExtResource("5_qjuvt")
+
+[node name="LevelNode2" parent="." unique_id=2109497465 instance=ExtResource("4_d624t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6863413, 0.29000717, -0.14021444)
+collision_layer = 2
+collision_mask = 5
+level_index = 1
+preview_image = ExtResource("5_qjuvt")

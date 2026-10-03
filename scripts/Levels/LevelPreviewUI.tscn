@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cq157jl3jimwk"]
+
+[ext_resource type="Script" uid="uid://cny2vh61dntvv" path="res://scripts/Levels/level_preview_ui.gd" id="1_n1nhm"]
+[ext_resource type="Texture2D" uid="uid://btoqb51omlcii" path="res://assets/ui/gatotonto.jpg" id="2_8q1v2"]
+
+[node name="LevelPreviewUI" type="CanvasLayer" unique_id=1415581166]
+script = ExtResource("1_n1nhm")
+
+[node name="Panel" type="Control" parent="." unique_id=1779544134]
+custom_minimum_size = Vector2(400, 300)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PreviewTexture" type="TextureRect" parent="Panel" unique_id=992713090]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -14.0000305
+offset_top = -24.00003
+offset_right = 664.0
+offset_bottom = 662.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("2_8q1v2")
+stretch_mode = 5
+
+[node name="LevelNameLabel" type="Label" parent="Panel" unique_id=65753058]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 42
+text = "level 1"
