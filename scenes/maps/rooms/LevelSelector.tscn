@@ -40,17 +40,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5439758, -0.24100256, 2.381
 [node name="Plato" parent="." unique_id=365447008 instance=ExtResource("2_7fdmm")]
 transform = Transform3D(-6.556708e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.556708e-08, 4.547139, -0.17860758, 1.873097)
 
-[node name="LevelPreviewUI" parent="." unique_id=1415581166 instance=ExtResource("3_n57fs")]
-
 [node name="LevelNode" parent="." unique_id=1581000591 instance=ExtResource("4_d624t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.452349, 0.29000705, -2.7429543)
 collision_layer = 2
-collision_mask = 5
-preview_image = ExtResource("5_qjuvt")
+collision_mask = 2
 
 [node name="LevelNode2" parent="." unique_id=2109497465 instance=ExtResource("4_d624t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6863413, 0.29000717, -0.14021444)
 collision_layer = 2
-collision_mask = 5
+collision_mask = 2
 level_index = 1
 preview_image = ExtResource("5_qjuvt")
+
+[node name="LevelPreviewUI" parent="." unique_id=1415581166 instance=ExtResource("3_n57fs")]
+offset_above = 0.4
