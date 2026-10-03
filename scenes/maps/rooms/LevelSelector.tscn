@@ -8,10 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://btoqb51omlcii" path="res://assets/ui/gatotonto.jpg" id="5_qjuvt"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_arsch"]
-size = Vector3(14.517258, 0.25048828, 16.583252)
+size = Vector3(17.042809, 0.25048828, 16.583252)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_arsch"]
-size = Vector3(15.157257, 0.23486328, 16.593414)
+size = Vector3(17.524796, 0.23486328, 16.593414)
 
 [node name="LevelSelector" type="Node3D" unique_id=1101770283]
 
@@ -27,11 +27,11 @@ script = ExtResource("1_7fdmm")
 [node name="Floor" type="StaticBody3D" parent="." unique_id=1122816853]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=1179108073]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.44309235, -0.37475586, -2.3360596)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8196831, -0.37475586, -2.3360596)
 mesh = SubResource("BoxMesh_arsch")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=1846292766]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.736496, -0.3584342, -2.3306732)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.44727325, -0.3584342, -2.3306732)
 shape = SubResource("BoxShape3D_arsch")
 
 [node name="Nitzsch" parent="." unique_id=1961644514 instance=ExtResource("1_1lsm3")]
@@ -41,16 +41,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5439758, -0.24100256, 2.381
 transform = Transform3D(-6.556708e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.556708e-08, 4.547139, -0.17860758, 1.873097)
 
 [node name="LevelNode" parent="." unique_id=1581000591 instance=ExtResource("4_d624t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.452349, 0.29000705, -2.7429543)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 6.792528, -0.051059723, -5.4405756)
 collision_layer = 2
 collision_mask = 2
+preview_image = ExtResource("5_qjuvt")
 
 [node name="LevelNode2" parent="." unique_id=2109497465 instance=ExtResource("4_d624t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6863413, 0.29000717, -0.14021444)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.6616504, 0.009774342, -4.5499)
 collision_layer = 2
 collision_mask = 2
-level_index = 1
+level_name = "Nivel 2"
 preview_image = ExtResource("5_qjuvt")
 
 [node name="LevelPreviewUI" parent="." unique_id=1415581166 instance=ExtResource("3_n57fs")]
+card_size = Vector2(190, 130)
 offset_above = 0.4
+
+[node name="LevelNode3" parent="." unique_id=883126303 instance=ExtResource("4_d624t")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -5.048508, 0.015471756, -4.870227)
+collision_layer = 2
+collision_mask = 2
+level_name = "Nivel 3"
+preview_image = ExtResource("5_qjuvt")

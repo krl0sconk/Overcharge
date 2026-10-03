@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://cny2vh61dntvv" path="res://scripts/Levels/level_preview_ui.gd" id="1_n1nhm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n1nhm"]
-bg_color = Color(0.81129, 0.5804522, 0.90674686, 1)
+bg_color = Color(1, 1, 1, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.48280662, 0.96004015, 0.97167295, 1)
+border_color = Color(0.8055934, 0.8055934, 0.8055934, 1)
 corner_radius_top_left = 11
 corner_radius_top_right = 11
 corner_radius_bottom_right = 12
@@ -18,24 +18,26 @@ shadow_size = 6
 shadow_offset = Vector2(0, 3)
 
 [node name="LevelPreviewUI" type="CanvasLayer" unique_id=1415581166]
-scale = Vector2(0.5, 0.5)
-transform = Transform2D(0.5, 0, 0, 0.5, 0, 0)
 script = ExtResource("1_n1nhm")
 
 [node name="Panel" type="Panel" parent="." unique_id=1552560243]
-offset_left = 1932.0
-offset_top = 956.0
-offset_right = 2332.0
-offset_bottom = 1256.0
+clip_contents = true
+offset_left = 7.0
+offset_top = 10.0
+offset_right = 407.0
+offset_bottom = 310.0
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_n1nhm")
 
 [node name="PreviewTexture" type="TextureRect" parent="Panel" unique_id=992713090]
 layout_mode = 1
-offset_right = 1078.0
-offset_bottom = 986.0
-scale = Vector2(0.4, 0.4)
-stretch_mode = 6
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
 
 [node name="LevelNameLabel" type="Label" parent="Panel" unique_id=65753058]
 layout_mode = 1
@@ -46,5 +48,5 @@ offset_left = -20.0
 offset_right = 20.0
 offset_bottom = 23.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 42
+theme_override_font_sizes/font_size = 20
 text = "level 1"

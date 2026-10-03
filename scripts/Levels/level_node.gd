@@ -42,7 +42,8 @@ func _on_body_entered(body: Node3D) -> void:
 		prompt_label.visible = true
 
 	if _preview_ui != null:
-		_preview_ui.show_preview(preview_image, level_name, global_position)
+		print("DEBUG preview_image: ", preview_image)
+	_preview_ui.show_preview(preview_image, level_name, global_position)
 
 func _on_body_exited(body: Node3D) -> void:
 	if not body.is_in_group("players"):
