@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bx0jokr61cnmc"]
+
+[ext_resource type="Script" uid="uid://5c5n8kfjdxo0" path="res://scripts/test/test_generation_context.gd" id="1_v7cfx"]
+
+[node name="TestGenerationContext" type="Node" unique_id=1421147955]
+script = ExtResource("1_v7cfx")
