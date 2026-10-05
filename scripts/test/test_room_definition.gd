@@ -14,5 +14,3 @@ func _ready() -> void:
 	print("base_weight: ", ROOM_DEFINITION.base_weight)
 	print("base_difficulty: ", ROOM_DEFINITION.base_difficulty)
 	print("room_scene: ", ROOM_DEFINITION.room_scene)
-
-

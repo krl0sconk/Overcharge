@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://dko6246ia4f3a"]
+
+[ext_resource type="PackedScene" uid="uid://b8p30jmfpjgi4" path="res://scenes/maps/rooms/test_room.tscn" id="1_k68ka"]
+[ext_resource type="Script" uid="uid://vjobjbgufs4l" path="res://scripts/maps/graphs/RoomDefinition.gd" id="2_xmv32"]
+
+[resource]
+script = ExtResource("2_xmv32")
+room_id = &"test_exit"
+room_role = "exit"
+room_scene = ExtResource("1_k68ka")
+base_difficulty = 0
+metadata/_custom_type_script = "uid://vjobjbgufs4l"

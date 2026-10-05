@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://p882gv2adwwe"]
+
+[ext_resource type="Script" uid="uid://84cdsrbxegou" path="res://scripts/test/test_graph_definition.gd" id="1_4retb"]
+
+[node name="TestGraphDefinition" type="Node" unique_id=1258665668]
+script = ExtResource("1_4retb")
