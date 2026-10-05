@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://hrdtlax01igs"]
+
+[ext_resource type="Script" uid="uid://b07jlqb4hi11o" path="res://scripts/test/test_graph_validator.gd" id="1_0uux6"]
+
+[node name="TestGraphValidator" type="Node" unique_id=492318348]
+script = ExtResource("1_0uux6")

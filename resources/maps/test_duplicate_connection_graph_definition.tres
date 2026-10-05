@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="GraphDefinition" format=3 uid="uid://cwvmjc2mqr305"]
+
+[ext_resource type="Script" uid="uid://dik5fvdvt7yy0" path="res://scripts/maps/graphs/RoomConnection.gd" id="1_80ept"]
+[ext_resource type="Resource" uid="uid://d36dnv7wj35pn" path="res://resources/maps/test_start_to_exit_connection.tres" id="2_8pclr"]
+[ext_resource type="Script" uid="uid://vjobjbgufs4l" path="res://scripts/maps/graphs/RoomDefinition.gd" id="3_w76tm"]
+[ext_resource type="Resource" uid="uid://b2a1jyatqcpp6" path="res://resources/maps/test_room_definition.tres" id="4_aqcmr"]
+[ext_resource type="Resource" uid="uid://dko6246ia4f3a" path="res://resources/maps/test_exit_room_definition.tres" id="5_xumph"]
+[ext_resource type="Script" uid="uid://dxuwvdtdifpjt" path="res://scripts/maps/graphs/GraphDefinition.gd" id="6_ragi1"]
+
+[resource]
+script = ExtResource("6_ragi1")
+graph_id = &"test_graph"
+start_room_id = &"test_room"
+exit_room_id = &"test_exit"
+room_definitions = Array[ExtResource("3_w76tm")]([ExtResource("4_aqcmr"), ExtResource("5_xumph")])
+connections = Array[ExtResource("1_80ept")]([ExtResource("2_8pclr"), ExtResource("2_8pclr")])
+metadata/_custom_type_script = "uid://dxuwvdtdifpjt"
