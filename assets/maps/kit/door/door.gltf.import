@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d1xyw683ne7we"
-path="res://.godot/imported/floor5.gltf-6c38b5a049283d28ddb00f31659a6a2f.scn"
+uid="uid://dpokd52xg4ib"
+path="res://.godot/imported/door.gltf-584f6c5170dd00fa6810ff2fc90546db.scn"
 
 [deps]
 
-source_file="res://assets/maps/kit/floor5.gltf"
-dest_files=["res://.godot/imported/floor5.gltf-6c38b5a049283d28ddb00f31659a6a2f.scn"]
+source_file="res://assets/maps/kit/door/door.gltf"
+dest_files=["res://.godot/imported/door.gltf-584f6c5170dd00fa6810ff2fc90546db.scn"]
 
 [params]
 

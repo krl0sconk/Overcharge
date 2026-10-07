@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bte8ufb2jic14"]
+
+[ext_resource type="PackedScene" uid="uid://cv3n8n8achsmk" path="res://assets/maps/kit/columna/columna.gltf" id="1_ijvp1"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_711os"]
+points = PackedVector3Array(0.00062815665, 0, 0.00062815665, 0.49932304, 0, 0.00062815665, 0.00062815665, 0, 0.49932304, 0.00062815665, 2.7499998, 0.00062815665, 0.49932304, 0, 0.49932304, 0.49932304, 2.7499998, 0.00062815665, 0.00062815665, 2.7499998, 0.49932304, 0.49932304, 2.7499998, 0.49932304)
+
+[node name="Columna" type="StaticBody3D" unique_id=496179216]
+
+[node name="blockbench_export" parent="." unique_id=1167638966 instance=ExtResource("1_ijvp1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39313257, 0, 0.6401818)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=680653596]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.39313257, 0, 0.6401818)
+shape = SubResource("ConvexPolygonShape3D_711os")
+
+[editable path="blockbench_export"]

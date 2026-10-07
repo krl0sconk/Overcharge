@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c210mvpcnq7gh"
-path="res://.godot/imported/rejilla.gltf-45380bad6bbcd3a4adff9be418da179a.scn"
+uid="uid://brx0f82kgrbkt"
+path="res://.godot/imported/corners.gltf-b3a8641b1fe6089880bffe0a64085aa2.scn"
 
 [deps]
 
-source_file="res://assets/maps/kit/rejilla.gltf"
-dest_files=["res://.godot/imported/rejilla.gltf-45380bad6bbcd3a4adff9be418da179a.scn"]
+source_file="res://assets/maps/kit/corner/corners.gltf"
+dest_files=["res://.godot/imported/corners.gltf-b3a8641b1fe6089880bffe0a64085aa2.scn"]
 
 [params]
 

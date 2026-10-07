@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://c44qw1rdgaj52"]
+
+[ext_resource type="PackedScene" uid="uid://brx0f82kgrbkt" path="res://assets/maps/kit/corner/corners.gltf" id="1_tfuft"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_yfxa1"]
+points = PackedVector3Array(0, 0, 0, 0, 0, 1.5, 0, 2.7499998, 0, 1.5, 0, 0, 0.24990211, 0, 1.5, 0, 2.7499998, 1.5, 1.5, 2.7499998, 0, 1.5, 0, 0.24990211, 0.24990211, 2.7499998, 1.5, 1.5, 2.7499998, 0.24990211)
+
+[node name="Corner" type="StaticBody3D" unique_id=570632983]
+
+[node name="blockbench_export" parent="." unique_id=1285773555 instance=ExtResource("1_tfuft")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1633923001]
+shape = SubResource("ConvexPolygonShape3D_yfxa1")
+
+[editable path="blockbench_export"]

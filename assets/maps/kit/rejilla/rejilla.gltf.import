@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cv3n8n8achsmk"
-path="res://.godot/imported/columna.gltf-4d4a2d749ca56adafd06eb1feb3b8a4d.scn"
+uid="uid://c210mvpcnq7gh"
+path="res://.godot/imported/rejilla.gltf-9b566b48671c1aad0d2810e38c48e9c5.scn"
 
 [deps]
 
-source_file="res://assets/maps/kit/columna.gltf"
-dest_files=["res://.godot/imported/columna.gltf-4d4a2d749ca56adafd06eb1feb3b8a4d.scn"]
+source_file="res://assets/maps/kit/rejilla/rejilla.gltf"
+dest_files=["res://.godot/imported/rejilla.gltf-9b566b48671c1aad0d2810e38c48e9c5.scn"]
 
 [params]
 

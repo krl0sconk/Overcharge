@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://diajwdevlotwd"]
+
+[ext_resource type="PackedScene" uid="uid://citkkqqqanmr2" path="res://assets/maps/kit/stairs/stairs.gltf" id="1_l8fno"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_nyec3"]
+points = PackedVector3Array(0, 0, 0, 0, 0.125, 0, 1.5, 0, 0, 0, 0, 1.4375, 0, 0.25, 0.24990211, 1.5, 0.125, 0, 1.5, 0, 1.4375, 0, 0.5, 1.4375, 0, 0.5, 0.99988985, 1.5, 0.25, 0.24990211, 1.5, 0.5, 1.4375, 1.5, 0.5, 0.99988985)
+
+[node name="Stairs" type="StaticBody3D" unique_id=954517834]
+
+[node name="blockbench_export" parent="." unique_id=1365587144 instance=ExtResource("1_l8fno")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=268464270]
+shape = SubResource("ConvexPolygonShape3D_nyec3")
+
+[editable path="blockbench_export"]

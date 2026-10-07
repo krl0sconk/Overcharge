@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://brx0f82kgrbkt"
-path="res://.godot/imported/corners.gltf-d0d958d5b83bafdc0c26265b1d7622a9.scn"
+uid="uid://g8s510mgsjyu"
+path="res://.godot/imported/wall_straight5.gltf-c7ba0c76e42939c6d78ea3331b833fda.scn"
 
 [deps]
 
-source_file="res://assets/maps/kit/corners.gltf"
-dest_files=["res://.godot/imported/corners.gltf-d0d958d5b83bafdc0c26265b1d7622a9.scn"]
+source_file="res://assets/maps/kit/wall/wall_straight5.gltf"
+dest_files=["res://.godot/imported/wall_straight5.gltf-c7ba0c76e42939c6d78ea3331b833fda.scn"]
 
 [params]
 

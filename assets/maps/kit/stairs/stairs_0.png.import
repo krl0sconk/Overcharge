@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckutx5c05qs6o"
-path.s3tc="res://.godot/imported/columna_0.png-bf284d6472074cb53082a4a88ea657a8.s3tc.ctex"
+uid="uid://cemohfh8u4xaq"
+path.s3tc="res://.godot/imported/stairs_0.png-3a1ffcceaa6fe5769f37b80cd646fde6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "63b4f93ad31955bb0813c93ddc74fef5"
+"md5": "aa04aeeb8747c4985b7305748a80afd3"
 }
 
 [deps]
 
-source_file="res://assets/maps/kit/columna_0.png"
-dest_files=["res://.godot/imported/columna_0.png-bf284d6472074cb53082a4a88ea657a8.s3tc.ctex"]
+source_file="res://assets/maps/kit/stairs/stairs_0.png"
+dest_files=["res://.godot/imported/stairs_0.png-3a1ffcceaa6fe5769f37b80cd646fde6.s3tc.ctex"]
 
 [params]
 

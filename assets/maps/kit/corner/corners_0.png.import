@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://skubhqfw5yyb"
-path.s3tc="res://.godot/imported/wall_straight5_0.png-3e3a8aef66ddd97ed09bd361bbc2f174.s3tc.ctex"
+uid="uid://bo4tdd4qayvvx"
+path.s3tc="res://.godot/imported/corners_0.png-42fd95fbea42e342e3176e521df5f4ba.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "7632e9d846c3f8766c693fae346c1514"
+"md5": "9167e5a0263558a7987459932bb71ee4"
 }
 
 [deps]
 
-source_file="res://assets/maps/kit/wall_straight5_0.png"
-dest_files=["res://.godot/imported/wall_straight5_0.png-3e3a8aef66ddd97ed09bd361bbc2f174.s3tc.ctex"]
+source_file="res://assets/maps/kit/corner/corners_0.png"
+dest_files=["res://.godot/imported/corners_0.png-42fd95fbea42e342e3176e521df5f4ba.s3tc.ctex"]
 
 [params]
 
