@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://88fert1n0hme"]
+
+[node name="KitTestRoom" type="Node3D" unique_id=1179397852]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1670336332]
+transform = Transform3D(1, 0, 0, 0, 0.92390716, 0.3826168, 0, -0.3826168, 0.92390716, 0, 1.558201, 1.6385177)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1478215030]
+transform = Transform3D(1, 0, 0, 0, 0.8284962, 0.5599947, 0, -0.5599947, 0.8284962, -42.243816, 9.701739, 2.4866571)

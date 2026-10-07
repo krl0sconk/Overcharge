@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://b4s6graikw3pg"]
+
+[ext_resource type="PackedScene" uid="uid://tr4yqcdw5n7o" path="res://assets/maps/kit/floor.gltf" id="1_na551"]
+
+[node name="blockbench_export" unique_id=309067597 instance=ExtResource("1_na551")]
