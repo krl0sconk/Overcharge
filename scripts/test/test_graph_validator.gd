@@ -1,13 +1,13 @@
 extends Node
-const GRAPH_DEFINITION: GraphDefinition = preload("res://resources/maps/test_graph_definition.tres")
-const INVALID_GRAPH_DEFINITION: GraphDefinition = preload("res://resources/maps/test_invalid_graph_definition.tres")
-const DUPLICATE_CONNECTION_GRAPH: GraphDefinition = preload("res://resources/maps/test_duplicate_connection_graph_definition.tres")
+const GRAPH_DEFINITION: GraphDefinition = preload("res://resources/maps/test/test_graph_definition.tres")
+const INVALID_GRAPH_DEFINITION: GraphDefinition = preload("res://resources/maps/test/test_invalid_graph_definition.tres")
+const DUPLICATE_CONNECTION_GRAPH: GraphDefinition = preload("res://resources/maps/test/test_duplicate_connection_graph_definition.tres")
 func _ready() -> void:
 	var result: Dictionary = GraphValidator.validate(GRAPH_DEFINITION)
 
 	assert(result["valid"] == true)
 	assert(result["errors"].is_empty())
-	assert(result["visited_count"] == 2)
+	assert(result["visited_count"] == 5)
 
 	print("GraphValidator funciona correctamente.")
 	print("grafo valido: ", result["valid"])

@@ -7,4 +7,5 @@ extends Resource
 @export var start_room_id: StringName = &""
 @export var exit_room_id: StringName = &""
 @export var room_definitions: Array[RoomDefinition] = []
+@export var candidate_room_definitions: Array[RoomDefinition] = []
 @export var connections: Array[RoomConnection] = []

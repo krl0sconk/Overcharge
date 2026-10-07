@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dlt8s0ulvq8dp"]
+
+[ext_resource type="Script" uid="uid://ctcu2jgm264o3" path="res://scripts/test/test_graph_generator.gd" id="1_twffm"]
+
+[node name="TestGraphGenerator" type="Node" unique_id=1928506535]
+script = ExtResource("1_twffm")

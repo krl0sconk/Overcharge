@@ -1,9 +1,9 @@
 extends Node
-const START_DEFINITION: RoomDefinition = preload("res://resources/maps/test_room_definition.tres")
+const START_DEFINITION: RoomDefinition = preload("res://resources/maps/test/definitions/test_room_definition.tres")
 
-const EXIT_DEFINITION: RoomDefinition = preload("res://resources/maps/test_exit_room_definition.tres")
+const EXIT_DEFINITION: RoomDefinition = preload("res://resources/maps/test/definitions/test_exit_room_definition.tres")
 
-const CONNECTION: RoomConnection = preload("res://resources/maps/test_start_to_exit_connection.tres")
+const CONNECTION: RoomConnection = preload("res://resources/maps/test/connections/test_start_to_exit_connection.tres")
 
 func _ready() -> void:
 	var generated_graph := GeneratedGraph.new(12345, &"test_room", &"test_exit")

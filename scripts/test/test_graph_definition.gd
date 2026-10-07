@@ -1,5 +1,5 @@
 extends Node
-const GRAPH_DEFINITION: GraphDefinition = preload("res://resources/maps/test_graph_definition.tres")
+const GRAPH_DEFINITION: GraphDefinition = preload("res://resources/maps/test/test_graph_definition.tres")
 
 func _ready() -> void:
 	assert(GRAPH_DEFINITION.graph_id == &"test_graph")

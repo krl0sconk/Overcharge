@@ -97,4 +97,75 @@ static func validate(graph: GraphDefinition) -> Dictionary:
 		"errors": errors,
 		"visited_count": visited.size()
 	}
-	
+
+static func validate_generated(graph: GeneratedGraph) -> Dictionary:
+	var errors: Array[String] = []
+	var adjacency: Dictionary = {}
+
+	for room_id in graph.rooms.keys():
+		adjacency[room_id] = []
+
+	if not graph.rooms.has(graph.start_room_id):
+		errors.append("La sala inicial generada no existe.")
+
+	if not graph.rooms.has(graph.exit_room_id):
+		errors.append("La sala final generada no existe.")
+
+	for connection in graph.connections:
+		if connection == null:
+			errors.append("Existe una conexion generada nula.")
+			continue
+
+		if not graph.rooms.has(connection.from_room_id):
+			errors.append("Origen generado inexistente.")
+			continue
+
+		if not graph.rooms.has(connection.to_room_id):
+			errors.append("Destino generado inexistente.")
+			continue
+
+		adjacency[connection.from_room_id].append(
+			connection.to_room_id
+		)
+
+		if connection.bidirectional:
+			adjacency[connection.to_room_id].append(
+				connection.from_room_id
+			)
+
+	var visited: Dictionary = {}
+	var queue: Array[StringName] = []
+
+	if graph.rooms.has(graph.start_room_id):
+		queue.append(graph.start_room_id)
+		visited[graph.start_room_id] = true
+
+	var queue_index: int = 0
+
+	while queue_index < queue.size():
+		var current_room_id: StringName = queue[queue_index]
+		queue_index += 1
+
+		for neighbor_room_id in adjacency[current_room_id]:
+			if visited.has(neighbor_room_id):
+				continue
+
+			visited[neighbor_room_id] = true
+			queue.append(neighbor_room_id)
+
+	if graph.rooms.has(graph.exit_room_id):
+		if not visited.has(graph.exit_room_id):
+			errors.append(
+                "La sala final generada no es alcanzable."
+			)
+
+	if visited.size() != graph.rooms.size():
+		errors.append(
+            "Existen salas generadas desconectadas."
+		)
+
+	return {
+		"valid": errors.is_empty(),
+		"errors": errors,
+		"visited_count": visited.size()
+	}

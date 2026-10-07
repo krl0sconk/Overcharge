@@ -1,6 +1,6 @@
 extends Node
 
-const ROOM_DEFINITION: RoomDefinition = preload("res://resources/maps/test_room_definition.tres")
+const ROOM_DEFINITION: RoomDefinition = preload("res://resources/maps/test/definitions/test_room_definition.tres")
 
 func _ready() -> void:
 	assert(ROOM_DEFINITION.room_id == &"test_room")
