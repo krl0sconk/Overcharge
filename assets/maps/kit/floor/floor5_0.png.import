@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dirm7w1v36ph6"
-path.s3tc="res://.godot/imported/door_0.png-eced8b5fea4fc7305c000b49bdcc2613.s3tc.ctex"
+uid="uid://bu5ks0sgw14j2"
+path.s3tc="res://.godot/imported/floor5_0.png-5b6e083d342a8951aef39d95de6c4e84.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "da393d353abc8760ae89b4149f50eef1"
+"md5": "175034f330235e8972a3e7e60e70e75a"
 }
 
 [deps]
 
-source_file="res://assets/maps/kit/door_0.png"
-dest_files=["res://.godot/imported/door_0.png-eced8b5fea4fc7305c000b49bdcc2613.s3tc.ctex"]
+source_file="res://assets/maps/kit/floor/floor5_0.png"
+dest_files=["res://.godot/imported/floor5_0.png-5b6e083d342a8951aef39d95de6c4e84.s3tc.ctex"]
 
 [params]
 

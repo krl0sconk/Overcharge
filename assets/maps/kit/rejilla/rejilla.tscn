@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://i6af7n54pi1p"]
+
+[ext_resource type="PackedScene" uid="uid://c210mvpcnq7gh" path="res://assets/maps/kit/rejilla/rejilla.gltf" id="1_unpwg"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ly5i1"]
+points = PackedVector3Array(0.375, 0.375, 0.07499695, 0.32808828, 0.31248775, 0.10625, 0.375, 0, 0.07499695, 0.375, 0.375, 0, 0, 0.375, 0.07499695, 0.32808828, 0.2916381, 0.10625, 0.046875, 0.31248775, 0.10625, 0.375, 0, 0, 0.32808828, 0.04166259, 0.087498166, 0, 0, 0.07499695, 0, 0.375, 0, 0.046875, 0.2916381, 0.10625, 0, 0, 0, 0.046875, 0.04166259, 0.087498166)
+
+[node name="Rejilla" type="StaticBody3D" unique_id=743820846]
+
+[node name="blockbench_export" parent="." unique_id=1573521240 instance=ExtResource("1_unpwg")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=223330349]
+shape = SubResource("ConvexPolygonShape3D_ly5i1")
+
+[editable path="blockbench_export"]

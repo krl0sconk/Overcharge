@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://citkkqqqanmr2"
-path="res://.godot/imported/stairs.gltf-f85037150ab622d0b05cace6bbfc3892.scn"
+uid="uid://cv3n8n8achsmk"
+path="res://.godot/imported/columna.gltf-0847182bb3a488bf7f27348f05ff5546.scn"
 
 [deps]
 
-source_file="res://assets/maps/kit/stairs.gltf"
-dest_files=["res://.godot/imported/stairs.gltf-f85037150ab622d0b05cace6bbfc3892.scn"]
+source_file="res://assets/maps/kit/columna/columna.gltf"
+dest_files=["res://.godot/imported/columna.gltf-0847182bb3a488bf7f27348f05ff5546.scn"]
 
 [params]
 
