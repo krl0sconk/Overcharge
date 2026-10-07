@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RoomConnection" format=3 uid="uid://bw4g2bg8tfbup"]
+
+[ext_resource type="Script" uid="uid://dik5fvdvt7yy0" path="res://scripts/maps/graphs/RoomConnection.gd" id="1_yq6ip"]
+
+[resource]
+script = ExtResource("1_yq6ip")
+from_room_id = &"test_room"
+to_room_id = &"test_combat"
+metadata/_custom_type_script = "uid://dik5fvdvt7yy0"

@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="GraphDefinition" format=3 uid="uid://57hu8uck3ise"]
+
+[ext_resource type="Script" uid="uid://dik5fvdvt7yy0" path="res://scripts/maps/graphs/RoomConnection.gd" id="1_c847r"]
+[ext_resource type="Resource" uid="uid://bw4g2bg8tfbup" path="res://resources/maps/test/connections/test_start_to_combat_connection.tres" id="2_ruxwy"]
+[ext_resource type="Script" uid="uid://vjobjbgufs4l" path="res://scripts/maps/graphs/RoomDefinition.gd" id="2_xghgg"]
+[ext_resource type="Resource" uid="uid://b2a1jyatqcpp6" path="res://resources/maps/test/definitions/test_room_definition.tres" id="3_0351i"]
+[ext_resource type="Script" uid="uid://dxuwvdtdifpjt" path="res://scripts/maps/graphs/GraphDefinition.gd" id="3_nusv7"]
+[ext_resource type="Resource" uid="uid://bghjph1jvgi38" path="res://resources/maps/test/connections/test_combat_to_event_connection.tres" id="3_oeq0h"]
+[ext_resource type="Resource" uid="uid://pp27mi6y8jnb" path="res://resources/maps/test/connections/test_event_to_reward_connection.tres" id="4_v330m"]
+[ext_resource type="Resource" uid="uid://dko6246ia4f3a" path="res://resources/maps/test/definitions/test_exit_room_definition.tres" id="4_ysu8x"]
+[ext_resource type="Resource" uid="uid://ta1qbsx33sjl" path="res://resources/maps/test/connections/test_reward_to_exit_connection.tres" id="5_7j1x2"]
+[ext_resource type="Resource" uid="uid://ca3ainsfmrsbd" path="res://resources/maps/test/definitions/test_2_combat_room_definition.tres" id="5_u6ctg"]
+[ext_resource type="Resource" uid="uid://dedh8klme8ycj" path="res://resources/maps/test/definitions/test_2_event_room_definition.tres" id="6_4hkok"]
+[ext_resource type="Resource" uid="uid://c4ybnao4io81b" path="res://resources/maps/test/definitions/test_combat_room_definition.tres" id="6_mi0sr"]
+[ext_resource type="Resource" uid="uid://d4c7o4bf0tjbd" path="res://resources/maps/test/definitions/test_2_reward_room_definition.tres" id="7_iyu4q"]
+[ext_resource type="Resource" uid="uid://dfw1tq1s34bll" path="res://resources/maps/test/definitions/test_reward_room_definition.tres" id="7_l4nrb"]
+[ext_resource type="Resource" uid="uid://c6gu3bvcxh2mo" path="res://resources/maps/test/definitions/test_event_room_definition.tres" id="8_atnj5"]
+
+[resource]
+script = ExtResource("3_nusv7")
+graph_id = &"test_graph"
+start_room_id = &"test_room"
+exit_room_id = &"test_exit"
+room_definitions = Array[ExtResource("2_xghgg")]([ExtResource("3_0351i"), ExtResource("6_mi0sr"), ExtResource("8_atnj5"), ExtResource("7_l4nrb"), ExtResource("4_ysu8x")])
+candidate_room_definitions = Array[ExtResource("2_xghgg")]([ExtResource("6_mi0sr"), ExtResource("8_atnj5"), ExtResource("7_l4nrb"), ExtResource("5_u6ctg"), ExtResource("6_4hkok"), ExtResource("7_iyu4q")])
+connections = Array[ExtResource("1_c847r")]([ExtResource("2_ruxwy"), ExtResource("3_oeq0h"), ExtResource("4_v330m"), ExtResource("5_7j1x2")])
+metadata/_custom_type_script = "uid://dxuwvdtdifpjt"

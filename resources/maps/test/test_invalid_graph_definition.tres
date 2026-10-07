@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dik5fvdvt7yy0" path="res://scripts/maps/graphs/RoomConnection.gd" id="1_qioa2"]
 [ext_resource type="Script" uid="uid://vjobjbgufs4l" path="res://scripts/maps/graphs/RoomDefinition.gd" id="3_iu74p"]
-[ext_resource type="Resource" uid="uid://b2a1jyatqcpp6" path="res://resources/maps/test_room_definition.tres" id="4_koifi"]
-[ext_resource type="Resource" uid="uid://dko6246ia4f3a" path="res://resources/maps/test_exit_room_definition.tres" id="5_gjarw"]
+[ext_resource type="Resource" uid="uid://b2a1jyatqcpp6" path="res://resources/maps/test/definitions/test_room_definition.tres" id="4_koifi"]
+[ext_resource type="Resource" uid="uid://dko6246ia4f3a" path="res://resources/maps/test/definitions/test_exit_room_definition.tres" id="5_gjarw"]
 [ext_resource type="Script" uid="uid://dxuwvdtdifpjt" path="res://scripts/maps/graphs/GraphDefinition.gd" id="6_shy7v"]
 
 [resource]

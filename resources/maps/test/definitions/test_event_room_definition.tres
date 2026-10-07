@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://c6gu3bvcxh2mo"]
+
+[ext_resource type="PackedScene" uid="uid://b8p30jmfpjgi4" path="res://scenes/maps/rooms/test_room.tscn" id="1_bn853"]
+[ext_resource type="Script" uid="uid://vjobjbgufs4l" path="res://scripts/maps/graphs/RoomDefinition.gd" id="2_gxxgu"]
+
+[resource]
+script = ExtResource("2_gxxgu")
+room_id = &"test_event"
+room_role = "event"
+room_scene = ExtResource("1_bn853")
+metadata/_custom_type_script = "uid://vjobjbgufs4l"

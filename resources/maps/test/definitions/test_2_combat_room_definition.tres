@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://ca3ainsfmrsbd"]
+
+[ext_resource type="PackedScene" uid="uid://b8p30jmfpjgi4" path="res://scenes/maps/rooms/test_room.tscn" id="1_1n7b4"]
+[ext_resource type="Script" uid="uid://vjobjbgufs4l" path="res://scripts/maps/graphs/RoomDefinition.gd" id="2_d8g06"]
+
+[resource]
+script = ExtResource("2_d8g06")
+room_id = &"test_combat_2"
+room_scene = ExtResource("1_1n7b4")
+base_difficulty = 3
+metadata/_custom_type_script = "uid://vjobjbgufs4l"
