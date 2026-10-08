@@ -14,8 +14,14 @@ extends Node
 var blackboard: Dictionary = {}        ## datos del enemigo: target, etc.
 var memory: Dictionary = {}            ## lo que un nodo necesita recordar
 var delta: float = 0.0
-var nav_grid: NavGrid                  ## null en escenas de test sin grilla
+var nav_grid: NavGrid:                 ## null en escenas de test sin grilla; búsqueda perezosa
+	get:
+		return _get_nav_grid()
 
+const NAV_GRID_RETRY_SECONDS: float = 1.0
+
+var _nav_grid: NavGrid
+var _nav_grid_next_search_msec: int = 0
 var _accum: float = 0.0
 var _debug_statuses: Dictionary = {}
 var _debug_path_stack: Array[String] = []
@@ -26,8 +32,6 @@ var _debug_capture_owner: bool = false
 var _debug_agent_announce_accum: float = 0.0
 
 func _ready() -> void:
-	nav_grid = get_tree().get_first_node_in_group("nav_grid") as NavGrid
-
 	if health_component != null:
 		health_component.damaged.connect(_on_damaged)
 
@@ -115,6 +119,26 @@ func aim_forward() -> Vector3:
 		return Vector3.FORWARD
 	var yaw: float = node.global_rotation.y - deg_to_rad(aim_yaw_offset_deg)
 	return Vector3(-sin(yaw), 0.0, -cos(yaw))
+
+## La grilla puede no existir todavía (sala aún sin construir) o estar por
+## encima del enemigo en el árbol, así que se busca al usarla, no en _ready().
+## Sin grilla, reintenta como mucho una vez por segundo.
+func _get_nav_grid() -> NavGrid:
+	var actor3d := actor as Node3D
+	if actor3d == null or not is_inside_tree():
+		return null
+
+	if _nav_grid != null and is_instance_valid(_nav_grid) and _nav_grid.contains(actor3d.global_position):
+		return _nav_grid
+
+	var now: int = Time.get_ticks_msec()
+	if _nav_grid == null and now < _nav_grid_next_search_msec:
+		return null
+
+	_nav_grid = NavGrid.find_for(get_tree(), actor3d.global_position)
+	if _nav_grid == null:
+		_nav_grid_next_search_msec = now + int(NAV_GRID_RETRY_SECONDS * 1000.0)
+	return _nav_grid
 
 ## Los nodos son compartidos, así que su memoria vive acá, en cada enemigo.
 func remember(node: PerceptNode, key: String, value: Variant) -> void:

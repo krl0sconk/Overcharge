@@ -61,6 +61,18 @@ size = Vector3(1.2, 3, 1.2)
 [sub_resource type="BoxMesh" id="ColumnMesh"]
 size = Vector3(1.2, 3, 1.2)
 
+[sub_resource type="BoxShape3D" id="PedestalNSShape"]
+size = Vector3(4, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="PedestalNSMesh"]
+size = Vector3(4, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="PedestalEWShape"]
+size = Vector3(0.5, 3, 4)
+
+[sub_resource type="BoxMesh" id="PedestalEWMesh"]
+size = Vector3(0.5, 3, 4)
+
 [node name="TestRoom" type="Node3D" unique_id=2041491567]
 script = ExtResource("1_k2ml6")
 player_scenes = Array[PackedScene]([ExtResource("2_1htl0"), ExtResource("3_plato")])
@@ -74,6 +86,9 @@ script = ExtResource("9_camera")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("7_pntq1")
+
+[node name="SpamAboveGrid" parent="." instance=ExtResource("5_rl67d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.22793175, 2.5)
 
 [node name="NavGrid" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0.01, 0)
@@ -155,6 +170,40 @@ shape = SubResource("ColumnShape")
 
 [node name="Mesh" type="MeshInstance3D" parent="Room/ColumnB"]
 mesh = SubResource("ColumnMesh")
+
+[node name="Pedestal" type="StaticBody3D" parent="."]
+collision_mask = 0
+
+[node name="WallN" type="CollisionShape3D" parent="Pedestal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.5, 1.25)
+shape = SubResource("PedestalNSShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Pedestal/WallN"]
+mesh = SubResource("PedestalNSMesh")
+
+[node name="WallS" type="CollisionShape3D" parent="Pedestal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1.5, 4.75)
+shape = SubResource("PedestalNSShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Pedestal/WallS"]
+mesh = SubResource("PedestalNSMesh")
+
+[node name="WallW" type="CollisionShape3D" parent="Pedestal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.25, 1.5, 3)
+shape = SubResource("PedestalEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Pedestal/WallW"]
+mesh = SubResource("PedestalEWMesh")
+
+[node name="WallE" type="CollisionShape3D" parent="Pedestal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 1.5, 3)
+shape = SubResource("PedestalEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Pedestal/WallE"]
+mesh = SubResource("PedestalEWMesh")
+
+[node name="UnreachableMarker" type="Marker3D" parent="." groups=["unreachable_marker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.01, 3)
 
 [node name="player1" type="Marker3D" parent="." groups=["player_spawn"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.01, 3)

@@ -11,6 +11,8 @@ extends PerceptNode
 @export var waypoint_tolerance: float = 0.3
 @export var repath_distance: float = 1.5
 @export var repath_interval: float = 0.5
+@export var stuck_time: float = 1.5  ## sin avanzar stuck_distance en este tiempo, follow() falla
+@export var stuck_distance: float = 0.3
 
 func tick(agent: PerceptComponent) -> Status:
 	var movement: MovementComponent = agent.movement_component
@@ -45,7 +47,8 @@ func _patrol_grid(agent: PerceptComponent, movement: MovementComponent, actor3d:
 
 	var status: Status = NavPathing.follow(
 		agent, self, movement, actor3d, target_pos,
-		waypoint_tolerance, repath_distance, repath_interval
+		waypoint_tolerance, repath_distance, repath_interval,
+		stuck_time, stuck_distance
 	)
 	if status == Status.FAILURE:
 		agent.remember(self, "patrol_target", Vector3.INF)

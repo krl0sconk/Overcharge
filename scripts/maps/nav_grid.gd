@@ -1,19 +1,27 @@
 class_name NavGrid
 extends Node3D
 
-## Grafo explícito de la zona (XZ), centrado en el nodo. Se construye una
-## sola vez en _ready() -- no se recalcula en runtime salvo rebuild() manual.
+## Grafo explícito de la zona (XZ), centrado en el nodo. Hay una NavGrid por
+## sala (hija de la escena de la sala) y pueden convivir varias: cada agente
+## debe usar la que contiene su posición (ver find_for). Se construye una sola
+## vez, un physics frame después de entrar al árbol -- no se recalcula en
+## runtime salvo rebuild() manual.
+
+signal built  ## al terminar rebuild()
 
 @export var cell_size: float = 0.5
 @export var bounds_size: Vector2 = Vector2(20.0, 20.0)
 @export_flags_3d_physics var obstacle_mask: int = 1  ## Entorno
 @export var agent_radius: float = 0.4
 @export var probe_height: float = 0.5  ## sondea por encima del piso: el piso suele compartir capa con las paredes
+@export_flags_3d_physics var floor_mask: int = 1  ## Entorno: el piso comparte capa con las paredes
+@export var floor_probe_depth: float = 1.0  ## cuánto por debajo del centro de la celda busca piso
 
 const ORTHOGONAL_WEIGHT: float = 1.0
 const DIAGONAL_WEIGHT: float = 1.4142
 
 var adjacency: Dictionary = {}  ## int id -> Array de [neighbor_id: int, weight: float]
+var is_built: bool = false
 
 var _walkable: PackedByteArray = PackedByteArray()
 var _cols: int = 0
@@ -22,7 +30,21 @@ var _origin: Vector3 = Vector3.ZERO  ## esquina -X -Z de la grilla
 
 func _ready() -> void:
 	add_to_group("nav_grid")
+	## Los cuerpos de la sala pueden no estar registrados aún en el espacio de
+	## física en el frame en que entramos al árbol.
+	await get_tree().physics_frame
+	if not is_inside_tree():
+		return
 	rebuild()
+
+## La grilla construida que contiene pos (XZ), o null. Con varias salas vivas
+## a la vez, esto reemplaza a "la primera del grupo".
+static func find_for(tree: SceneTree, pos: Vector3) -> NavGrid:
+	for node in tree.get_nodes_in_group("nav_grid"):
+		var grid := node as NavGrid
+		if grid != null and grid.is_built and grid.contains(pos):
+			return grid
+	return null
 
 func rebuild() -> void:
 	_cols = maxi(1, int(ceil(bounds_size.x / cell_size)))
@@ -31,6 +53,13 @@ func rebuild() -> void:
 
 	_compute_walkable()
 	_build_adjacency()
+	is_built = true
+	built.emit()
+
+## Dentro de bounds en XZ (la altura no cuenta).
+func contains(pos: Vector3) -> bool:
+	var half: Vector2 = bounds_size * 0.5
+	return absf(pos.x - global_position.x) <= half.x and absf(pos.z - global_position.z) <= half.y
 
 func cell_count() -> int:
 	return _cols * _rows
@@ -117,7 +146,18 @@ func _compute_walkable() -> void:
 			query.transform = Transform3D(Basis(), _cell_center(col, row) + Vector3(0.0, probe_height, 0.0))
 			query.collision_mask = obstacle_mask
 			var hits: Array = space_state.intersect_shape(query, 1)
-			_walkable[id] = 1 if hits.is_empty() else 0
+			if not hits.is_empty():
+				_walkable[id] = 0
+				continue
+
+			## Piso después de obstáculos: barato primero, evita raycasts inútiles en celdas ya bloqueadas.
+			var center: Vector3 = _cell_center(col, row)
+			var ray := PhysicsRayQueryParameters3D.create(
+				center + Vector3(0.0, probe_height, 0.0),
+				center - Vector3(0.0, floor_probe_depth, 0.0),
+				floor_mask
+			)
+			_walkable[id] = 1 if not space_state.intersect_ray(ray).is_empty() else 0
 
 func _build_adjacency() -> void:
 	adjacency.clear()
