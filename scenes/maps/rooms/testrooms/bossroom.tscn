@@ -1,0 +1,143 @@
+[gd_scene format=3 uid="uid://dw8re3y8guyr3"]
+
+[ext_resource type="Script" uid="uid://dqjds2236kjuh" path="res://scripts/maps/test_room_spawner.gd" id="1_7kyjx"]
+[ext_resource type="PackedScene" uid="uid://bvl0vay2np0rk" path="res://scenes/entities/players/nitzsch.tscn" id="2_lkirp"]
+[ext_resource type="PackedScene" uid="uid://cbhbrdnsv1ksh" path="res://scenes/entities/players/plato.tscn" id="3_jns6o"]
+[ext_resource type="PackedScene" uid="uid://twwwgkhxbnpr" path="res://scenes/entities/enemies/spam.tscn" id="4_fa1lx"]
+[ext_resource type="PackedScene" uid="uid://bfm4s8lc0tvjm" path="res://scenes/entities/enemies/virus.tscn" id="5_cn7sg"]
+[ext_resource type="PackedScene" uid="uid://d2wtgm36hvepn" path="res://scenes/entities/enemies/yunque.tscn" id="6_ohp2o"]
+[ext_resource type="PackedScene" uid="uid://dyasvt6qqg5mx" path="res://scenes/entities/enemies/centinela.tscn" id="7_dppn0"]
+[ext_resource type="Script" uid="uid://cw0cveaxufp6g" path="res://scripts/maps/PartyCamera.gd" id="8_csmnw"]
+[ext_resource type="Environment" uid="uid://djfjryqib8ac8" path="res://resources/Env.tres" id="9_6omp7"]
+[ext_resource type="PackedScene" uid="uid://br7bofx6kpphh" path="res://scenes/ui/HUD.tscn" id="10_55kdh"]
+[ext_resource type="PackedScene" uid="uid://801yyus8tevf" path="res://scenes/maps/rooms/testrooms/doorwall.tscn" id="10_lkirp"]
+
+[sub_resource type="BoxShape3D" id="FloorShape"]
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="BoxMesh" id="FloorMesh"]
+size = Vector3(10, 0.2, 10)
+
+[sub_resource type="BoxShape3D" id="WallNSShape"]
+size = Vector3(10, 3, 0.5)
+
+[sub_resource type="BoxMesh" id="WallNSMesh"]
+size = Vector3(10, 3, 0.5)
+
+[sub_resource type="BoxShape3D" id="WallEWShape"]
+size = Vector3(0.5, 3, 10)
+
+[sub_resource type="BoxMesh" id="WallEWMesh"]
+size = Vector3(0.5, 3, 10)
+
+[node name="TestRoom" type="Node3D" unique_id=2041491567]
+script = ExtResource("1_7kyjx")
+player_scenes = Array[PackedScene]([ExtResource("2_lkirp"), ExtResource("3_jns6o")])
+enemy_scenes = Array[PackedScene]([ExtResource("4_fa1lx"), ExtResource("5_cn7sg"), ExtResource("6_ohp2o"), ExtResource("7_dppn0")])
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=883347460]
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 10, 8)
+current = true
+fov = 42.0
+script = ExtResource("8_csmnw")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=48934665]
+environment = ExtResource("9_6omp7")
+
+[node name="Room" type="StaticBody3D" parent="." unique_id=346477843]
+transform = Transform3D(1.2, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 0)
+collision_mask = 0
+
+[node name="Floor" type="CollisionShape3D" parent="Room" unique_id=720638984]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("FloorShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/Floor" unique_id=1342040279]
+mesh = SubResource("FloorMesh")
+
+[node name="WallNorth" type="CollisionShape3D" parent="Room" unique_id=564925271]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -5)
+shape = SubResource("WallNSShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallNorth" unique_id=801748406]
+mesh = SubResource("WallNSMesh")
+
+[node name="WallEast" type="CollisionShape3D" parent="Room" unique_id=994848821]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 0)
+shape = SubResource("WallEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallEast" unique_id=1252238756]
+mesh = SubResource("WallEWMesh")
+
+[node name="WallWest" type="CollisionShape3D" parent="Room" unique_id=1567067719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, 0)
+shape = SubResource("WallEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room/WallWest" unique_id=1705863530]
+mesh = SubResource("WallEWMesh")
+
+[node name="Doorwall" parent="Room" unique_id=1962967822 instance=ExtResource("10_lkirp")]
+transform = Transform3D(-3.641158e-08, 0, 0.99999994, 0, 0.83299994, 0, -0.83299994, 0, -4.3711385e-08, -1.8026724, 1.2500001, 5.064612)
+
+[node name="left" parent="Room/Doorwall" index="0" unique_id=488786330]
+visible = false
+
+[node name="right" parent="Room/Doorwall" index="2" unique_id=2112180590]
+visible = false
+
+[node name="lintel" parent="Room/Doorwall" index="4" unique_id=2070443461]
+visible = false
+
+[node name="Room2" type="StaticBody3D" parent="." unique_id=1159035709]
+transform = Transform3D(0.5, 0, 0, 0, 1.2, 0, 0, 0, 1.2, 0, 0, 12.032694)
+collision_mask = 0
+
+[node name="Floor" type="CollisionShape3D" parent="Room2" unique_id=356146969]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+shape = SubResource("FloorShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room2/Floor" unique_id=669664490]
+mesh = SubResource("FloorMesh")
+
+[node name="WallEast" type="CollisionShape3D" parent="Room2" unique_id=2006574348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.5, 0)
+shape = SubResource("WallEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room2/WallEast" unique_id=26851287]
+mesh = SubResource("WallEWMesh")
+
+[node name="WallWest" type="CollisionShape3D" parent="Room2" unique_id=876085260]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1.5, 0)
+shape = SubResource("WallEWShape")
+
+[node name="Mesh" type="MeshInstance3D" parent="Room2/WallWest" unique_id=1033329286]
+mesh = SubResource("WallEWMesh")
+
+[node name="Doorwall" parent="Room2" unique_id=1745448410 instance=ExtResource("10_lkirp")]
+transform = Transform3D(-3.641158e-08, 0, 0.99999994, 0, 0.83299994, 0, -0.83299994, 0, -4.3711385e-08, -1.8026724, 1.2500001, 5.064612)
+
+[node name="left" parent="Room2/Doorwall" index="0" unique_id=488786330]
+visible = false
+
+[node name="right" parent="Room2/Doorwall" index="2" unique_id=2112180590]
+visible = false
+
+[node name="lintel" parent="Room2/Doorwall" index="4" unique_id=2070443461]
+visible = false
+
+[node name="player1" type="Marker3D" parent="." unique_id=786578677 groups=["player_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3298168, 0.01, 15.7735405)
+
+[node name="player2" type="Marker3D" parent="." unique_id=2059911912 groups=["player_spawn"]]
+transform = Transform3D(-6.556708e-08, 0, -1.5, 0, 1.5, 0, 1.5, 0, -6.556708e-08, -0.9093487, 0.01, 15.655651)
+
+[node name="spawnenemies1" type="Marker3D" parent="." unique_id=1922026470 groups=["enemy_spawn"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.042521954, 0.22793175, -3)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=82705742]
+transform = Transform3D(0.8660254, -0.43301272, 0.24999999, 0, 0.49999997, 0.86602545, -0.5, -0.75, 0.43301266, 0, 0, 0)
+
+[node name="HUD" parent="." unique_id=278377738 instance=ExtResource("10_55kdh")]
+
+[editable path="Room/Doorwall"]
+[editable path="Room2/Doorwall"]
