@@ -23,6 +23,7 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 
 EventBus="*res://scripts/autoload/event_bus.gd"
 LevelManager="*uid://bkj7fyjil0igh"
+SessionRegistry="*uid://c7soxd75ngqom"
 
 [editor_plugins]
 
